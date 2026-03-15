@@ -1,0 +1,158 @@
+{
+  "nav": {
+    "about": "About",
+    "career": "Career",
+    "projects": "Projects",
+    "skills": "Skills",
+    "contact": "Contact",
+    "education": "Education"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "name": "Yuil Jeong",
+    "nickname": "Elliott",
+    "title": "From Mathematics to Data Architecture to AI Product Builder",
+    "subtitle": "I've spent 14 years watching organizations struggle to turn data into decisions. From EA to Disney+, I saw the same gap — brilliant models, broken architecture. Now I build the products that close it.",
+    "cta_contact": "Get in Touch",
+    "cta_resume": "View Resume"
+  },
+  "about": {
+    "heading": "About Me",
+    "p1": "It started with a question: why do organizations collect mountains of data but still make decisions by gut? At NEOWIZ, building my first KPI dashboards, I saw the gap firsthand — the problem was never the numbers, but the missing architecture between data and decisions. That question has driven every role since.",
+    "p2": "At Electronic Arts, I stopped waiting for someone else to fix it. I designed telemetry systems from scratch across four countries, building the infrastructure that turned raw player behavior into actionable insight. At Disney+ APAC, the stakes grew — I led the Korea Data Science team to shape a $1B content investment strategy through ML-driven churn analysis, causal inference, and audience segmentation. The pattern was always the same: find the structural gap, build the bridge.",
+    "p3": "Now I've taken that conviction to its logical end. As CEO of JNJ Corporation, I don't just analyze problems — I build the solutions. When pet owners couldn't trust ingredient labels, I built an OCR→LLM analysis pipeline. When kids needed immersive English practice without screen fatigue, I designed a real-time Voice AI conversation engine. Every product I ship starts with a real problem I've seen people struggle with — then I architect the data layer, write the code, and put it in their hands."
+  },
+  "career": {
+    "heading": "Career Journey",
+    "items": [
+      {
+        "period": "Present",
+        "role": "CEO",
+        "org": "JNJ Corporation",
+        "desc": "Identifying real problems and building the solutions end-to-end. mungme: pet food transparency problem → OCR→LLM ingredient analysis + 4 commerce API sync (Spring Boot + Next.js). MyVoice: kids' screen fatigue problem → real-time Whisper→GPT→TTS voice AI conversation engine (FastAPI + React). Also shipping JR Law Firm's digital presence and authoring a growth analytics book."
+      },
+      {
+        "period": "Present",
+        "role": "Director, Digital Business",
+        "org": "Phynn Corporation",
+        "desc": "Driven by a mission to make healthy living accessible for busy modern people. Leading digital strategy and product development to solve real problems around food and wellness through technology.",
+        "link": "https://phynn.co/"
+      },
+      {
+        "period": "2021 — Present",
+        "role": "Manager, Data Science & Analytics APAC",
+        "org": "The Walt Disney Company",
+        "desc": "Leading Korea Data Science team. Contributed to $1B Korean content investment strategy. Built ML-driven churn analysis and customer segmentation models. Optimized marketing ROI through causal impact analysis."
+      },
+      {
+        "period": "2023 — 2025",
+        "role": "Advisor, Public Creative Content",
+        "org": "Seoul Business Agency",
+        "desc": "Evaluated creative proposals across audio, animation, and series formats. Identified and advanced promising projects in Korea's content landscape."
+      },
+      {
+        "period": "2015 — 2021",
+        "role": "Manager, Global Analytics Insight",
+        "org": "Electronic Arts (EA)",
+        "desc": "Established and managed global data analytics team. Developed competitive game attribution models for eSports. Built ML models for user behavior prediction across Korea, China, Thailand, and Vietnam."
+      },
+      {
+        "period": "2013 — 2015",
+        "role": "Business Planning Analyst",
+        "org": "Actoz Soft",
+        "desc": "Conducted business performance analysis and KPI evaluation. Designed BI tools and global game service platform strategies."
+      },
+      {
+        "period": "2011 — 2013",
+        "role": "Business Analyst",
+        "org": "NEOWIZ",
+        "desc": "Built BI systems for mobile platforms and automated KPI dashboards. Conducted customer statistics analysis."
+      }
+    ]
+  },
+  "projects": {
+    "heading": "Projects",
+    "items": [
+      {
+        "title": "mungme",
+        "desc": "Pet owners can't trust what's in their pet's food. I built a platform that scans ingredient labels via OCR→LLM analysis, syncs products from 4 commerce APIs, and gives transparent nutritional data — Spring Boot + Next.js full-stack, Claude Agent SDK automation.",
+        "status": "Deployed",
+        "tags": ["Spring Boot", "Next.js", "OpenAI", "Claude SDK"],
+        "link": "https://mungme.shop/"
+      },
+      {
+        "title": "MyVoice",
+        "desc": "Kids need conversation practice, not more screen time. I'm building a voice AI app where children talk with AI characters in real-time — Whisper STT→GPT→TTS pipeline, character voices, 3-phase learning flow, and parent analytics dashboard.",
+        "status": "In Development",
+        "tags": ["FastAPI", "React", "OpenAI", "Voice AI"]
+      },
+      {
+        "title": "Growth Analytics Book",
+        "desc": "Too many analytics teams measure everything and change nothing. I'm writing the playbook I wish I'd had — 14+ years of growth frameworks distilled into actionable chapters.",
+        "status": "In Progress",
+        "tags": ["Writing", "Analytics", "Growth"]
+      },
+      {
+        "title": "JR Law Firm Website",
+        "desc": "A law firm needed a digital presence that reflects its professionalism. I designed and developed a modern, responsive website from scratch.",
+        "status": "Completed",
+        "tags": ["Web Development", "Design"]
+      }
+    ]
+  },
+  "skills": {
+    "heading": "Skills & Expertise",
+    "categories": [
+      {
+        "name": "AI Engineering",
+        "items": ["OpenAI API (GPT·Whisper·TTS)", "Google Gemini", "Claude Agent SDK", "Voice AI Pipeline", "OCR→LLM Pipeline", "Prompt Engineering", "Real-time STT→LLM→TTS"]
+      },
+      {
+        "name": "Data Science & ML",
+        "items": ["Python", "R", "SQL", "scikit-learn", "XGBoost", "TensorFlow", "Causal Inference", "A/B Testing", "Churn Prediction", "Customer Segmentation"]
+      },
+      {
+        "name": "Full-Stack Development",
+        "items": ["Next.js", "React", "TypeScript", "Spring Boot", "FastAPI", "PostgreSQL", "MySQL", "Redis", "Tailwind CSS"]
+      },
+      {
+        "name": "Cloud & Data Infra",
+        "items": ["Docker", "Vercel", "Railway", "Nginx", "Cloudflare R2", "ETL Pipeline", "Data Warehouse", "CI/CD"]
+      },
+      {
+        "name": "Leadership",
+        "items": ["Team Management", "Cross-functional Collaboration", "Stakeholder Communication", "Strategic Planning", "Global Team Leadership"]
+      }
+    ]
+  },
+  "education": {
+    "heading": "Education",
+    "items": [
+      {
+        "degree": "Master's Degree",
+        "field": "Business Management",
+        "school": "Chung-Ang University",
+        "period": "2014 — 2016",
+        "desc": "Bridged quantitative expertise with strategic business thinking. Studied advanced management frameworks applicable to data-driven decision-making."
+      },
+      {
+        "degree": "Bachelor's Degree",
+        "field": "Mathematics",
+        "school": "Kyung Hee University",
+        "period": "2003 — 2011",
+        "desc": "Built the mathematical foundation — statistics, linear algebra, and analytical reasoning — that underpins a career in data science and architecture."
+      }
+    ]
+  },
+  "contact": {
+    "heading": "Get in Touch",
+    "tagline": "If you have a problem worth solving, let's build it.",
+    "desc": "I work best with people who see a real gap and want to close it — whether that's a data challenge, an AI product, or a business that needs to be built from scratch.",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
+  "footer": {
+    "copyright": "2026 Yuil Jeong (Elliott). All rights reserved."
+  }
+}

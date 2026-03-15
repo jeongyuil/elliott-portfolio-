@@ -1,0 +1,117 @@
+---
+import en from '../i18n/en.json';
+import ko from '../i18n/ko.json';
+const hero = en.hero;
+const heroKo = ko.hero;
+---
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background layers -->
+  <div class="absolute inset-0 bg-gradient-to-br from-bg via-bg to-surface"></div>
+  <div class="absolute inset-0 grid-bg"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(99,102,241,0.15)_0%,_transparent_50%)]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(139,92,246,0.1)_0%,_transparent_50%)]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(99,102,241,0.05)_0%,_transparent_70%)]"></div>
+
+  <!-- Large floating orbs -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="float-orb absolute w-72 h-72 rounded-full bg-primary/5 blur-3xl top-1/4 -left-20"></div>
+    <div class="float-orb-slow absolute w-96 h-96 rounded-full bg-accent/5 blur-3xl -top-20 right-0"></div>
+    <div class="float-orb-fast absolute w-64 h-64 rounded-full bg-primary/3 blur-3xl bottom-1/4 right-1/4"></div>
+
+    <!-- Smaller glowing particles -->
+    <div class="absolute w-2 h-2 rounded-full bg-primary/40 top-[20%] left-[15%] animate-pulse"></div>
+    <div class="absolute w-1.5 h-1.5 rounded-full bg-accent/40 top-[30%] right-[25%] animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute w-1 h-1 rounded-full bg-primary-light/50 bottom-[30%] left-[35%] animate-pulse" style="animation-delay: 2s;"></div>
+    <div class="absolute w-2.5 h-2.5 rounded-full bg-accent/30 top-[60%] right-[15%] animate-pulse" style="animation-delay: 0.5s;"></div>
+    <div class="absolute w-1.5 h-1.5 rounded-full bg-primary/30 bottom-[20%] right-[40%] animate-pulse" style="animation-delay: 1.5s;"></div>
+    <div class="absolute w-1 h-1 rounded-full bg-primary-light/40 top-[15%] right-[40%] animate-pulse" style="animation-delay: 3s;"></div>
+    <div class="absolute w-2 h-2 rounded-full bg-accent/20 bottom-[40%] left-[20%] animate-pulse" style="animation-delay: 2.5s;"></div>
+
+    <!-- Decorative lines -->
+    <div class="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent"></div>
+    <div class="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/10 to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+    <!-- Greeting badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-surface/50 backdrop-blur-sm mb-8 fade-up">
+      <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+      <span class="text-text-muted text-sm" data-en="Available for opportunities" data-ko="새로운 기회를 환영합니다">Available for opportunities</span>
+    </div>
+
+    <!-- Name with gradient -->
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-3 fade-up">
+      <span class="gradient-text" data-en={hero.name} data-ko={heroKo.name}>{hero.name}</span>
+    </h1>
+
+    <!-- Nickname -->
+    <p class="text-2xl md:text-3xl font-light text-primary/80 mb-8 fade-up">
+      (<span data-en={hero.nickname} data-ko={heroKo.nickname}>{hero.nickname}</span>)
+    </p>
+
+    <!-- Title with border -->
+    <div class="inline-block mb-8 fade-up">
+      <h2 class="text-xl md:text-2xl font-medium text-text px-6 py-3 rounded-2xl border border-border/30 bg-surface/30 backdrop-blur-sm"
+          data-en={hero.title} data-ko={heroKo.title}>
+        {hero.title}
+      </h2>
+    </div>
+
+    <!-- Subtitle -->
+    <p class="text-text-muted text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed fade-up"
+       data-en={hero.subtitle} data-ko={heroKo.subtitle}>
+      {hero.subtitle}
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up">
+      <a href="#contact" class="group relative px-8 py-3.5 bg-primary hover:bg-primary-light text-white font-medium rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 overflow-hidden">
+        <span class="relative z-10 flex items-center justify-center gap-2">
+          <span data-en={hero.cta_contact} data-ko={heroKo.cta_contact}>{hero.cta_contact}</span>
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </span>
+      </a>
+      <a href="/resume" target="_blank" class="group px-8 py-3.5 border border-border hover:border-primary/50 text-text-bright font-medium rounded-full transition-all duration-300 hover:text-primary hover:bg-primary/5">
+        <span class="flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span data-en={hero.cta_resume} data-ko={heroKo.cta_resume}>{hero.cta_resume}</span>
+        </span>
+      </a>
+    </div>
+
+    <!-- Quick stats row -->
+    <div class="mt-16 flex flex-wrap justify-center gap-8 md:gap-12 fade-up">
+      <div class="text-center">
+        <p class="text-2xl md:text-3xl font-bold text-text-bright">14+</p>
+        <p class="text-xs text-text-muted mt-1" data-en="Years Experience" data-ko="년 경력">Years Experience</p>
+      </div>
+      <div class="w-px h-12 bg-border/50 hidden sm:block"></div>
+      <div class="text-center">
+        <p class="text-2xl md:text-3xl font-bold text-text-bright">Disney+</p>
+        <p class="text-xs text-text-muted mt-1" data-en="& EA Global" data-ko="& EA 글로벌">& EA Global</p>
+      </div>
+      <div class="w-px h-12 bg-border/50 hidden sm:block"></div>
+      <div class="text-center">
+        <p class="text-2xl md:text-3xl font-bold text-text-bright">$1B+</p>
+        <p class="text-xs text-text-muted mt-1" data-en="Strategy Impact" data-ko="전략 임팩트">Strategy Impact</p>
+      </div>
+      <div class="w-px h-12 bg-border/50 hidden sm:block"></div>
+      <div class="text-center">
+        <p class="text-2xl md:text-3xl font-bold text-text-bright">CEO</p>
+        <p class="text-xs text-text-muted mt-1" data-en="JNJ Corporation" data-ko="JNJ Corporation">JNJ Corporation</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 hidden md:flex">
+    <span class="text-text-muted text-xs tracking-widest uppercase" data-en="Scroll" data-ko="스크롤">Scroll</span>
+    <div class="w-5 h-8 rounded-full border-2 border-text-muted/30 flex justify-center pt-1.5">
+      <div class="w-1 h-2 rounded-full bg-text-muted/50 animate-bounce"></div>
+    </div>
+  </div>
+</section>

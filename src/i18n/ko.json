@@ -1,0 +1,158 @@
+{
+  "nav": {
+    "about": "소개",
+    "career": "경력",
+    "projects": "프로젝트",
+    "skills": "역량",
+    "contact": "연락처",
+    "education": "학력"
+  },
+  "hero": {
+    "greeting": "안녕하세요,",
+    "name": "정유일",
+    "nickname": "Elliott",
+    "title": "수학에서 데이터 아키텍처, 그리고 AI 프로덕트 빌더로",
+    "subtitle": "14년간 조직이 데이터를 쌓아두고도 의사결정은 감으로 하는 현실을 봐왔습니다. EA에서 Disney+까지, 늘 같은 문제 — 뛰어난 모델, 무너진 아키텍처. 이제 그 간극을 메우는 프로덕트를 직접 만듭니다.",
+    "cta_contact": "연락하기",
+    "cta_resume": "이력서 확인하기"
+  },
+  "about": {
+    "heading": "소개",
+    "p1": "시작은 하나의 질문이었습니다: 왜 조직은 데이터를 산더미처럼 쌓아두고도 여전히 감으로 결정할까? NEOWIZ에서 첫 KPI 대시보드를 구축하며 그 간극을 직접 목격했습니다 — 문제는 숫자가 아니라, 데이터와 의사결정 사이의 빠진 아키텍처였습니다. 그 질문이 이후 모든 커리어를 이끌었습니다.",
+    "p2": "Electronic Arts에서는 누군가 고쳐주길 기다리지 않았습니다. 4개국에 걸쳐 텔레메트리 시스템을 직접 설계하고, 플레이어 행동 데이터를 실행 가능한 인사이트로 바꾸는 인프라를 구축했습니다. Disney+ APAC에서는 더 큰 규모로 확장 — Korea Data Science 팀을 이끌며 ML 기반 이탈 분석, 인과 추론, 오디언스 세그멘테이션을 통해 1조 원 규모의 콘텐츠 투자 전략을 수립했습니다. 패턴은 항상 같았습니다: 구조적 간극을 찾고, 다리를 놓는 것.",
+    "p3": "이제 그 확신을 논리적 결론으로 가져왔습니다. JNJ Corporation 대표이사로서, 문제를 분석만 하지 않습니다 — 솔루션을 직접 만듭니다. 반려동물 보호자가 성분표를 신뢰할 수 없을 때, OCR→LLM 분석 파이프라인을 구축했습니다. 아이들이 스크린 피로 없이 영어 회화 연습이 필요할 때, 실시간 Voice AI 대화 엔진을 설계했습니다. 제가 출시하는 모든 프로덕트는 사람들이 실제로 겪는 문제에서 시작합니다 — 그리고 데이터 레이어를 설계하고, 코드를 작성하고, 그들의 손에 쥐어줍니다."
+  },
+  "career": {
+    "heading": "경력",
+    "items": [
+      {
+        "period": "현재",
+        "role": "대표이사",
+        "org": "JNJ Corporation",
+        "desc": "실제 문제를 발견하고 솔루션을 엔드투엔드로 구축. mungme: 사료 성분 불투명 문제 → OCR→LLM 성분 분석 + 4대 커머스 API 동기화 (Spring Boot + Next.js). MyVoice: 아동 스크린 피로 문제 → 실시간 Whisper→GPT→TTS 보이스 AI 대화 엔진 (FastAPI + React). JR 법무법인 디지털 전환 및 그로스 분석 도서 집필."
+      },
+      {
+        "period": "현재",
+        "role": "디지털 사업부문 이사",
+        "org": "Phynn Corporation",
+        "desc": "건강한 라이프스타일이라는 목적 아래, 바쁜 현대인을 위한 건강한 식품을 기획하고 공급합니다. 음식과 건강에 대한 현대인의 문제를 기술과 데이터로 풀어가고 있습니다.",
+        "link": "https://phynn.co/"
+      },
+      {
+        "period": "2021 — 현재",
+        "role": "매니저, 데이터 사이언스 & 애널리틱스 APAC",
+        "org": "The Walt Disney Company",
+        "desc": "Korea Data Science 팀 리딩. 1조 원 규모 한국 콘텐츠 투자 전략에 기여. ML 기반 이탈 분석 및 고객 세그멘테이션 모델 구축. 인과 분석을 통한 마케팅 ROI 최적화."
+      },
+      {
+        "period": "2023 — 2025",
+        "role": "콘텐츠 평가 자문위원",
+        "org": "서울산업진흥원",
+        "desc": "오디오, 애니메이션, 시리즈 형식의 창작 제안서를 평가. 한국 콘텐츠 생태계에서 유망한 프로젝트를 발굴하고 지원."
+      },
+      {
+        "period": "2015 — 2021",
+        "role": "매니저, 글로벌 애널리틱스 인사이트",
+        "org": "Electronic Arts (EA)",
+        "desc": "글로벌 데이터 애널리틱스 팀 구축 및 관리. eSports 마케팅을 위한 경쟁 게임 기여 모델 개발. 한국, 중국, 태국, 베트남 시장의 사용자 행동 예측 ML 모델 구축."
+      },
+      {
+        "period": "2013 — 2015",
+        "role": "사업기획 분석가",
+        "org": "Actoz Soft",
+        "desc": "월간 사업 실적 분석 및 KPI 평가 수행. BI 도구 및 글로벌 게임 서비스 플랫폼 전략 설계."
+      },
+      {
+        "period": "2011 — 2013",
+        "role": "비즈니스 분석가",
+        "org": "NEOWIZ",
+        "desc": "모바일 플랫폼 BI 시스템 구축 및 KPI 대시보드 자동화. 고객 통계 분석 수행."
+      }
+    ]
+  },
+  "projects": {
+    "heading": "프로젝트",
+    "items": [
+      {
+        "title": "mungme",
+        "desc": "반려동물 보호자는 사료 성분을 신뢰할 수 없습니다. OCR→LLM으로 성분표를 분석하고, 4대 커머스 API에서 상품을 동기화하여 투명한 영양 데이터를 제공하는 플랫폼을 구축 — Spring Boot + Next.js 풀스택, Claude Agent SDK 자동화.",
+        "status": "배포 완료",
+        "tags": ["Spring Boot", "Next.js", "OpenAI", "Claude SDK"],
+        "link": "https://mungme.shop/"
+      },
+      {
+        "title": "MyVoice",
+        "desc": "아이들에게 필요한 건 더 많은 스크린이 아닌 대화 연습입니다. AI 캐릭터와 실시간으로 대화하는 보이스 앱 — Whisper STT→GPT→TTS 파이프라인, 캐릭터 음성, 3-Phase 학습 플로우, 학부모 분석 대시보드.",
+        "status": "개발 중",
+        "tags": ["FastAPI", "React", "OpenAI", "Voice AI"]
+      },
+      {
+        "title": "그로스 분석 도서",
+        "desc": "너무 많은 애널리틱스 팀이 모든 것을 측정하지만 아무것도 바꾸지 못합니다. 제가 있었으면 좋았을 플레이북을 쓰고 있습니다 — 14년간의 그로스 프레임워크를 실행 가능한 챕터로.",
+        "status": "진행 중",
+        "tags": ["집필", "애널리틱스", "그로스"]
+      },
+      {
+        "title": "JR 법무법인 웹사이트",
+        "desc": "전문성을 제대로 보여줄 디지털 존재감이 필요한 법무법인을 위해 모던하고 반응형인 웹사이트를 처음부터 설계하고 개발.",
+        "status": "완료",
+        "tags": ["웹 개발", "디자인"]
+      }
+    ]
+  },
+  "skills": {
+    "heading": "역량",
+    "categories": [
+      {
+        "name": "AI 엔지니어링",
+        "items": ["OpenAI API (GPT·Whisper·TTS)", "Google Gemini", "Claude Agent SDK", "Voice AI 파이프라인", "OCR→LLM 파이프라인", "프롬프트 엔지니어링", "실시간 STT→LLM→TTS"]
+      },
+      {
+        "name": "데이터 사이언스 & ML",
+        "items": ["Python", "R", "SQL", "scikit-learn", "XGBoost", "TensorFlow", "인과 추론", "A/B Testing", "이탈 예측", "고객 세그멘테이션"]
+      },
+      {
+        "name": "풀스택 개발",
+        "items": ["Next.js", "React", "TypeScript", "Spring Boot", "FastAPI", "PostgreSQL", "MySQL", "Redis", "Tailwind CSS"]
+      },
+      {
+        "name": "클라우드 & 데이터 인프라",
+        "items": ["Docker", "Vercel", "Railway", "Nginx", "Cloudflare R2", "ETL 파이프라인", "데이터 웨어하우스", "CI/CD"]
+      },
+      {
+        "name": "리더십",
+        "items": ["팀 매니지먼트", "크로스팬셔널 협업", "이해관계자 커뮤니케이션", "전략 기획", "글로벌 팀 리더십"]
+      }
+    ]
+  },
+  "education": {
+    "heading": "학력",
+    "items": [
+      {
+        "degree": "경영학 석사",
+        "field": "경영학",
+        "school": "중앙대학교",
+        "period": "2014 — 2016",
+        "desc": "정량적 전문성에 전략적 비즈니스 사고를 결합. 데이터 기반 의사결정에 적용 가능한 경영 프레임워크를 학습."
+      },
+      {
+        "degree": "이학 학사",
+        "field": "수학",
+        "school": "경희대학교",
+        "period": "2003 — 2011",
+        "desc": "통계학, 선형대수, 분석적 추론 등 데이터 사이언스와 아키텍처 커리어의 수학적 기반을 구축."
+      }
+    ]
+  },
+  "contact": {
+    "heading": "연락처",
+    "tagline": "풀어야 할 문제가 있다면, 함께 만들어봅시다.",
+    "desc": "진짜 간극을 보고 그것을 메우고 싶은 분들과 일합니다 — 데이터 과제든, AI 프로덕트든, 처음부터 만들어야 하는 사업이든.",
+    "email": "이메일",
+    "linkedin": "링크드인",
+    "github": "깃허브"
+  },
+  "footer": {
+    "copyright": "2026 정유일 (Elliott). All rights reserved."
+  }
+}

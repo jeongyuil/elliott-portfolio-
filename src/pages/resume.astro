@@ -1,0 +1,536 @@
+---
+// Professional Resume page - print-friendly, can be saved as PDF
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuil Jeong (Elliott) — Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        color: #1a1a2e;
+        background: #fff;
+        font-size: 10pt;
+        line-height: 1.5;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .resume {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 32px 40px;
+      }
+
+      /* Header */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #6366f1;
+        margin-bottom: 20px;
+      }
+
+      .header-left h1 {
+        font-size: 24pt;
+        font-weight: 700;
+        color: #1a1a2e;
+        letter-spacing: -0.5px;
+      }
+
+      .header-left .subtitle {
+        font-size: 11pt;
+        color: #6366f1;
+        font-weight: 500;
+        margin-top: 2px;
+      }
+
+      .header-right {
+        text-align: right;
+        font-size: 9pt;
+        color: #64748b;
+        line-height: 1.8;
+      }
+
+      .header-right a {
+        color: #6366f1;
+        text-decoration: none;
+      }
+
+      /* Section */
+      .section {
+        margin-bottom: 18px;
+      }
+
+      .section-title {
+        font-size: 11pt;
+        font-weight: 700;
+        color: #6366f1;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #e2e8f0;
+        margin-bottom: 10px;
+      }
+
+      /* Summary */
+      .summary {
+        font-size: 10pt;
+        color: #334155;
+        line-height: 1.6;
+      }
+
+      /* Experience */
+      .exp-item {
+        margin-bottom: 14px;
+        page-break-inside: avoid;
+      }
+
+      .exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+
+      .exp-role {
+        font-size: 11pt;
+        font-weight: 600;
+        color: #1a1a2e;
+      }
+
+      .exp-period {
+        font-size: 9pt;
+        color: #64748b;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .exp-company {
+        font-size: 10pt;
+        color: #6366f1;
+        font-weight: 500;
+        margin-top: 1px;
+      }
+
+      .exp-location {
+        font-size: 9pt;
+        color: #94a3b8;
+      }
+
+      .exp-desc {
+        margin-top: 4px;
+      }
+
+      .exp-desc ul {
+        padding-left: 16px;
+        list-style-type: disc;
+      }
+
+      .exp-desc li {
+        font-size: 9.5pt;
+        color: #334155;
+        margin-bottom: 2px;
+        line-height: 1.5;
+      }
+
+      /* Projects */
+      .project-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .project-item {
+        padding: 8px 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+
+      .project-name {
+        font-weight: 600;
+        font-size: 10pt;
+        color: #1a1a2e;
+      }
+
+      .project-status {
+        display: inline-block;
+        font-size: 8pt;
+        padding: 1px 6px;
+        border-radius: 10px;
+        font-weight: 500;
+        margin-left: 4px;
+      }
+
+      .status-deployed { background: #dcfce7; color: #16a34a; }
+      .status-dev { background: #dbeafe; color: #2563eb; }
+      .status-progress { background: #fef9c3; color: #ca8a04; }
+      .status-complete { background: #e0e7ff; color: #6366f1; }
+
+      .project-desc {
+        font-size: 9pt;
+        color: #64748b;
+        margin-top: 2px;
+      }
+
+      .project-tags {
+        margin-top: 4px;
+      }
+
+      .project-tags span {
+        display: inline-block;
+        font-size: 8pt;
+        color: #6366f1;
+        background: #eef2ff;
+        padding: 1px 6px;
+        border-radius: 3px;
+        margin-right: 3px;
+      }
+
+      /* Skills */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .skill-category {
+        padding: 8px 12px;
+        border-left: 3px solid #6366f1;
+        background: #f8faff;
+        border-radius: 0 6px 6px 0;
+      }
+
+      .skill-category:nth-child(2) { border-color: #8b5cf6; }
+      .skill-category:nth-child(3) { border-color: #3b82f6; }
+      .skill-category:nth-child(4) { border-color: #06b6d4; }
+      .skill-category:nth-child(5) { border-color: #22c55e; }
+
+      .skill-cat-name {
+        font-weight: 600;
+        font-size: 9.5pt;
+        color: #1a1a2e;
+        margin-bottom: 4px;
+      }
+
+      .skill-list {
+        font-size: 9pt;
+        color: #475569;
+        line-height: 1.6;
+      }
+
+      /* Two column layout */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      /* Education placeholder */
+      .edu-item {
+        margin-bottom: 6px;
+      }
+
+      .edu-degree {
+        font-weight: 600;
+        font-size: 10pt;
+      }
+
+      .edu-school {
+        font-size: 9.5pt;
+        color: #6366f1;
+      }
+
+      /* Print button */
+      .print-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #1a1a2e;
+        color: #fff;
+        padding: 12px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .print-bar a {
+        color: #818cf8;
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      .print-btn {
+        background: #6366f1;
+        color: #fff;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 500;
+      }
+
+      .print-btn:hover {
+        background: #818cf8;
+      }
+
+      @media print {
+        .print-bar { display: none; }
+        body { padding-top: 0; }
+        .resume { padding: 20px 30px; }
+      }
+
+      @media screen {
+        body { padding-top: 56px; background: #f1f5f9; }
+        .resume {
+          background: #fff;
+          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+          border-radius: 8px;
+          margin: 24px auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Print bar (hidden in print) -->
+    <div class="print-bar">
+      <a href="/">&larr; Back to Portfolio</a>
+      <button class="print-btn" onclick="window.print()">Save as PDF / Print</button>
+    </div>
+
+    <div class="resume">
+      <!-- Header -->
+      <div class="header">
+        <div class="header-left">
+          <h1>Yuil Jeong <span style="font-weight: 300; color: #94a3b8;">(Elliott)</span></h1>
+          <div class="subtitle">Data Science Leader &bull; AI Product Builder &bull; CEO</div>
+        </div>
+        <div class="header-right">
+          Seoul, South Korea<br />
+          jeongyuil@gmail.com<br />
+          <a href="https://www.linkedin.com/in/yuil-jeong/">linkedin.com/in/yuil-jeong</a><br />
+          <a href="https://github.com/jeongyuil">github.com/jeongyuil</a>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <p class="summary">
+          From a mathematics foundation to data architecture to AI product development — 14+ years of building data systems that drive business decisions at scale. Designed telemetry infrastructure from the ground up at EA, shaped a $1B content investment strategy through ML and causal inference at Disney+ APAC, and now building ontology-driven data products as CEO of JNJ Corporation. Unique combination of mathematical rigor (B.S. Mathematics), strategic business thinking (M.S. Business Management), hands-on data architecture, and product leadership across five APAC markets.
+        </p>
+      </div>
+
+      <!-- Experience -->
+      <div class="section">
+        <div class="section-title">Professional Experience</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-role">CEO (Chief Executive Officer)</span>
+            <span class="exp-period">Present</span>
+          </div>
+          <div class="exp-company">JNJ Corporation</div>
+          <div class="exp-location">Seoul, South Korea</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Built mungme (Spring Boot + Next.js): solving pet food transparency — OCR→LLM ingredient analysis, 4 commerce API auto-sync, Claude Agent SDK dev automation</li>
+              <li>Building MyVoice (FastAPI + React): solving kids' screen fatigue in English learning — real-time Whisper→GPT→TTS voice AI engine, character voice synthesis, Redis session management</li>
+              <li>Providing technical development and digital strategy support for JR Law Firm's web presence</li>
+              <li>Authoring a growth analytics book, distilling 14+ years of data-driven decision-making into actionable frameworks</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-role">Director, Digital Business Division</span>
+            <span class="exp-period">Present</span>
+          </div>
+          <div class="exp-company">Phynn Corporation</div>
+          <div class="exp-location">Seoul, South Korea</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Leading digital strategy with a mission to make healthy living accessible for busy modern people</li>
+              <li>Solving real problems around food and wellness through technology and data-driven product development</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-role">Manager, Data Science & Analytics APAC</span>
+            <span class="exp-period">Sep 2021 &mdash; Present</span>
+          </div>
+          <div class="exp-company">The Walt Disney Company (Disney+)</div>
+          <div class="exp-location">Seoul, South Korea &bull; Hybrid</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Led the Korea Data Science team, overseeing analytics, modeling, and dashboard development</li>
+              <li>Contributed to a $1B Korean content investment strategy through data-driven insights</li>
+              <li>Applied machine learning for churn driver identification and causal impact analysis</li>
+              <li>Developed APAC & Korea-specific audience segmentation using clustering techniques</li>
+              <li>Built ROI-driven marketing budget optimization framework for YouTube and brand campaigns</li>
+              <li>Led data pipeline optimization and data warehouse initiatives with global teams</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-role">Advisor, Public Creative Content Initiatives</span>
+            <span class="exp-period">Feb 2023 &mdash; Aug 2025</span>
+          </div>
+          <div class="exp-company">Seoul Business Agency</div>
+          <div class="exp-location">Seoul, South Korea</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Evaluated creative proposals across audio, animation, and series formats</li>
+              <li>Identified and advanced promising projects within Korea's evolving content landscape</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-role">Manager, Global Analytics Insight</span>
+            <span class="exp-period">Jun 2015 &mdash; Jun 2021</span>
+          </div>
+          <div class="exp-company">Electronic Arts (EA)</div>
+          <div class="exp-location">Seoul, South Korea</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Established and managed the global data analytics team from the ground up</li>
+              <li>Developed competitive game attribution models for eSports marketing and budget management</li>
+              <li>Built ML models for user behavior prediction across Korea, China, Thailand, and Vietnam</li>
+              <li>Established telemetry processes, log designs, and data pipelines in collaboration with engineering</li>
+              <li>Implemented RFM-based customer segmentation and prediction modeling</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-role">Business Planning Analyst</span>
+            <span class="exp-period">Jan 2013 &mdash; May 2015</span>
+          </div>
+          <div class="exp-company">Actoz Soft</div>
+          <div class="exp-location">Seoul, South Korea</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Conducted monthly business performance analysis and reporting; defined and evaluated corporate KPIs</li>
+              <li>Designed BI tools and global game service platform strategies for mobile services</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-role">Business Analyst</span>
+            <span class="exp-period">Dec 2011 &mdash; Jan 2013</span>
+          </div>
+          <div class="exp-company">NEOWIZ</div>
+          <div class="exp-location">Seoul, South Korea</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Developed BI systems for mobile platforms and designed automated KPI dashboards</li>
+              <li>Conducted customer statistics analysis using key performance indicators</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="section">
+        <div class="section-title">Current Projects</div>
+        <div class="project-grid">
+          <div class="project-item">
+            <span class="project-name">mungme</span>
+            <span class="project-status status-deployed">Deployed</span>
+            <div class="project-desc">Solving pet food transparency: OCR→LLM analysis, 4 commerce API sync, Claude SDK</div>
+            <div class="project-tags"><span>Spring Boot</span><span>Next.js</span><span>OpenAI</span><span>Claude SDK</span></div>
+          </div>
+          <div class="project-item">
+            <span class="project-name">MyVoice</span>
+            <span class="project-status status-dev">In Development</span>
+            <div class="project-desc">Solving kids' screen fatigue: real-time Whisper→GPT→TTS voice conversation</div>
+            <div class="project-tags"><span>FastAPI</span><span>React</span><span>OpenAI</span><span>Voice AI</span></div>
+          </div>
+          <div class="project-item">
+            <span class="project-name">Growth Analytics Book</span>
+            <span class="project-status status-progress">In Progress</span>
+            <div class="project-desc">Comprehensive guide distilling 14+ years of growth analytics experience</div>
+            <div class="project-tags"><span>Writing</span><span>Analytics</span><span>Growth</span></div>
+          </div>
+          <div class="project-item">
+            <span class="project-name">JR Law Firm Website</span>
+            <span class="project-status status-complete">Completed</span>
+            <div class="project-desc">Technical development support for professional law firm website</div>
+            <div class="project-tags"><span>Web Dev</span><span>Design</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="section">
+        <div class="section-title">Education</div>
+        <div class="two-col">
+          <div class="edu-item">
+            <div class="exp-header">
+              <span class="edu-degree">Master's Degree in Business Management</span>
+              <span class="exp-period">2014 &mdash; 2016</span>
+            </div>
+            <div class="edu-school">Chung-Ang University, Seoul</div>
+            <div style="font-size: 9pt; color: #64748b; margin-top: 2px;">Bridged quantitative expertise with strategic business thinking and management frameworks.</div>
+          </div>
+          <div class="edu-item">
+            <div class="exp-header">
+              <span class="edu-degree">Bachelor's Degree in Mathematics</span>
+              <span class="exp-period">2003 &mdash; 2011</span>
+            </div>
+            <div class="edu-school">Kyung Hee University, Seoul</div>
+            <div style="font-size: 9pt; color: #64748b; margin-top: 2px;">Statistics, linear algebra, and analytical reasoning — the mathematical foundation for a career in data science.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="section">
+        <div class="section-title">Skills & Expertise</div>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <div class="skill-cat-name">AI Engineering</div>
+            <div class="skill-list">OpenAI API (GPT·Whisper·TTS), Google Gemini, Claude Agent SDK, Voice AI Pipeline, OCR→LLM Pipeline, Prompt Engineering, Real-time STT→LLM→TTS</div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-cat-name">Data Science & ML</div>
+            <div class="skill-list">Python, R, SQL, scikit-learn, XGBoost, TensorFlow, Causal Inference, A/B Testing, Churn Prediction, Customer Segmentation</div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-cat-name">Full-Stack Development</div>
+            <div class="skill-list">Next.js, React, TypeScript, Spring Boot, FastAPI, PostgreSQL, MySQL, Redis, Tailwind CSS</div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-cat-name">Cloud & Data Infra</div>
+            <div class="skill-list">Docker, Vercel, Railway, Nginx, Cloudflare R2, ETL Pipeline, Data Warehouse, CI/CD</div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-cat-name">Leadership</div>
+            <div class="skill-list">Team Management, Cross-functional Collaboration, Stakeholder Communication, Strategic Planning, Global Team Leadership</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
