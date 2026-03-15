@@ -12,7 +12,7 @@
     "name": "Yuil Jeong",
     "nickname": "Elliott",
     "title": "From Mathematics to Data Architecture to AI Product Builder",
-    "subtitle": "I've spent 14 years watching organizations struggle to turn data into decisions. From EA to Disney+, I saw the same gap — brilliant models, broken architecture. Now I build the products that close it.",
+    "subtitle": "For 14 years, I've worked to bridge the gap between data and decisions. From EA to Disney+, even brilliant models fell short without the right architecture to turn insight into action. Now I build the products that close that gap.",
     "cta_contact": "Get in Touch",
     "cta_resume": "View Resume"
   },
@@ -43,6 +43,12 @@
         "role": "Manager, Data Science & Analytics APAC",
         "org": "The Walt Disney Company",
         "desc": "Leading Korea Data Science team. Contributed to $1B Korean content investment strategy. Built ML-driven churn analysis and customer segmentation models. Optimized marketing ROI through causal impact analysis."
+      },
+      {
+        "period": "2025",
+        "role": "Invited Speaker",
+        "org": "Korean Statistical Society & Korea Business Experimentation Symposium",
+        "desc": "Presented 'Building an Experiment Culture' at the Korean Statistical Society Winter Conference (Seoul National University) and the Korea Business Experimentation Symposium (Korea University). Shared frameworks for scaling A/B testing, causal inference, and experimentation governance in data-driven organizations."
       },
       {
         "period": "2023 — 2025",

@@ -44,9 +44,17 @@ body {
 }
 
 /* Staggered children */
-.fade-up:nth-child(2) { transition-delay: 0.1s; }
-.fade-up:nth-child(3) { transition-delay: 0.2s; }
-.fade-up:nth-child(4) { transition-delay: 0.3s; }
+.fade-up:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.fade-up:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.fade-up:nth-child(4) {
+  transition-delay: 0.3s;
+}
 
 /* Timeline line */
 .timeline-line {
@@ -75,29 +83,17 @@ body {
 }
 
 @keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
-/* Floating orb animation */
-@keyframes float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(10px, -20px) scale(1.05); }
-  50% { transform: translate(-5px, -10px) scale(0.95); }
-  75% { transform: translate(-15px, -25px) scale(1.02); }
-}
-
-.float-orb {
-  animation: float 8s ease-in-out infinite;
-}
-
-.float-orb-slow {
-  animation: float 12s ease-in-out infinite reverse;
-}
-
-.float-orb-fast {
-  animation: float 6s ease-in-out infinite;
-}
 
 /* Grid background pattern */
 .grid-bg {
@@ -154,7 +150,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
   transition: left 0.5s ease;
 }
 
@@ -164,8 +160,15 @@ body {
 
 /* Pulse ring for timeline dots */
 @keyframes pulse-ring {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(2.5); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
 }
 
 .pulse-ring::after {
@@ -179,9 +182,18 @@ body {
 
 /* Counter animation */
 @keyframes count-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+
 
 /* Noise texture overlay */
 .noise-overlay::before {
