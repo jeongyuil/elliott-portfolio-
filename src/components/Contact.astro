@@ -19,8 +19,8 @@ const contactKo = ko.contact;
       {contact.heading}
     </h2>
     <p class="text-xl md:text-2xl font-medium text-text-bright text-center mb-4 fade-up"
-       data-en={(contact as any).tagline} data-ko={(contactKo as any).tagline}>
-      {(contact as any).tagline}
+       data-en={contact.tagline} data-ko={contactKo.tagline}>
+      {contact.tagline}
     </p>
 
     <p class="text-text-muted text-lg mb-12 leading-relaxed fade-up"
