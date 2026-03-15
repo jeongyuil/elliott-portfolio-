@@ -19,7 +19,7 @@ const aboutKo = ko.about;
     <div class="grid md:grid-cols-3 gap-8">
       <!-- Stats cards -->
       <div class="md:col-span-1 flex flex-col gap-6">
-        <div class="bg-surface rounded-2xl p-6 border border-border/50 glow-primary fade-up card-shine group hover:border-primary/30 transition-all duration-300">
+        <div class="bg-surface rounded-2xl p-6 border border-border/50 glow-primary scale-up card-shine group hover:border-primary/30 transition-all duration-300">
           <div class="flex items-center gap-3 mb-2">
             <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
               <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -30,7 +30,7 @@ const aboutKo = ko.about;
           </div>
           <p class="text-text-muted text-sm" data-en="Years of Experience" data-ko="년 경력">Years of Experience</p>
         </div>
-        <div class="bg-surface rounded-2xl p-6 border border-border/50 glow-accent fade-up card-shine group hover:border-accent/30 transition-all duration-300">
+        <div class="bg-surface rounded-2xl p-6 border border-border/50 glow-accent scale-up card-shine group hover:border-accent/30 transition-all duration-300">
           <div class="flex items-center gap-3 mb-2">
             <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
               <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,7 +41,7 @@ const aboutKo = ko.about;
           </div>
           <p class="text-text-muted text-sm" data-en="Content Strategy Impact" data-ko="콘텐츠 전략 임팩트">Content Strategy Impact</p>
         </div>
-        <div class="bg-surface rounded-2xl p-6 border border-border/50 fade-up card-shine group hover:border-primary-light/30 transition-all duration-300">
+        <div class="bg-surface rounded-2xl p-6 border border-border/50 scale-up card-shine group hover:border-primary-light/30 transition-all duration-300">
           <div class="flex items-center gap-3 mb-2">
             <div class="w-10 h-10 rounded-xl bg-primary-light/10 flex items-center justify-center">
               <svg class="w-5 h-5 text-primary-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,19 +56,19 @@ const aboutKo = ko.about;
 
       <!-- Bio text -->
       <div class="md:col-span-2 flex flex-col gap-6">
-        <div class="bg-surface/50 rounded-2xl p-8 border border-border/30 fade-up">
+        <div class="bg-surface/50 rounded-2xl p-8 border border-border/30 tilt-in">
           <p class="text-text leading-relaxed text-lg"
              data-en={about.p1} data-ko={aboutKo.p1}>
             {about.p1}
           </p>
         </div>
-        <div class="bg-surface/50 rounded-2xl p-8 border border-border/30 fade-up">
+        <div class="bg-surface/50 rounded-2xl p-8 border border-border/30 tilt-in">
           <p class="text-text leading-relaxed text-lg"
              data-en={about.p2} data-ko={aboutKo.p2}>
             {about.p2}
           </p>
         </div>
-        <div class="bg-surface/50 rounded-2xl p-8 border border-border/30 fade-up">
+        <div class="bg-surface/50 rounded-2xl p-8 border border-border/30 tilt-in">
           <p class="text-text leading-relaxed text-lg"
              data-en={about.p3} data-ko={aboutKo.p3}>
             {about.p3}
@@ -76,7 +76,7 @@ const aboutKo = ko.about;
         </div>
 
         <!-- Key highlights -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 fade-up">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 scale-up">
           <div class="flex items-center gap-3 bg-surface/30 rounded-xl p-4 border border-border/20">
             <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>

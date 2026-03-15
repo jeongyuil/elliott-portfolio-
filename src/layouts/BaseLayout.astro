@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title?: string;
@@ -73,6 +74,7 @@ const ogImage = `${SITE_URL}/og-image.png`;
   </head>
   <body class="antialiased noise-overlay">
     <slot />
+    <Analytics />
     <script>
       // Scroll-triggered fade-in animations
       const observer = new IntersectionObserver(
@@ -85,7 +87,7 @@ const ogImage = `${SITE_URL}/og-image.png`;
         },
         { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
       );
-      document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+      document.querySelectorAll('.fade-up, .tilt-in, .scale-up').forEach((el) => observer.observe(el));
 
       // Language toggle
       const savedLang = localStorage.getItem('lang') || 'en';

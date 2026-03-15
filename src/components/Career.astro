@@ -45,7 +45,7 @@ const companyColors: Record<string, string> = {
           const logo = companyLogos[item.org] || item.org.substring(0, 2);
           const colorClass = companyColors[item.org] || 'from-primary/20 to-primary/10 text-primary-light';
           return (
-            <div class={`fade-up relative flex flex-col md:flex-row items-start ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+            <div class={`tilt-in relative flex flex-col md:flex-row items-start ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
               {/* Timeline dot with pulse */}
               <div class="absolute left-[15px] md:left-1/2 md:-translate-x-1/2 w-3 h-3 rounded-full bg-primary border-2 border-bg z-10 mt-2 md:mt-8 pulse-ring"></div>
 
