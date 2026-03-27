@@ -1,0 +1,29 @@
+---
+import en from '../i18n/en.json';
+import ko from '../i18n/ko.json';
+const footer = en.footer;
+const footerKo = ko.footer;
+---
+<footer class="relative py-10 px-6 border-t border-border/50 bg-surface/20">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <!-- Logo -->
+      <a href="#" class="text-xl font-bold text-text-bright tracking-tight hover:text-primary transition-colors">
+        Elliott<span class="text-primary">.</span>
+      </a>
+
+      <!-- Navigation -->
+      <div class="flex items-center gap-6 text-sm text-text-muted">
+        <a href="#about" class="hover:text-text-bright transition-colors" data-en="About" data-ko="소개">About</a>
+        <a href="#career" class="hover:text-text-bright transition-colors" data-en="Career" data-ko="경력">Career</a>
+        <a href="#projects" class="hover:text-text-bright transition-colors" data-en="Projects" data-ko="프로젝트">Projects</a>
+        <a href="#contact" class="hover:text-text-bright transition-colors" data-en="Contact" data-ko="연락처">Contact</a>
+      </div>
+
+      <!-- Copyright -->
+      <p class="text-text-muted text-sm">
+        &copy; <span data-en={footer.copyright} data-ko={footerKo.copyright}>{footer.copyright}</span>
+      </p>
+    </div>
+  </div>
+</footer>

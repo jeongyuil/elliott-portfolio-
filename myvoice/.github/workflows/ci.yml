@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend-test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: myvoice_test
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: myvoice_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+        cache: 'pip'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install pytest pytest-asyncio httpx pytest-playwright ruff
+        python -m playwright install chromium
+        
+    - name: Lint with ruff
+      run: |
+        ruff check app tests
+        
+    - name: Run Backend Tests
+      env:
+        DATABASE_URL: postgresql+asyncpg://myvoice_test:test_password@localhost:5432/myvoice_test
+        REDIS_URL: redis://localhost:6379/0
+        APP_ENV: testing
+        JWT_SECRET_KEY: test-secret-key
+      run: |
+        pytest tests/ -v
+        
+    # E2E Tests require the app running. We can run it in background.
+    - name: Start App for E2E
+      run: |
+        export DATABASE_URL=postgresql+asyncpg://myvoice_test:test_password@localhost:5432/myvoice_test
+        export REDIS_URL=redis://localhost:6379/0
+        export APP_ENV=testing
+        export JWT_SECRET_KEY=test-secret-key
+        uvicorn app.main:app --host 127.0.0.1 --port 8000 &
+        sleep 5 # Wait for startup
+        
+    - name: Run E2E Tests
+      run: |
+        pytest tests/e2e/test_voice_session.py
+      env:
+        BASE_URL: http://127.0.0.1:8000
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Lint
+      run: npm run lint
+      
+    - name: Build
+      run: npm run build

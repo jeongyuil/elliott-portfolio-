@@ -1,0 +1,150 @@
+---
+import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const SITE_URL = 'https://elliott-portfolio.vercel.app';
+
+const {
+  title = 'Yuil Jeong (Elliott) — Data Science Leader & Digital Business Executive',
+  description = '14+ years of data science leadership at Disney+, EA and beyond. CEO of JNJ Corporation, building products for the AI era.',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+const ogImage = `${SITE_URL}/og-image.png`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Yuil Jeong (Elliott)" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL.toString()} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.toString()} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ko_KR" />
+    <meta property="og:site_name" content="Yuil Jeong (Elliott)" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Yuil Jeong",
+      "alternateName": "Elliott",
+      "url": SITE_URL,
+      "image": ogImage,
+      "jobTitle": "CEO",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "JNJ Corporation"
+      },
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "Chung-Ang University" },
+        { "@type": "CollegeOrUniversity", "name": "Kyung Hee University" }
+      ],
+      "knowsAbout": ["Data Science", "AI Engineering", "Machine Learning", "Full-Stack Development", "Product Management"],
+      "sameAs": [
+        "https://www.linkedin.com/in/yuil-jeong/",
+        "https://github.com/jeongyuil"
+      ]
+    })} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body class="antialiased noise-overlay">
+    <slot />
+    <Analytics />
+    <script>
+      // Scroll-triggered fade-in animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      );
+      document.querySelectorAll('.fade-up, .tilt-in, .scale-up').forEach((el) => observer.observe(el));
+
+      // Language toggle
+      const savedLang = localStorage.getItem('lang') || 'en';
+      document.documentElement.setAttribute('data-lang', savedLang);
+
+      function setLanguage(lang: string) {
+        localStorage.setItem('lang', lang);
+        document.documentElement.setAttribute('data-lang', lang);
+        document.querySelectorAll('[data-en]').forEach((el) => {
+          const text = el.getAttribute(`data-${lang}`);
+          if (text) el.textContent = text;
+        });
+        // Update HTML lang attribute
+        document.documentElement.lang = lang;
+        // Update active state on toggle buttons
+        document.querySelectorAll('[data-lang-btn]').forEach((btn) => {
+          const btnLang = btn.getAttribute('data-lang-btn');
+          if (btnLang === lang) {
+            btn.classList.add('text-primary', 'font-semibold');
+            btn.classList.remove('text-text-muted');
+          } else {
+            btn.classList.remove('text-primary', 'font-semibold');
+            btn.classList.add('text-text-muted');
+          }
+        });
+      }
+
+      // Initialize on load
+      setLanguage(savedLang);
+
+      // Expose globally
+      (window as any).setLanguage = setLanguage;
+
+      // Active nav link highlighting on scroll
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const navObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute('id');
+              navLinks.forEach((link) => {
+                const href = link.getAttribute('href');
+                if (href === `#${id}`) {
+                  link.classList.add('text-primary', 'font-medium');
+                  link.classList.remove('text-text-muted');
+                } else {
+                  link.classList.remove('text-primary', 'font-medium');
+                  link.classList.add('text-text-muted');
+                }
+              });
+            }
+          });
+        },
+        { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' }
+      );
+      sections.forEach((section) => navObserver.observe(section));
+    </script>
+  </body>
+</html>

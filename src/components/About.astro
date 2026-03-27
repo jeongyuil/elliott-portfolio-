@@ -1,0 +1,108 @@
+---
+import en from '../i18n/en.json';
+import ko from '../i18n/ko.json';
+const about = en.about;
+const aboutKo = ko.about;
+---
+<section id="about" class="relative py-28 px-6">
+  <!-- Background decoration -->
+  <div class="absolute inset-0 grid-bg opacity-50"></div>
+  <div class="absolute top-0 left-0 right-0 section-divider"></div>
+
+  <div class="relative max-w-5xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-text-bright mb-4 text-center fade-up heading-underline mx-auto w-fit"
+        data-en={about.heading} data-ko={aboutKo.heading}>
+      {about.heading}
+    </h2>
+    <p class="text-text-muted text-center mb-16 fade-up" data-en="Problem finder. Solution builder." data-ko="문제를 찾고, 솔루션을 만듭니다.">Problem finder. Solution builder.</p>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Stats cards -->
+      <div class="md:col-span-1 flex flex-col gap-6">
+        <div class="bg-surface rounded-2xl p-6 border border-border/50 glow-primary scale-up card-shine group hover:border-primary/30 transition-all duration-300">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <p class="text-3xl font-bold text-primary">14+</p>
+          </div>
+          <p class="text-text-muted text-sm" data-en="Years of Experience" data-ko="년 경력">Years of Experience</p>
+        </div>
+        <div class="bg-surface rounded-2xl p-6 border border-border/50 glow-accent scale-up card-shine group hover:border-accent/30 transition-all duration-300">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+              </svg>
+            </div>
+            <p class="text-3xl font-bold text-accent">$1B+</p>
+          </div>
+          <p class="text-text-muted text-sm" data-en="Content Strategy Impact" data-ko="콘텐츠 전략 임팩트">Content Strategy Impact</p>
+        </div>
+        <div class="bg-surface rounded-2xl p-6 border border-border/50 scale-up card-shine group hover:border-primary-light/30 transition-all duration-300">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-primary-light/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-primary-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <p class="text-3xl font-bold text-primary-light">5+</p>
+          </div>
+          <p class="text-text-muted text-sm" data-en="Markets Covered" data-ko="담당 시장">Markets Covered</p>
+        </div>
+      </div>
+
+      <!-- Bio text -->
+      <div class="md:col-span-2 flex flex-col gap-6">
+        <div class="bg-surface/50 rounded-2xl p-8 border border-border/30 tilt-in">
+          <p class="text-text leading-relaxed text-lg"
+             data-en={about.p1} data-ko={aboutKo.p1}>
+            {about.p1}
+          </p>
+        </div>
+        <div class="bg-surface/50 rounded-2xl p-8 border border-border/30 tilt-in">
+          <p class="text-text leading-relaxed text-lg"
+             data-en={about.p2} data-ko={aboutKo.p2}>
+            {about.p2}
+          </p>
+        </div>
+        <div class="bg-surface/50 rounded-2xl p-8 border border-border/30 tilt-in">
+          <p class="text-text leading-relaxed text-lg"
+             data-en={about.p3} data-ko={aboutKo.p3}>
+            {about.p3}
+          </p>
+        </div>
+
+        <!-- Key highlights -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 scale-up">
+          <div class="flex items-center gap-3 bg-surface/30 rounded-xl p-4 border border-border/20">
+            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-sm text-text-muted" data-en="Telemetry & Data Architecture" data-ko="텔레메트리 & 데이터 아키텍처">Telemetry & Data Architecture</span>
+          </div>
+          <div class="flex items-center gap-3 bg-surface/30 rounded-xl p-4 border border-border/20">
+            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-sm text-text-muted" data-en="Product Development" data-ko="프로덕트 개발">Product Development</span>
+          </div>
+          <div class="flex items-center gap-3 bg-surface/30 rounded-xl p-4 border border-border/20">
+            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-sm text-text-muted" data-en="Team Leadership" data-ko="팀 리더십">Team Leadership</span>
+          </div>
+          <div class="flex items-center gap-3 bg-surface/30 rounded-xl p-4 border border-border/20">
+            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-sm text-text-muted" data-en="Ontology-Driven AI Products" data-ko="온톨로지 기반 AI 프로덕트">Ontology-Driven AI Products</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

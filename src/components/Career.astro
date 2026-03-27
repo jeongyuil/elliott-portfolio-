@@ -1,0 +1,100 @@
+---
+import en from '../i18n/en.json';
+import ko from '../i18n/ko.json';
+const career = en.career;
+const careerKo = ko.career;
+
+const companyLogos: Record<string, string> = {
+  'The Walt Disney Company': 'D+',
+  'Electronic Arts (EA)': 'EA',
+  'JNJ Corporation': 'JNJ',
+  'Phynn Corporation': 'PH',
+  'Seoul Business Agency': 'SBA',
+  'Actoz Soft': 'AZ',
+  'NEOWIZ': 'NW',
+  'Korean Statistical Society & Korea Business Experimentation Symposium': 'KSS',
+};
+
+const companyColors: Record<string, string> = {
+  'The Walt Disney Company': 'from-blue-500/20 to-blue-600/10 text-blue-400',
+  'Electronic Arts (EA)': 'from-green-500/20 to-green-600/10 text-green-400',
+  'JNJ Corporation': 'from-primary/20 to-primary/10 text-primary-light',
+  'Phynn Corporation': 'from-accent/20 to-accent/10 text-accent',
+  'Seoul Business Agency': 'from-orange-500/20 to-orange-600/10 text-orange-400',
+  'Actoz Soft': 'from-rose-500/20 to-rose-600/10 text-rose-400',
+  'NEOWIZ': 'from-cyan-500/20 to-cyan-600/10 text-cyan-400',
+  'Korean Statistical Society & Korea Business Experimentation Symposium': 'from-indigo-500/20 to-indigo-600/10 text-indigo-400',
+};
+---
+<section id="career" class="relative py-28 px-6 bg-surface/30">
+  <div class="absolute inset-0 grid-bg opacity-30"></div>
+  <div class="absolute top-0 left-0 right-0 section-divider"></div>
+
+  <div class="relative max-w-5xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-text-bright mb-4 text-center fade-up heading-underline mx-auto w-fit"
+        data-en={career.heading} data-ko={careerKo.heading}>
+      {career.heading}
+    </h2>
+    <p class="text-text-muted text-center mb-16 fade-up" data-en="A timeline of growth and impact" data-ko="성장과 임팩트의 여정">A timeline of growth and impact</p>
+
+    <div class="relative">
+      <!-- Timeline line -->
+      <div class="timeline-line hidden md:block"></div>
+      <div class="md:hidden absolute left-[20px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-primary to-transparent"></div>
+
+      <div class="flex flex-col gap-12">
+        {career.items.map((item, i) => {
+          const logo = companyLogos[item.org] || item.org.substring(0, 2);
+          const colorClass = companyColors[item.org] || 'from-primary/20 to-primary/10 text-primary-light';
+          return (
+            <div class={`tilt-in relative flex flex-col md:flex-row items-start ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+              {/* Timeline dot with pulse */}
+              <div class="absolute left-[15px] md:left-1/2 md:-translate-x-1/2 w-3 h-3 rounded-full bg-primary border-2 border-bg z-10 mt-2 md:mt-8 pulse-ring"></div>
+
+              {/* Content card */}
+              <div class={`ml-10 md:ml-0 md:w-[45%] ${i % 2 === 0 ? 'md:mr-auto md:pr-12' : 'md:ml-auto md:pl-12'}`}>
+                <div class="bg-surface rounded-2xl p-6 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 card-shine">
+                  {/* Company logo badge */}
+                  <div class="flex items-center gap-3 mb-3">
+                    <div class={`w-10 h-10 rounded-xl bg-gradient-to-br ${colorClass} flex items-center justify-center text-xs font-bold`}>
+                      {logo}
+                    </div>
+                    <div>
+                      <span class="text-primary text-sm font-medium"
+                            data-en={item.period} data-ko={careerKo.items[i].period}>
+                        {item.period}
+                      </span>
+                    </div>
+                  </div>
+
+                  <h3 class="text-lg font-semibold text-text-bright"
+                      data-en={item.role} data-ko={careerKo.items[i].role}>
+                    {item.role}
+                  </h3>
+                  {(item as any).link ? (
+                    <a href={(item as any).link} target="_blank" rel="noopener noreferrer"
+                       class="text-accent font-medium mt-1 inline-flex items-center gap-1 hover:text-primary transition-colors text-sm">
+                      <span data-en={item.org} data-ko={careerKo.items[i].org}>{item.org}</span>
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                      </svg>
+                    </a>
+                  ) : (
+                    <p class="text-accent font-medium mt-1 text-sm"
+                       data-en={item.org} data-ko={careerKo.items[i].org}>
+                      {item.org}
+                    </p>
+                  )}
+                  <p class="text-text-muted mt-3 leading-relaxed text-sm"
+                     data-en={item.desc} data-ko={careerKo.items[i].desc}>
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>

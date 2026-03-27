@@ -1,0 +1,96 @@
+---
+import en from '../i18n/en.json';
+import ko from '../i18n/ko.json';
+const skills = en.skills;
+const skillsKo = ko.skills;
+
+const categoryIcons = [
+  '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"></path></svg>',
+  '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>',
+  '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>',
+  '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"></path></svg>',
+  '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>',
+];
+
+const categoryColors = [
+  'from-amber-500/20 to-amber-500/5 border-amber-500/30',
+  'from-primary/20 to-primary/5 border-primary/30',
+  'from-blue-500/20 to-blue-500/5 border-blue-500/30',
+  'from-cyan-500/20 to-cyan-500/5 border-cyan-500/30',
+  'from-green-500/20 to-green-500/5 border-green-500/30',
+];
+
+const iconBgColors = [
+  'bg-amber-500/10 text-amber-400',
+  'bg-primary/10 text-primary',
+  'bg-blue-500/10 text-blue-400',
+  'bg-cyan-500/10 text-cyan-400',
+  'bg-green-500/10 text-green-400',
+];
+
+const tagColors = [
+  'bg-amber-500/10 text-amber-300 border-amber-500/20 hover:bg-amber-500/20',
+  'bg-primary/10 text-primary-light border-primary/20 hover:bg-primary/20',
+  'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:bg-blue-500/20',
+  'bg-cyan-500/10 text-cyan-400 border-cyan-500/20 hover:bg-cyan-500/20',
+  'bg-green-500/10 text-green-400 border-green-500/20 hover:bg-green-500/20',
+];
+---
+<section id="skills" class="relative py-28 px-6 bg-surface/30">
+  <div class="absolute inset-0 grid-bg opacity-30"></div>
+  <div class="absolute top-0 left-0 right-0 section-divider"></div>
+
+  <div class="relative max-w-5xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-text-bright mb-4 text-center fade-up heading-underline mx-auto w-fit"
+        data-en={skills.heading} data-ko={skillsKo.heading}>
+      {skills.heading}
+    </h2>
+    <p class="text-text-muted text-center mb-16 fade-up" data-en="Built with, not just listed" data-ko="나열이 아닌, 직접 구축한 기술">Built with, not just listed</p>
+
+    <!-- AI Engineering: featured full-width card -->
+    <div class={`fade-up rounded-2xl p-6 border bg-gradient-to-br ${categoryColors[0]} card-shine hover:shadow-lg transition-all duration-300 mb-6`}>
+      <div class="flex items-center gap-3 mb-5">
+        <div class={`w-10 h-10 rounded-xl ${iconBgColors[0]} flex items-center justify-center`}>
+          <Fragment set:html={categoryIcons[0]} />
+        </div>
+        <h3 class="text-lg font-semibold text-text-bright"
+            data-en={skills.categories[0].name} data-ko={skillsKo.categories[0].name}>
+          {skills.categories[0].name}
+        </h3>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        {skills.categories[0].items.map((item, j) => (
+          <span class={`text-sm px-3 py-1.5 rounded-full border transition-colors cursor-default ${tagColors[0]}`}
+                data-en={item} data-ko={skillsKo.categories[0].items[j]}>
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Remaining 4 categories in 2x2 grid -->
+    <div class="grid md:grid-cols-2 gap-6">
+      {skills.categories.slice(1).map((cat, i) => (
+        <div class={`fade-up rounded-2xl p-6 border bg-gradient-to-br ${categoryColors[i + 1]} card-shine hover:shadow-lg transition-all duration-300`}>
+          <div class="flex items-center gap-3 mb-5">
+            <div class={`w-10 h-10 rounded-xl ${iconBgColors[i + 1]} flex items-center justify-center`}>
+              <Fragment set:html={categoryIcons[i + 1]} />
+            </div>
+            <h3 class="text-lg font-semibold text-text-bright"
+                data-en={cat.name} data-ko={skillsKo.categories[i + 1].name}>
+              {cat.name}
+            </h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {cat.items.map((item, j) => (
+              <span class={`text-sm px-3 py-1.5 rounded-full border transition-colors cursor-default ${tagColors[i + 1]}`}
+                    data-en={item} data-ko={skillsKo.categories[i + 1].items[j]}>
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

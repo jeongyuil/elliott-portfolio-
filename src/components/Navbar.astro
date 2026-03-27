@@ -1,0 +1,94 @@
+---
+import en from '../i18n/en.json';
+import ko from '../i18n/ko.json';
+const nav = en.nav;
+const navKo = ko.nav;
+---
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-bg/80 backdrop-blur-lg border-b border-border/50">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#" class="text-xl font-bold text-text-bright tracking-tight hover:text-primary transition-colors">
+      Elliott<span class="text-primary">.</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#about" class="nav-link text-sm text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.about} data-ko={navKo.about}>{nav.about}</a>
+      <a href="#career" class="nav-link text-sm text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.career} data-ko={navKo.career}>{nav.career}</a>
+      <a href="#projects" class="nav-link text-sm text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.projects} data-ko={navKo.projects}>{nav.projects}</a>
+      <a href="#skills" class="nav-link text-sm text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.skills} data-ko={navKo.skills}>{nav.skills}</a>
+      <a href="#education" class="nav-link text-sm text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.education} data-ko={navKo.education}>{nav.education}</a>
+      <a href="#contact" class="nav-link text-sm text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.contact} data-ko={navKo.contact}>{nav.contact}</a>
+
+      <!-- Language Toggle -->
+      <div class="flex items-center gap-1 ml-4 text-sm border border-border rounded-full px-3 py-1">
+        <button data-lang-btn="en" onclick="setLanguage('en')" class="text-primary font-semibold hover:text-primary transition-colors px-1">EN</button>
+        <span class="text-border">/</span>
+        <button data-lang-btn="ko" onclick="setLanguage('ko')" class="text-text-muted hover:text-primary transition-colors px-1">KO</button>
+      </div>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <button id="menu-toggle" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Toggle menu">
+      <span class="block w-6 h-0.5 bg-text-bright transition-all duration-300" id="bar1"></span>
+      <span class="block w-6 h-0.5 bg-text-bright transition-all duration-300" id="bar2"></span>
+      <span class="block w-6 h-0.5 bg-text-bright transition-all duration-300" id="bar3"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-border/50 bg-bg/95 backdrop-blur-lg">
+    <div class="px-6 py-4 flex flex-col gap-4">
+      <a href="#about" class="mobile-nav-link text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.about} data-ko={navKo.about}>{nav.about}</a>
+      <a href="#career" class="mobile-nav-link text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.career} data-ko={navKo.career}>{nav.career}</a>
+      <a href="#projects" class="mobile-nav-link text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.projects} data-ko={navKo.projects}>{nav.projects}</a>
+      <a href="#skills" class="mobile-nav-link text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.skills} data-ko={navKo.skills}>{nav.skills}</a>
+      <a href="#education" class="mobile-nav-link text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.education} data-ko={navKo.education}>{nav.education}</a>
+      <a href="#contact" class="mobile-nav-link text-text-muted hover:text-text-bright transition-colors"
+         data-en={nav.contact} data-ko={navKo.contact}>{nav.contact}</a>
+      <div class="flex items-center gap-2 text-sm pt-2 border-t border-border/50">
+        <button data-lang-btn="en" onclick="setLanguage('en')" class="text-primary font-semibold hover:text-primary transition-colors px-2 py-1">EN</button>
+        <span class="text-border">/</span>
+        <button data-lang-btn="ko" onclick="setLanguage('ko')" class="text-text-muted hover:text-primary transition-colors px-2 py-1">KO</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  const bar3 = document.getElementById('bar3');
+
+  toggle?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+    bar1?.classList.toggle('rotate-45');
+    bar1?.classList.toggle('translate-y-2');
+    bar2?.classList.toggle('opacity-0');
+    bar3?.classList.toggle('-rotate-45');
+    bar3?.classList.toggle('-translate-y-2');
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+      bar1?.classList.remove('rotate-45', 'translate-y-2');
+      bar2?.classList.remove('opacity-0');
+      bar3?.classList.remove('-rotate-45', '-translate-y-2');
+    });
+  });
+</script>

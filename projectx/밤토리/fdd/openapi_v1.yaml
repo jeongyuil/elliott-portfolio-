@@ -1,0 +1,465 @@
+openapi: 3.0.3
+info:
+  title: VOICE AI Education Platform API
+  version: "1.0.0"
+  description: |
+    API Specification for "Bamtori" (Voice AI Tutor for Kids).
+    Based on FDD MVP v1.4 and Domain Ontology v0.1.1.
+  contact:
+    name: Backend Support Team
+    email: support@bamtori.ai
+
+servers:
+  - url: https://api.bamtori.ai/v1
+    description: Production Server
+  - url: https://dev-api.bamtori.ai/v1
+    description: Development Server
+  - url: http://localhost:8000/v1
+    description: Local Environment
+
+tags:
+  - name: Auth
+    description: Family account authentication and management
+  - name: Children
+    description: Child profile management
+  - name: Sessions
+    description: Voice session orchestration and audio handling
+  - name: Reports
+    description: Skill reports and analysis for parents
+  - name: Trial
+    description: Quick trial (onboarding) features
+
+paths:
+  # --- Auth ---
+  /auth/signup:
+    post:
+      tags: [Auth]
+      summary: Register new family account
+      operationId: signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: {type: string, format: email}
+                password: {type: string}
+                parent_name: {type: string}
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  family_id: {type: string, format: uuid}
+                  access_token: {type: string}
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: {type: string, format: email}
+                password: {type: string}
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token: {type: string}
+                  family_id: {type: string, format: uuid}
+
+  # --- Children ---
+  /children:
+    post:
+      tags: [Children]
+      summary: Create child profile
+      security: [{BearerAuth: []}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Child'
+      responses:
+        '201':
+          description: Profile created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  child_id: {type: string, format: uuid}
+
+  /children/{child_id}:
+    get:
+      tags: [Children]
+      summary: Get child profile including skill summary
+      security: [{BearerAuth: []}]
+      parameters:
+        - in: path
+          name: child_id
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Child details
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Child'
+                  - type: object
+                    properties:
+                      recent_skill_levels:
+                        type: array
+                        items: {$ref: '#/components/schemas/SkillLevel'}
+
+  # --- Sessions ---
+  /sessions:
+    post:
+      tags: [Sessions]
+      summary: Start a new learning session
+      security: [{BearerAuth: []}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [child_id]
+              properties:
+                child_id: {type: string, format: uuid}
+                session_type: {$ref: '#/components/schemas/SessionType'}
+      responses:
+        '201':
+          description: Session started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+
+  /sessions/{session_id}/utterances:
+    post:
+      tags: [Sessions]
+      summary: Upload audio chunk and get AI response (Streaming)
+      security: [{BearerAuth: []}]
+      parameters:
+        - in: path
+          name: session_id
+          required: true
+          schema: {type: string, format: uuid}
+        - in: header
+          name: X-Idempotency-Key
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AudioChunkRequest'
+      responses:
+        '200':
+          description: AI Response (Streaming/Audio URL)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UtteranceResponse'
+
+  /sessions/{session_id}/end:
+    post:
+      tags: [Sessions]
+      summary: End session manually
+      security: [{BearerAuth: []}]
+      parameters:
+        - in: path
+          name: session_id
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Session ended summary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  duration_seconds: {type: integer}
+                  engagement_score: {type: number}
+
+  # --- Reports ---
+  /reports:
+    get:
+      tags: [Reports]
+      summary: List reports for family
+      security: [{BearerAuth: []}]
+      responses:
+        '200':
+          description: List of reports
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {$ref: '#/components/schemas/Report'}
+
+  /reports/{report_id}:
+    get:
+      tags: [Reports]
+      summary: Get detailed report
+      security: [{BearerAuth: []}]
+      parameters:
+        - in: path
+          name: report_id
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Detailed report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+
+  # --- Trial ---
+  /trial/quick-start:
+    post:
+      tags: [Trial]
+      summary: Quick start session without login (Onboarding)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                device_id: {type: string}
+      responses:
+        '201':
+          description: Temporary session created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  temp_session_id: {type: string, format: uuid}
+                  token: {type: string, description: "Temporary ephemeral token"}
+
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # --- Auth & Basic ---
+    ErrorResponse:
+      type: object
+      properties:
+        error_code:
+          type: string
+          example: "AUTH_FAILED"
+        message:
+          type: string
+          example: "Invalid credentials"
+        detail:
+          type: object
+
+    # --- Family ---
+    FamilyAccount:
+      type: object
+      required: [family_id, parent_name, email]
+      properties:
+        family_id:
+          type: string
+          format: uuid
+        parent_name:
+          type: string
+          example: "Kim Cheolsu"
+        email:
+          type: string
+          format: email
+        status:
+          type: string
+          enum: [active, inactive, suspended]
+
+    # --- Child ---
+    Child:
+      type: object
+      required: [child_id, name, birth_date]
+      properties:
+        child_id:
+          type: string
+          format: uuid
+        family_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: "Byul"
+        birth_date:
+          type: string
+          format: date
+          example: "2019-05-05"
+        gender:
+          type: string
+          enum: [male, female, other]
+        primary_language:
+          type: string
+          default: "ko"
+        development_stage_language:
+          type: string
+          description: "Parent-reported language level (e.g., beginner, intermediate)"
+
+    # --- Session ---
+    SessionType:
+      type: string
+      enum: [curriculum, free_talk, assessment, game]
+
+    Session:
+      type: object
+      required: [session_id, child_id, status]
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        child_id:
+          type: string
+          format: uuid
+        session_type:
+          $ref: '#/components/schemas/SessionType'
+        curriculum_unit_id:
+          type: string
+          nullable: true
+        start_time:
+          type: string
+          format: date-time
+        duration_seconds:
+          type: integer
+        status:
+          type: string
+          enum: [idle, active, paused, ended]
+        engagement_score:
+          type: number
+          format: float
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/SessionActivity'
+
+    SessionActivity:
+      type: object
+      properties:
+        session_activity_id:
+          type: string
+          format: uuid
+        activity_id:
+          type: string
+        status:
+          type: string
+          enum: [pending, in_progress, completed, skipped]
+        started_at:
+          type: string
+          format: date-time
+
+    # --- Audio & Utterance ---
+    AudioChunkRequest:
+      type: object
+      required: [audio_data]
+      properties:
+        audio_data:
+          type: string
+          format: byte
+          description: "Base64 encoded OGG/Opus audio chunk"
+        chunk_index:
+          type: integer
+        is_final:
+          type: boolean
+          default: false
+
+    UtteranceResponse:
+      type: object
+      properties:
+        utterance_id:
+          type: string
+          format: uuid
+        ai_response_audio_url:
+          type: string
+          format: uri
+        text_transcript:
+          type: string
+        speaker_type:
+          type: string
+          enum: [child, ai]
+
+    # --- Skill & Report ---
+    SkillLevel:
+      type: object
+      properties:
+        skill_id:
+          type: string
+        level:
+          type: integer
+        raw_score:
+          type: number
+        percentile_by_age:
+          type: number
+        trend_direction:
+          type: string
+          enum: [up, steady, down]
+
+    Report:
+      type: object
+      properties:
+        report_id:
+          type: string
+          format: uuid
+        period_start:
+          type: string
+          format: date
+        period_end:
+          type: string
+          format: date
+        summary_text:
+          type: string
+        strengths_summary:
+          type: string
+        areas_to_improve:
+          type: string
+        recommendations_next_month:
+          type: string
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSkillSummary'
+
+    ReportSkillSummary:
+      type: object
+      properties:
+        skill_id:
+          type: string
+        skill_name:
+          type: string
+        level:
+          type: integer
+        summary_for_parent:
+          type: string
+
+
+security:
+  - BearerAuth: []

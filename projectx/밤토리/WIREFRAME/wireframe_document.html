@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Bamtory - 와이어프레임 문서</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.5; color: #333; background: #f0f0f0; }
+
+        .page {
+            background: white;
+            padding: 50px;
+            margin: 30px auto;
+            max-width: 900px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            page-break-after: always;
+            border-radius: 8px;
+        }
+        .page:last-child { page-break-after: auto; }
+
+        h1 { font-size: 28px; color: #1a1a1a; margin-bottom: 8px; }
+        h2 { font-size: 22px; color: #333; margin: 25px 0 12px 0; }
+        h3 { font-size: 16px; color: #555; margin: 18px 0 8px 0; }
+        p { margin-bottom: 10px; color: #555; }
+
+        /* Cover Page */
+        .cover { text-align: center; padding: 80px 50px; }
+        .cover h1 { font-size: 52px; color: #5D5FEF; margin-bottom: 15px; }
+        .cover .subtitle { font-size: 22px; color: #666; margin-bottom: 30px; }
+        .cover .meta { font-size: 13px; color: #999; margin-top: 50px; line-height: 2; }
+
+        /* Screen Header */
+        .screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+        .screen-title { font-size: 24px; font-weight: 700; color: #1a1a1a; }
+        .screen-path {
+            background: #f5f5f5;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #666;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+
+        /* Phone Frame */
+        .phone-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        .phone-frame {
+            width: 280px;
+            min-width: 280px;
+            height: 560px;
+            background: #fafafa;
+            border: 3px solid #333;
+            border-radius: 35px;
+            padding: 12px;
+            position: relative;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        .phone-notch {
+            width: 100px;
+            height: 25px;
+            background: #333;
+            border-radius: 0 0 15px 15px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Wireframe Elements */
+        .wf-header {
+            height: 50px;
+            background: linear-gradient(135deg, #ddd 0%, #ccc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+        }
+        .wf-header.purple { background: linear-gradient(135deg, #9b8cff 0%, #7c6cef 100%); }
+        .wf-header.blue { background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%); }
+        .wf-header.orange { background: linear-gradient(135deg, #ffb74d 0%, #ffa726 100%); }
+        .wf-header.green { background: linear-gradient(135deg, #81c784 0%, #66bb6a 100%); }
+
+        .wf-box {
+            background: #e0e0e0;
+            border: 2px dashed #bbb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            padding: 4px;
+        }
+        .wf-box.solid { border-style: solid; background: #f5f5f5; }
+        .wf-box.accent { background: #e8e8ff; border-color: #b8b8ff; }
+
+        .wf-text {
+            background: repeating-linear-gradient(90deg, #ccc, #ccc 30px, transparent 30px, transparent 35px);
+            height: 8px;
+            border-radius: 2px;
+        }
+        .wf-text.short { width: 60%; }
+        .wf-text.medium { width: 80%; }
+        .wf-text.full { width: 100%; }
+
+        .wf-circle {
+            border-radius: 50%;
+            background: #e0e0e0;
+            border: 2px dashed #bbb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wf-circle.solid { border-style: solid; }
+
+        .wf-btn {
+            background: linear-gradient(135deg, #666 0%, #555 100%);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .wf-btn.primary { background: linear-gradient(135deg, #7c6cef 0%, #5D5FEF 100%); }
+        .wf-btn.secondary { background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%); }
+        .wf-btn.success { background: linear-gradient(135deg, #81c784 0%, #4caf50 100%); }
+
+        .wf-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .wf-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 55px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 5px;
+        }
+        .wf-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .wf-nav-icon {
+            width: 22px;
+            height: 22px;
+            background: #ddd;
+            border-radius: 5px;
+        }
+        .wf-nav-icon.active { background: #7c6cef; }
+        .wf-nav-label {
+            font-size: 8px;
+            color: #999;
+        }
+        .wf-nav-label.active { color: #5D5FEF; }
+
+        /* Annotations */
+        .annotations {
+            flex: 1;
+        }
+        .annotation {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #5D5FEF;
+        }
+        .annotation-num {
+            width: 24px;
+            height: 24px;
+            background: #5D5FEF;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .annotation-content h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .annotation-content p {
+            font-size: 12px;
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Marker in wireframe */
+        .marker {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #5D5FEF;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            z-index: 10;
+            box-shadow: 0 2px 6px rgba(93,95,239,0.4);
+        }
+
+        /* Flow Diagram */
+        .flow-container {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .flow-step {
+            background: #5D5FEF;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .flow-arrow {
+            color: #999;
+            font-size: 18px;
+        }
+
+        /* Table */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+        .info-table th, .info-table td {
+            border: 1px solid #e0e0e0;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .info-table th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Highlight box */
+        .highlight {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+
+        /* Two column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* Character box */
+        .character-box {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin: 10px 0;
+        }
+        .character-emoji { font-size: 40px; }
+        .character-info h4 { font-size: 16px; margin-bottom: 4px; }
+        .character-info p { font-size: 13px; color: #666; margin: 0; }
+
+        /* Small phone for comparison */
+        .phone-small {
+            width: 140px;
+            height: 280px;
+        }
+        .phone-small .phone-notch {
+            width: 50px;
+            height: 12px;
+        }
+
+        /* Screen content area */
+        .screen-content {
+            padding: 8px;
+            height: calc(100% - 55px);
+            overflow: hidden;
+        }
+        .screen-content.full { height: 100%; }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="page cover">
+        <div style="font-size: 80px; margin-bottom: 20px;">🌙 🦜 📚</div>
+        <h1>Bamtory</h1>
+        <div class="subtitle">어린이 영어 학습 앱<br>와이어프레임 문서</div>
+        <p style="color: #888; font-size: 16px;">Children's English Learning Mobile Application</p>
+        <div class="meta">
+            <p><strong>Version:</strong> 1.0</p>
+            <p><strong>Date:</strong> 2026-02-06</p>
+            <p><strong>Platform:</strong> iOS / Android Mobile</p>
+            <p><strong>Target:</strong> Children aged 5-10</p>
+        </div>
+    </div>
+
+    <!-- Overview Page -->
+    <div class="page">
+        <h1>1. 프로젝트 개요</h1>
+
+        <h2>앱 소개</h2>
+        <p><strong>Bamtory</strong>는 어린이를 위한 인터랙티브 영어 학습 앱입니다. 아이들은 캐릭터 "Luna"를 도와주며 자연스럽게 영어를 배웁니다.</p>
+
+        <div class="highlight">
+            <strong>핵심 기능:</strong>
+            <ul style="margin-top: 8px; padding-left: 20px;">
+                <li>스토리 기반 미션 학습</li>
+                <li>음성 인식 기반 스피킹 연습</li>
+                <li>게이미피케이션 (레벨, 스타, 업적)</li>
+                <li>AI 튜터 "Popo"의 실시간 피드백</li>
+            </ul>
+        </div>
+
+        <h2>주요 캐릭터</h2>
+        <div class="two-col">
+            <div class="character-box">
+                <div class="character-emoji">🌙</div>
+                <div class="character-info">
+                    <h4>Luna (루나)</h4>
+                    <p>영어를 배우고 싶은 귀여운 토끼.<br>아이들이 도와줘야 하는 주인공.</p>
+                </div>
+            </div>
+            <div class="character-box">
+                <div class="character-emoji">🦜</div>
+                <div class="character-info">
+                    <h4>Popo (포포)</h4>
+                    <p>AI 튜터 앵무새.<br>힌트를 주고 격려하는 조력자.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>앱 구조</h2>
+        <div class="flow-container">
+            <span class="flow-step">🏠 홈</span>
+            <span class="flow-step">📖 미션</span>
+            <span class="flow-step">🎁 보상</span>
+            <span class="flow-step">📚 어휘</span>
+            <span class="flow-step">👤 프로필</span>
+        </div>
+
+        <table class="info-table">
+            <tr>
+                <th>화면</th>
+                <th>경로</th>
+                <th>설명</th>
+            </tr>
+            <tr><td>홈</td><td>/</td><td>오늘의 미션, 진행상황</td></tr>
+            <tr><td>미션 목록</td><td>/missions</td><td>전체 미션 그리드</td></tr>
+            <tr><td>미션 학습</td><td>/mission/:id</td><td>스토리 + 음성 인식</td></tr>
+            <tr><td>어휘 학습</td><td>/vocabulary</td><td>카테고리별 단어 학습</td></tr>
+            <tr><td>보상 상점</td><td>/rewards</td><td>아이템 구매</td></tr>
+            <tr><td>프로필</td><td>/profile</td><td>통계, 업적</td></tr>
+        </table>
+    </div>
+
+    <!-- Home Screen -->
+    <div class="page">
+        <div class="screen-header">
+            <span class="screen-title">홈 화면 (Home Screen)</span>
+            <span class="screen-path">/</span>
+        </div>
+
+        <div class="phone-container">
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="screen-content">
+                        <!-- Header -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; position: relative;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="wf-box solid" style="width: 35px; height: 35px; font-size: 14px; font-weight: bold;">3</div>
+                                <div>
+                                    <div class="wf-text short" style="width: 70px; margin-bottom: 4px;"></div>
+                                    <div class="wf-text" style="width: 90px; height: 6px;"></div>
+                                </div>
+                            </div>
+                            <div class="wf-box solid" style="width: 65px; height: 28px; font-size: 14px;">💗💗💗</div>
+                            <div class="marker" style="top: -5px; left: 0;">1</div>
+                        </div>
+
+                        <!-- Streak Card -->
+                        <div style="position: relative; margin: 10px 0;">
+                            <div class="wf-card" style="background: linear-gradient(135deg, #81c784 0%, #66bb6a 100%); padding: 12px;">
+                                <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 100px; margin-bottom: 6px;"></div>
+                                <div class="wf-text" style="background: rgba(255,255,255,0.3); width: 140px; height: 6px;"></div>
+                            </div>
+                            <div class="marker" style="top: -5px; right: -5px;">2</div>
+                        </div>
+
+                        <!-- Today's Missions Title -->
+                        <div style="display: flex; justify-content: space-between; margin: 12px 0 8px 0; position: relative;">
+                            <div class="wf-text" style="width: 100px;"></div>
+                            <div class="wf-text" style="width: 50px; height: 6px;"></div>
+                            <div class="marker" style="top: -10px; left: 40px;">3</div>
+                        </div>
+
+                        <!-- Mission Cards -->
+                        <div style="display: flex; gap: 8px; overflow: hidden; position: relative;">
+                            <div class="wf-card" style="min-width: 100px; height: 140px; background: linear-gradient(135deg, #ffb88c 0%, #ff6b6b 100%); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="font-size: 28px; margin-bottom: 8px;">🍎</div>
+                                <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 60px; margin-bottom: 4px;"></div>
+                                <div class="wf-text" style="background: rgba(255,255,255,0.3); width: 70px; height: 5px;"></div>
+                            </div>
+                            <div class="wf-card" style="min-width: 100px; height: 140px; background: linear-gradient(135deg, #4ecdc4 0%, #20b2aa 100%); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="font-size: 28px; margin-bottom: 8px;">⚽</div>
+                                <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 60px; margin-bottom: 4px;"></div>
+                                <div class="wf-text" style="background: rgba(255,255,255,0.3); width: 70px; height: 5px;"></div>
+                            </div>
+                            <div class="wf-card" style="min-width: 60px; height: 140px; background: linear-gradient(135deg, #bb8fce 0%, #9b59b6 100%); opacity: 0.6;">
+                            </div>
+                        </div>
+
+                        <!-- Progress Section -->
+                        <div style="position: relative; margin-top: 12px;">
+                            <div class="wf-card" style="padding: 10px;">
+                                <div class="wf-text" style="width: 80px; margin-bottom: 10px;"></div>
+                                <div style="margin-bottom: 8px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div class="wf-text" style="width: 80px; height: 6px;"></div>
+                                        <div class="wf-text" style="width: 30px; height: 6px;"></div>
+                                    </div>
+                                    <div style="height: 6px; background: #eee; border-radius: 3px;">
+                                        <div style="height: 100%; width: 80%; background: #4caf50; border-radius: 3px;"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div class="wf-text" style="width: 60px; height: 6px;"></div>
+                                        <div class="wf-text" style="width: 30px; height: 6px;"></div>
+                                    </div>
+                                    <div style="height: 6px; background: #eee; border-radius: 3px;">
+                                        <div style="height: 100%; width: 71%; background: #2196f3; border-radius: 3px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="marker" style="top: -5px; right: -5px;">4</div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Nav -->
+                    <div class="wf-nav">
+                        <div class="wf-nav-item">
+                            <div class="wf-nav-icon active"></div>
+                            <span class="wf-nav-label active">홈</span>
+                        </div>
+                        <div class="wf-nav-item">
+                            <div class="wf-nav-icon"></div>
+                            <span class="wf-nav-label">미션</span>
+                        </div>
+                        <div class="wf-nav-item">
+                            <div class="wf-nav-icon"></div>
+                            <span class="wf-nav-label">보상</span>
+                        </div>
+                        <div class="wf-nav-item">
+                            <div class="wf-nav-icon"></div>
+                            <span class="wf-nav-label">어휘</span>
+                        </div>
+                        <div class="wf-nav-item">
+                            <div class="wf-nav-icon"></div>
+                            <span class="wf-nav-label">프로필</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="annotations">
+                <div class="annotation">
+                    <div class="annotation-num">1</div>
+                    <div class="annotation-content">
+                        <h4>헤더 영역</h4>
+                        <p>• 레벨 표시 (숫자 + "level" 레이블)<br>• 인사말 ("Hi, 별!")<br>• 생명력 💗💗💗 (최대 3개)</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">2</div>
+                    <div class="annotation-content">
+                        <h4>스트릭 카드</h4>
+                        <p>• 연속 학습일 표시 ("7 Days Streak!")<br>• 초록색 그라데이션 배경<br>• 격려 메시지</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">3</div>
+                    <div class="annotation-content">
+                        <h4>오늘의 미션</h4>
+                        <p>• 가로 스크롤 카드 리스트<br>• 각 카드: 난이도, 이모지, 제목<br>• 탭 시 미션 상세로 이동<br>• "View All" 버튼</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">4</div>
+                    <div class="annotation-content">
+                        <h4>진행 상황</h4>
+                        <p>• Missions Completed: 12/15 (80%)<br>• This Week: 5/7 (71%)<br>• 진행률 바 애니메이션</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission List Screen -->
+    <div class="page">
+        <div class="screen-header">
+            <span class="screen-title">미션 목록 화면 (Mission List)</span>
+            <span class="screen-path">/missions</span>
+        </div>
+
+        <div class="phone-container">
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="screen-content">
+                        <!-- Purple Header -->
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: -8px -8px 10px -8px; padding: 15px; border-radius: 0 0 20px 20px; position: relative;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <div>
+                                    <div class="wf-text" style="background: rgba(255,255,255,0.6); width: 80px; margin-bottom: 4px;"></div>
+                                    <div class="wf-text" style="background: rgba(255,255,255,0.4); width: 100px; height: 5px;"></div>
+                                </div>
+                                <div class="wf-box solid" style="width: 40px; height: 40px; background: rgba(255,255,255,0.2); font-size: 18px;">🎯</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.2); border-radius: 10px; padding: 8px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                    <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 70px; height: 6px;"></div>
+                                    <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 25px; height: 6px;"></div>
+                                </div>
+                                <div style="height: 8px; background: rgba(255,255,255,0.3); border-radius: 4px;">
+                                    <div style="height: 100%; width: 33%; background: #4caf50; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                            <div class="marker" style="top: 5px; right: 5px;">1</div>
+                        </div>
+
+                        <!-- Mission Grid -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: relative;">
+                            <!-- Completed -->
+                            <div class="wf-card" style="height: 95px; background: linear-gradient(135deg, #ffb88c 0%, #ff6b6b 100%); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="position: absolute; top: 5px; left: 5px; width: 18px; height: 18px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">✓</div>
+                                <div style="font-size: 24px;">🍎</div>
+                                <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 50px; margin-top: 6px;"></div>
+                            </div>
+                            <!-- Completed -->
+                            <div class="wf-card" style="height: 95px; background: linear-gradient(135deg, #4ecdc4 0%, #20b2aa 100%); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="position: absolute; top: 5px; left: 5px; width: 18px; height: 18px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">✓</div>
+                                <div style="font-size: 24px;">⚽</div>
+                                <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 50px; margin-top: 6px;"></div>
+                            </div>
+                            <!-- In Progress -->
+                            <div class="wf-card" style="height: 95px; background: linear-gradient(135deg, #bb8fce 0%, #9b59b6 100%); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="position: absolute; top: 5px; left: 5px; padding: 2px 6px; background: white; border-radius: 8px; font-size: 8px; color: #9b59b6;">보통</div>
+                                <div style="font-size: 24px;">🎨</div>
+                                <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 50px; margin-top: 6px;"></div>
+                            </div>
+                            <!-- Available -->
+                            <div class="wf-card" style="height: 95px; background: linear-gradient(135deg, #f8c471 0%, #f39c12 100%); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="position: absolute; top: 5px; left: 5px; padding: 2px 6px; background: white; border-radius: 8px; font-size: 8px; color: #f39c12;">쉬움</div>
+                                <div style="font-size: 24px;">🐶</div>
+                                <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 50px; margin-top: 6px;"></div>
+                            </div>
+                            <!-- Locked -->
+                            <div class="wf-card" style="height: 95px; background: #e0e0e0; opacity: 0.6; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="position: absolute; top: 5px; left: 5px; width: 18px; height: 18px; background: #999; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; color: white;">🔒</div>
+                                <div style="font-size: 24px; filter: grayscale(100%);">☀️</div>
+                                <div class="wf-text" style="width: 50px; margin-top: 6px;"></div>
+                            </div>
+                            <!-- Locked -->
+                            <div class="wf-card" style="height: 95px; background: #e0e0e0; opacity: 0.6; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="position: absolute; top: 5px; left: 5px; width: 18px; height: 18px; background: #999; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; color: white;">🔒</div>
+                                <div style="font-size: 24px; filter: grayscale(100%);">🔢</div>
+                                <div class="wf-text" style="width: 50px; margin-top: 6px;"></div>
+                            </div>
+                            <div class="marker" style="top: -5px; right: -5px;">2</div>
+                        </div>
+                    </div>
+                    <div class="wf-nav">
+                        <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">홈</span></div>
+                        <div class="wf-nav-item"><div class="wf-nav-icon active"></div><span class="wf-nav-label active">미션</span></div>
+                        <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">보상</span></div>
+                        <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">어휘</span></div>
+                        <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">프로필</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="annotations">
+                <div class="annotation">
+                    <div class="annotation-num">1</div>
+                    <div class="annotation-content">
+                        <h4>프로그레스 헤더</h4>
+                        <p>• 보라색 그라데이션 배경<br>• "All Missions" 제목<br>• 🎯 아이콘<br>• 진행률 바 (Your Progress: 2/6)</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">2</div>
+                    <div class="annotation-content">
+                        <h4>미션 그리드 (2열)</h4>
+                        <p>• <strong>완료:</strong> ✓ 체크 아이콘<br>• <strong>진행중:</strong> 난이도 뱃지 (쉬움/보통/어려움)<br>• <strong>잠김:</strong> 🔒 아이콘, 회색 처리<br>• 탭 시 미션 상세로 이동</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 20px;">미션 상태</h3>
+                <table class="info-table">
+                    <tr><th>상태</th><th>표시</th><th>액션</th></tr>
+                    <tr><td>완료</td><td>✓ 체크마크</td><td>재플레이 가능</td></tr>
+                    <tr><td>진행중</td><td>난이도 뱃지</td><td>미션 시작</td></tr>
+                    <tr><td>잠김</td><td>🔒 + 회색</td><td>탭 불가</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission Video Screen -->
+    <div class="page">
+        <div class="screen-header">
+            <span class="screen-title">미션 학습 화면 (Mission Video)</span>
+            <span class="screen-path">/mission/:id</span>
+        </div>
+
+        <div class="phone-container">
+            <!-- Preview State -->
+            <div class="phone-frame" style="width: 220px; min-width: 220px; height: 440px;">
+                <div class="phone-notch" style="width: 70px; height: 18px;"></div>
+                <div class="phone-screen">
+                    <div class="screen-content full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 15px;">
+                        <!-- Back button -->
+                        <div style="position: absolute; top: 10px; left: 10px; width: 24px; height: 24px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">←</div>
+
+                        <!-- Mission Icon -->
+                        <div class="wf-box solid" style="width: 80px; height: 80px; border-radius: 20px; font-size: 40px; margin-bottom: 12px;">🍎</div>
+
+                        <!-- Title -->
+                        <div class="wf-text" style="width: 120px; height: 12px; margin-bottom: 6px;"></div>
+                        <div class="wf-text" style="width: 100px; height: 8px; margin-bottom: 15px;"></div>
+
+                        <!-- Info Cards -->
+                        <div style="display: flex; gap: 6px; margin-bottom: 15px; position: relative;">
+                            <div class="wf-card" style="width: 55px; padding: 6px; text-align: center;">
+                                <div style="font-size: 14px; margin-bottom: 2px;">⏱️</div>
+                                <div style="font-size: 10px; font-weight: bold;">60s</div>
+                            </div>
+                            <div class="wf-card" style="width: 55px; padding: 6px; text-align: center;">
+                                <div style="font-size: 14px; margin-bottom: 2px;">⚡</div>
+                                <div style="font-size: 10px; font-weight: bold;">Medium</div>
+                            </div>
+                            <div class="wf-card" style="width: 55px; padding: 6px; text-align: center;">
+                                <div style="font-size: 14px; margin-bottom: 2px;">⭐⭐⭐</div>
+                                <div style="font-size: 10px; font-weight: bold;">×3</div>
+                            </div>
+                            <div class="marker" style="top: -8px; right: -8px; width: 16px; height: 16px; font-size: 9px;">1</div>
+                        </div>
+
+                        <!-- Start Button -->
+                        <div class="wf-btn primary" style="width: 160px; height: 40px; margin-bottom: 10px; position: relative;">
+                            Start Mission →
+                            <div class="marker" style="top: -8px; right: -8px; width: 16px; height: 16px; font-size: 9px;">2</div>
+                        </div>
+
+                        <!-- Items -->
+                        <div style="display: flex; gap: 8px; position: relative;">
+                            <div class="wf-box solid" style="width: 35px; height: 35px; font-size: 16px;">⏰</div>
+                            <div class="wf-box solid" style="width: 35px; height: 35px; font-size: 16px;">💡</div>
+                            <div class="wf-box solid" style="width: 35px; height: 35px; font-size: 16px;">🦜</div>
+                            <div class="marker" style="top: -8px; right: -8px; width: 16px; height: 16px; font-size: 9px;">3</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 8px; font-size: 11px; color: #666;">프리뷰 화면</div>
+            </div>
+
+            <!-- Playing State -->
+            <div class="phone-frame" style="width: 220px; min-width: 220px; height: 440px;">
+                <div class="phone-notch" style="width: 70px; height: 18px;"></div>
+                <div class="phone-screen">
+                    <div class="screen-content full" style="background: linear-gradient(to bottom, #4a5568, #2d3748, #1a202c); position: relative;">
+                        <!-- Status Bar -->
+                        <div style="position: absolute; top: 25px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: center; z-index: 5;">
+                            <div style="display: flex; align-items: center; gap: 4px; color: white; font-size: 10px;">
+                                <span>⏱️</span>
+                                <span style="font-weight: bold;">0:45</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 10px; color: white; font-size: 9px;">Medium</div>
+                            <div style="background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 10px; color: white; font-size: 9px;">🎒 Items</div>
+                            <div class="marker" style="top: -12px; left: 0; width: 16px; height: 16px; font-size: 9px;">4</div>
+                        </div>
+
+                        <!-- Luna Area -->
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -70%); text-align: center;">
+                            <div class="wf-circle solid" style="width: 70px; height: 70px; background: white; font-size: 35px; border: 4px dashed #666;">🌙</div>
+                            <div style="font-size: 8px; color: #888; margin-top: 5px;">[Luna's Story]</div>
+                        </div>
+
+                        <!-- Floating Object -->
+                        <div style="position: absolute; top: 60px; right: 20px; width: 30px; height: 30px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">⚽</div>
+
+                        <!-- Popo Chat -->
+                        <div style="position: absolute; bottom: 100px; left: 8px; right: 8px; position: relative;">
+                            <div class="wf-card" style="padding: 10px; border-radius: 15px;">
+                                <div style="position: absolute; top: -15px; left: -5px; width: 30px; height: 30px; background: #f5f5f5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 2px solid white;">🦜</div>
+                                <div style="padding-left: 20px;">
+                                    <div style="font-size: 8px; color: #999; margin-bottom: 3px;">Popo</div>
+                                    <div class="wf-text" style="width: 100%; margin-bottom: 3px;"></div>
+                                    <div class="wf-text" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                            <div class="marker" style="top: -20px; right: 0; width: 16px; height: 16px; font-size: 9px;">5</div>
+                        </div>
+
+                        <!-- Speech Dashboard -->
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: white; border-radius: 20px 20px 0 0; padding: 12px; text-align: center;">
+                            <div class="wf-text" style="width: 80px; margin: 0 auto 8px auto;"></div>
+                            <div style="display: flex; justify-content: center; gap: 10px; position: relative;">
+                                <div class="wf-box solid" style="width: 40px; height: 50px; border-radius: 12px; font-size: 16px; flex-direction: column;">
+                                    <span>❓</span>
+                                    <span style="font-size: 7px; margin-top: 2px;">Help</span>
+                                </div>
+                                <div class="wf-btn primary" style="width: 70px; height: 60px; border-radius: 15px; font-size: 20px; flex-direction: column;">
+                                    <span>🎤</span>
+                                    <span style="font-size: 8px; margin-top: 2px;">Speak</span>
+                                </div>
+                                <div class="wf-box solid" style="width: 40px; height: 50px; border-radius: 12px; font-size: 16px; flex-direction: column;">
+                                    <span>⏭️</span>
+                                    <span style="font-size: 7px; margin-top: 2px;">Pass</span>
+                                </div>
+                                <div class="marker" style="top: -10px; right: 10px; width: 16px; height: 16px; font-size: 9px;">6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 8px; font-size: 11px; color: #666;">미션 진행 화면</div>
+            </div>
+
+            <div class="annotations" style="flex: 1;">
+                <div class="annotation">
+                    <div class="annotation-num">1</div>
+                    <div class="annotation-content">
+                        <h4>미션 정보</h4>
+                        <p>시간제한, 난이도, 보상 표시</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">2</div>
+                    <div class="annotation-content">
+                        <h4>시작 버튼</h4>
+                        <p>생명력 0일 때 비활성화</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">3</div>
+                    <div class="annotation-content">
+                        <h4>보유 아이템</h4>
+                        <p>Extra Time, Hint, Popo Chance</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">4</div>
+                    <div class="annotation-content">
+                        <h4>상태 바</h4>
+                        <p>타이머 (10초 이하 빨간색), 난이도, 아이템 버튼</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">5</div>
+                    <div class="annotation-content">
+                        <h4>Popo 챗봇</h4>
+                        <p>상황 설명 + 도움 요청 메시지</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">6</div>
+                    <div class="annotation-content">
+                        <h4>음성 입력</h4>
+                        <p>Help / Speak / Pass 버튼<br>녹음 중 음파 애니메이션</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback & Completion -->
+    <div class="page">
+        <div class="screen-header">
+            <span class="screen-title">피드백 & 완료 화면</span>
+            <span class="screen-path">/feedback/:id, /complete/:id</span>
+        </div>
+
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <!-- Success Feedback -->
+            <div>
+                <div class="phone-frame" style="width: 180px; min-width: 180px; height: 360px;">
+                    <div class="phone-notch" style="width: 60px; height: 15px;"></div>
+                    <div class="phone-screen">
+                        <div class="screen-content full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 15px;">
+                            <!-- Success Icon -->
+                            <div class="wf-circle solid" style="width: 70px; height: 70px; border: 4px solid #4caf50; font-size: 35px; margin-bottom: 12px;">🐰✨</div>
+                            <div style="color: #4caf50; font-size: 18px; font-weight: bold; margin-bottom: 5px;">Perfect!</div>
+                            <div class="wf-text" style="width: 100px; margin-bottom: 15px;"></div>
+
+                            <!-- Popo Card -->
+                            <div class="wf-card" style="padding: 10px; margin-bottom: 15px; border: 2px solid #4caf50; width: 100%;">
+                                <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
+                                    <span style="font-size: 20px;">👍</span>
+                                    <span style="color: #4caf50; font-weight: bold; font-size: 12px;">Great!</span>
+                                </div>
+                            </div>
+
+                            <div class="wf-btn success" style="width: 130px; height: 35px; font-size: 11px;">Continue →</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 8px; font-size: 11px; color: #4caf50; font-weight: 600;">성공 피드백</div>
+            </div>
+
+            <!-- Hint Feedback -->
+            <div>
+                <div class="phone-frame" style="width: 180px; min-width: 180px; height: 360px;">
+                    <div class="phone-notch" style="width: 60px; height: 15px;"></div>
+                    <div class="phone-screen">
+                        <div class="screen-content full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 15px;">
+                            <!-- Hint Icon -->
+                            <div class="wf-circle solid" style="width: 70px; height: 70px; border: 4px solid #ff9800; font-size: 35px; margin-bottom: 12px;">🐰❓</div>
+                            <div style="color: #ff9800; font-size: 16px; font-weight: bold; margin-bottom: 5px;">Try Again!</div>
+                            <div class="wf-text" style="width: 100px; margin-bottom: 15px;"></div>
+
+                            <!-- Hint Card -->
+                            <div class="wf-card" style="padding: 10px; margin-bottom: 15px; border: 2px solid #ff9800; width: 100%;">
+                                <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 5px;">
+                                    <span style="font-size: 14px;">💡</span>
+                                    <span style="color: #ff9800; font-weight: bold; font-size: 11px;">Try this!</span>
+                                </div>
+                                <div class="wf-box" style="padding: 8px; font-size: 9px;">"That's not an apple..."</div>
+                            </div>
+
+                            <div class="wf-btn secondary" style="width: 130px; height: 35px; font-size: 11px;">Try Again</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 8px; font-size: 11px; color: #ff9800; font-weight: 600;">힌트 피드백</div>
+            </div>
+
+            <!-- Completion -->
+            <div>
+                <div class="phone-frame" style="width: 180px; min-width: 180px; height: 360px;">
+                    <div class="phone-notch" style="width: 60px; height: 15px;"></div>
+                    <div class="phone-screen">
+                        <div class="screen-content full" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 15px;">
+                            <!-- Trophy -->
+                            <div class="wf-circle solid" style="width: 60px; height: 60px; background: #4caf50; font-size: 28px; margin-bottom: 10px; border-color: white;">🏆</div>
+                            <div style="font-size: 18px; font-weight: bold; margin-bottom: 3px;">Well Done!</div>
+                            <div class="wf-text" style="width: 90px; margin-bottom: 12px;"></div>
+
+                            <!-- Rewards -->
+                            <div class="wf-card" style="padding: 8px; margin-bottom: 12px; width: 100%;">
+                                <div style="display: flex; justify-content: space-around;">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 18px;">⭐</div>
+                                        <div style="font-size: 12px; font-weight: bold;">+3</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 18px;">🌈</div>
+                                        <div style="font-size: 9px; color: #4caf50;">NEW!</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 18px;">🐰</div>
+                                        <div style="font-size: 9px; color: #4caf50;">HAPPY</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="wf-btn primary" style="width: 120px; height: 32px; font-size: 10px; margin-bottom: 6px;">Next Mission</div>
+                            <div class="wf-btn" style="width: 120px; height: 28px; font-size: 9px; background: #eee; color: #666;">Back to Home</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 8px; font-size: 11px; color: #5D5FEF; font-weight: 600;">미션 완료</div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 25px;">상태별 보상/페널티</h3>
+        <table class="info-table">
+            <tr><th>결과</th><th>스타</th><th>경험치</th><th>생명력</th></tr>
+            <tr><td>성공</td><td>+3 ⭐</td><td>+50 EXP</td><td>유지</td></tr>
+            <tr><td>실패 (힌트)</td><td>-</td><td>-</td><td>-1 💗</td></tr>
+        </table>
+    </div>
+
+    <!-- Vocabulary Screen -->
+    <div class="page">
+        <div class="screen-header">
+            <span class="screen-title">어휘 학습 화면 (Vocabulary)</span>
+            <span class="screen-path">/vocabulary</span>
+        </div>
+
+        <div class="phone-container">
+            <!-- Main -->
+            <div class="phone-frame" style="width: 220px; min-width: 220px; height: 440px;">
+                <div class="phone-notch" style="width: 70px; height: 18px;"></div>
+                <div class="phone-screen">
+                    <div class="screen-content">
+                        <!-- Blue Header -->
+                        <div style="background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%); margin: -8px -8px 10px -8px; padding: 12px; border-radius: 0 0 18px 18px; position: relative;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <div>
+                                    <div class="wf-text" style="background: rgba(255,255,255,0.6); width: 70px; margin-bottom: 4px;"></div>
+                                    <div class="wf-text" style="background: rgba(255,255,255,0.4); width: 90px; height: 5px;"></div>
+                                </div>
+                                <div class="wf-box solid" style="width: 35px; height: 35px; background: white; font-size: 18px; border-radius: 10px;">📖</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.2); border-radius: 10px; padding: 8px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                    <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 60px; height: 5px;"></div>
+                                    <div class="wf-text" style="background: rgba(255,255,255,0.5); width: 25px; height: 5px;"></div>
+                                </div>
+                                <div style="height: 6px; background: rgba(255,255,255,0.3); border-radius: 3px;">
+                                    <div style="height: 100%; width: 20%; background: #ffc107; border-radius: 3px;"></div>
+                                </div>
+                            </div>
+                            <div class="marker" style="top: 5px; right: 5px; width: 16px; height: 16px; font-size: 9px;">1</div>
+                        </div>
+
+                        <!-- Categories -->
+                        <div style="position: relative; margin-bottom: 10px;">
+                            <div class="wf-text" style="width: 60px; margin-bottom: 8px;"></div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                <div class="wf-card" style="padding: 10px; text-align: center; border: 2px solid #42a5f5;">
+                                    <div style="font-size: 22px; margin-bottom: 4px;">🍎</div>
+                                    <div class="wf-text" style="width: 35px; margin: 0 auto 2px;"></div>
+                                    <div style="font-size: 8px; color: #999;">10 words</div>
+                                </div>
+                                <div class="wf-card" style="padding: 10px; text-align: center;">
+                                    <div style="font-size: 22px; margin-bottom: 4px;">🐶</div>
+                                    <div class="wf-text" style="width: 40px; margin: 0 auto 2px;"></div>
+                                    <div style="font-size: 8px; color: #999;">10 words</div>
+                                </div>
+                                <div class="wf-card" style="padding: 10px; text-align: center;">
+                                    <div style="font-size: 22px; margin-bottom: 4px;">🎨</div>
+                                    <div class="wf-text" style="width: 35px; margin: 0 auto 2px;"></div>
+                                    <div style="font-size: 8px; color: #999;">10 words</div>
+                                </div>
+                                <div class="wf-card" style="padding: 10px; text-align: center;">
+                                    <div style="font-size: 22px; margin-bottom: 4px;">👨‍👩‍👧</div>
+                                    <div class="wf-text" style="width: 35px; margin: 0 auto 2px;"></div>
+                                    <div style="font-size: 8px; color: #999;">10 words</div>
+                                </div>
+                            </div>
+                            <div class="marker" style="top: -5px; right: 0; width: 16px; height: 16px; font-size: 9px;">2</div>
+                        </div>
+
+                        <!-- Word Preview -->
+                        <div style="position: relative;">
+                            <div class="wf-text" style="width: 70px; margin-bottom: 6px;"></div>
+                            <div class="wf-card" style="display: flex; align-items: center; gap: 8px; padding: 8px; margin-bottom: 5px;">
+                                <div style="font-size: 18px;">🍎</div>
+                                <div style="flex: 1;">
+                                    <div class="wf-text" style="width: 40px; margin-bottom: 3px;"></div>
+                                    <div class="wf-text" style="width: 25px; height: 5px;"></div>
+                                </div>
+                                <div style="color: #4caf50; font-size: 12px;">✓</div>
+                            </div>
+                            <div class="wf-card" style="display: flex; align-items: center; gap: 8px; padding: 8px;">
+                                <div style="font-size: 18px;">🍌</div>
+                                <div style="flex: 1;">
+                                    <div class="wf-text" style="width: 45px; margin-bottom: 3px;"></div>
+                                    <div class="wf-text" style="width: 30px; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="marker" style="top: -5px; right: 0; width: 16px; height: 16px; font-size: 9px;">3</div>
+                        </div>
+
+                        <!-- Start Button -->
+                        <div class="wf-btn secondary" style="width: 100%; height: 35px; margin-top: 10px; font-size: 10px; position: relative;">
+                            ▶ Start Learning (10 words)
+                            <div class="marker" style="top: -8px; right: -5px; width: 16px; height: 16px; font-size: 9px;">4</div>
+                        </div>
+                    </div>
+                    <div class="wf-nav">
+                        <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">홈</span></div>
+                        <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">미션</span></div>
+                        <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">보상</span></div>
+                        <div class="wf-nav-item"><div class="wf-nav-icon active"></div><span class="wf-nav-label active">어휘</span></div>
+                        <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">프로필</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning -->
+            <div class="phone-frame" style="width: 220px; min-width: 220px; height: 440px;">
+                <div class="phone-notch" style="width: 70px; height: 18px;"></div>
+                <div class="phone-screen">
+                    <div class="screen-content full">
+                        <!-- Back + Progress -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px;">
+                            <div style="width: 24px; height: 24px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">←</div>
+                            <div style="flex: 1; margin: 0 10px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 9px; margin-bottom: 3px;">
+                                    <span>3/10 words</span>
+                                    <span style="color: #ff9800;">⭐ +3</span>
+                                </div>
+                                <div style="height: 5px; background: #eee; border-radius: 3px;">
+                                    <div style="height: 100%; width: 30%; background: #42a5f5; border-radius: 3px;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Word Card -->
+                        <div class="wf-card" style="margin: 15px 8px; padding: 15px; text-align: center; position: relative;">
+                            <div class="wf-box solid" style="width: 70px; height: 70px; border-radius: 18px; font-size: 40px; margin: 0 auto 12px;">🍎</div>
+                            <div style="font-size: 24px; font-weight: bold; margin-bottom: 4px;">Apple</div>
+                            <div style="font-size: 13px; color: #666; margin-bottom: 2px;">사과</div>
+                            <div style="font-size: 10px; color: #999; margin-bottom: 10px;">/ˈæpəl/</div>
+                            <div class="wf-circle solid" style="width: 35px; height: 35px; margin: 0 auto 10px; font-size: 16px;">🔊</div>
+                            <div class="wf-box" style="padding: 8px; font-size: 10px; font-style: italic;">"I eat an apple."</div>
+                            <div class="marker" style="top: -8px; right: -5px; width: 16px; height: 16px; font-size: 9px;">5</div>
+                        </div>
+
+                        <!-- Popo Helper -->
+                        <div style="margin: 0 8px; padding: 8px; background: #e3f2fd; border-radius: 10px; display: flex; gap: 8px; align-items: flex-start; position: relative;">
+                            <div style="font-size: 20px;">🦜</div>
+                            <div style="font-size: 10px; color: #333;">Say "<strong>Apple</strong>" out loud! 🎤</div>
+                            <div class="marker" style="top: -8px; right: -5px; width: 16px; height: 16px; font-size: 9px;">6</div>
+                        </div>
+
+                        <!-- Controls -->
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: white; padding: 12px; border-radius: 18px 18px 0 0; box-shadow: 0 -4px 15px rgba(0,0,0,0.1);">
+                            <div style="text-align: center; margin-bottom: 8px;">
+                                <div class="wf-text" style="width: 100px; margin: 0 auto 3px;"></div>
+                                <div class="wf-text" style="width: 130px; height: 5px; margin: 0 auto;"></div>
+                            </div>
+                            <div style="display: flex; justify-content: center; gap: 12px; position: relative;">
+                                <div class="wf-box solid" style="width: 45px; height: 55px; border-radius: 12px; font-size: 18px; flex-direction: column;">
+                                    <span>⏭️</span>
+                                    <span style="font-size: 8px; margin-top: 3px;">Skip</span>
+                                </div>
+                                <div class="wf-btn primary" style="width: 75px; height: 65px; border-radius: 15px; font-size: 22px; flex-direction: column;">
+                                    <span>🎤</span>
+                                    <span style="font-size: 9px; margin-top: 3px;">Speak</span>
+                                </div>
+                                <div style="width: 45px;"></div>
+                                <div class="marker" style="top: -10px; right: 20px; width: 16px; height: 16px; font-size: 9px;">7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 8px; font-size: 11px; color: #666;">단어 학습 화면</div>
+            </div>
+
+            <div class="annotations" style="flex: 1;">
+                <div class="annotation">
+                    <div class="annotation-num">1</div>
+                    <div class="annotation-content">
+                        <h4>프로그레스 헤더</h4>
+                        <p>Today's Progress 진행률</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">2</div>
+                    <div class="annotation-content">
+                        <h4>카테고리 그리드</h4>
+                        <p>Food, Animals, Colors, Family<br>선택 시 하이라이트</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">3</div>
+                    <div class="annotation-content">
+                        <h4>단어 프리뷰</h4>
+                        <p>첫 3개 단어, 완료 시 ✓</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">4</div>
+                    <div class="annotation-content">
+                        <h4>시작 버튼</h4>
+                        <p>학습 화면으로 이동</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">5</div>
+                    <div class="annotation-content">
+                        <h4>단어 카드</h4>
+                        <p>이모지, 영어, 한국어, 발음기호<br>🔊 음성 재생, 예문</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">6</div>
+                    <div class="annotation-content">
+                        <h4>Popo 도우미</h4>
+                        <p>발음 안내 메시지</p>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">7</div>
+                    <div class="annotation-content">
+                        <h4>음성 입력</h4>
+                        <p>Skip / Speak 버튼</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rewards & Profile -->
+    <div class="page">
+        <div class="screen-header">
+            <span class="screen-title">보상 상점 & 프로필</span>
+            <span class="screen-path">/rewards, /profile</span>
+        </div>
+
+        <div style="display: flex; gap: 25px; justify-content: center;">
+            <!-- Rewards -->
+            <div>
+                <div class="phone-frame" style="width: 200px; min-width: 200px; height: 400px;">
+                    <div class="phone-notch" style="width: 65px; height: 16px;"></div>
+                    <div class="phone-screen">
+                        <div class="screen-content">
+                            <!-- Orange Header -->
+                            <div style="background: linear-gradient(135deg, #ffb74d 0%, #ffa726 100%); margin: -8px -8px 10px -8px; padding: 12px; border-radius: 0 0 16px 16px; position: relative;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <div>
+                                        <div class="wf-text" style="background: rgba(255,255,255,0.6); width: 60px; margin-bottom: 3px;"></div>
+                                        <div class="wf-text" style="background: rgba(255,255,255,0.4); width: 80px; height: 5px;"></div>
+                                    </div>
+                                    <div style="font-size: 22px;">🏪</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.2); border-radius: 10px; padding: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; align-items: center; gap: 5px;">
+                                        <span style="font-size: 16px;">⭐</span>
+                                        <span style="color: white; font-weight: bold; font-size: 16px;">125</span>
+                                    </div>
+                                    <div style="background: white; padding: 3px 8px; border-radius: 8px; font-size: 9px; color: #ffa726;">Earn More</div>
+                                </div>
+                                <div class="marker" style="top: 5px; right: 5px; width: 16px; height: 16px; font-size: 9px;">1</div>
+                            </div>
+
+                            <!-- Items Grid -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; position: relative;">
+                                <div class="wf-card" style="padding: 8px; text-align: center;">
+                                    <div style="font-size: 22px; margin-bottom: 4px;">⏰</div>
+                                    <div style="font-size: 9px; font-weight: bold; margin-bottom: 2px;">Extra Time</div>
+                                    <div class="wf-btn primary" style="height: 22px; font-size: 9px; margin-top: 4px;">⭐ 15</div>
+                                </div>
+                                <div class="wf-card" style="padding: 8px; text-align: center;">
+                                    <div style="font-size: 22px; margin-bottom: 4px;">💡</div>
+                                    <div style="font-size: 9px; font-weight: bold; margin-bottom: 2px;">Word Hint</div>
+                                    <div class="wf-btn primary" style="height: 22px; font-size: 9px; margin-top: 4px;">⭐ 20</div>
+                                </div>
+                                <div class="wf-card" style="padding: 8px; text-align: center;">
+                                    <div style="font-size: 22px; margin-bottom: 4px;">🦜</div>
+                                    <div style="font-size: 9px; font-weight: bold; margin-bottom: 2px;">Popo Chance</div>
+                                    <div class="wf-btn primary" style="height: 22px; font-size: 9px; margin-top: 4px;">⭐ 25</div>
+                                </div>
+                                <div class="wf-card" style="padding: 8px; text-align: center;">
+                                    <div style="font-size: 22px; margin-bottom: 4px;">❤️</div>
+                                    <div style="font-size: 9px; font-weight: bold; margin-bottom: 2px;">Life</div>
+                                    <div class="wf-btn primary" style="height: 22px; font-size: 9px; margin-top: 4px;">⭐ 50</div>
+                                </div>
+                                <div class="marker" style="top: -5px; right: -5px; width: 16px; height: 16px; font-size: 9px;">2</div>
+                            </div>
+
+                            <!-- My Items -->
+                            <div style="margin-top: 10px; position: relative;">
+                                <div class="wf-text" style="width: 50px; margin-bottom: 6px;"></div>
+                                <div class="wf-card" style="padding: 8px; display: flex; gap: 8px; justify-content: center;">
+                                    <div style="text-align: center;"><span style="font-size: 16px;">⏰</span><div style="font-size: 9px;">×2</div></div>
+                                    <div style="text-align: center;"><span style="font-size: 16px;">💡</span><div style="font-size: 9px;">×1</div></div>
+                                </div>
+                                <div class="marker" style="top: -5px; right: -5px; width: 16px; height: 16px; font-size: 9px;">3</div>
+                            </div>
+                        </div>
+                        <div class="wf-nav">
+                            <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">홈</span></div>
+                            <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">미션</span></div>
+                            <div class="wf-nav-item"><div class="wf-nav-icon active"></div><span class="wf-nav-label active">보상</span></div>
+                            <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">어휘</span></div>
+                            <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">프로필</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 8px; font-size: 11px; color: #666;">보상 상점</div>
+            </div>
+
+            <!-- Profile -->
+            <div>
+                <div class="phone-frame" style="width: 200px; min-width: 200px; height: 400px;">
+                    <div class="phone-notch" style="width: 65px; height: 16px;"></div>
+                    <div class="phone-screen">
+                        <div class="screen-content">
+                            <!-- Purple Header -->
+                            <div style="background: linear-gradient(135deg, #9b8cff 0%, #7c6cef 100%); margin: -8px -8px 10px -8px; padding: 12px; border-radius: 0 0 16px 16px; position: relative;">
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                    <div class="wf-circle solid" style="width: 45px; height: 45px; background: white; font-size: 22px;">👦</div>
+                                    <div>
+                                        <div class="wf-text" style="background: rgba(255,255,255,0.6); width: 50px; margin-bottom: 3px;"></div>
+                                        <div class="wf-text" style="background: rgba(255,255,255,0.4); width: 70px; height: 5px;"></div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-around;">
+                                    <div style="text-align: center; color: white;">
+                                        <div style="font-size: 14px; font-weight: bold;">125</div>
+                                        <div style="font-size: 8px; opacity: 0.8;">Stars</div>
+                                    </div>
+                                    <div style="text-align: center; color: white;">
+                                        <div style="font-size: 14px; font-weight: bold;">3</div>
+                                        <div style="font-size: 8px; opacity: 0.8;">Badges</div>
+                                    </div>
+                                    <div style="text-align: center; color: white;">
+                                        <div style="font-size: 14px; font-weight: bold;">7</div>
+                                        <div style="font-size: 8px; opacity: 0.8;">Days</div>
+                                    </div>
+                                </div>
+                                <div class="marker" style="top: 5px; right: 5px; width: 16px; height: 16px; font-size: 9px;">4</div>
+                            </div>
+
+                            <!-- Level Card -->
+                            <div class="wf-card" style="padding: 10px; margin-bottom: 8px; position: relative;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <div>
+                                        <div style="font-size: 9px; color: #999;">Current Level</div>
+                                        <div style="font-size: 18px; font-weight: bold; color: #5D5FEF;">3</div>
+                                    </div>
+                                    <div style="font-size: 22px;">🎓</div>
+                                </div>
+                                <div style="height: 6px; background: #eee; border-radius: 3px;">
+                                    <div style="height: 100%; width: 75%; background: #5D5FEF; border-radius: 3px;"></div>
+                                </div>
+                                <div style="font-size: 8px; color: #999; margin-top: 3px;">150/200 EXP</div>
+                                <div class="marker" style="top: -5px; right: -5px; width: 16px; height: 16px; font-size: 9px;">5</div>
+                            </div>
+
+                            <!-- Weekly Graph -->
+                            <div class="wf-card" style="padding: 10px; position: relative;">
+                                <div class="wf-text" style="width: 50px; margin-bottom: 8px;"></div>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-end; height: 50px; padding: 0 5px;">
+                                    <div style="width: 12px; height: 60%; background: #5D5FEF; border-radius: 3px;"></div>
+                                    <div style="width: 12px; height: 90%; background: #5D5FEF; border-radius: 3px;"></div>
+                                    <div style="width: 12px; height: 40%; background: #5D5FEF; border-radius: 3px;"></div>
+                                    <div style="width: 12px; height: 100%; background: #5D5FEF; border-radius: 3px;"></div>
+                                    <div style="width: 12px; height: 70%; background: #5D5FEF; border-radius: 3px;"></div>
+                                    <div style="width: 12px; height: 20%; background: #5D5FEF; border-radius: 3px;"></div>
+                                    <div style="width: 12px; height: 10%; background: #5D5FEF; border-radius: 3px;"></div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 7px; color: #999; margin-top: 3px; padding: 0 3px;">
+                                    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                                </div>
+                                <div class="marker" style="top: -5px; right: -5px; width: 16px; height: 16px; font-size: 9px;">6</div>
+                            </div>
+                        </div>
+                        <div class="wf-nav">
+                            <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">홈</span></div>
+                            <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">미션</span></div>
+                            <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">보상</span></div>
+                            <div class="wf-nav-item"><div class="wf-nav-icon"></div><span class="wf-nav-label">어휘</span></div>
+                            <div class="wf-nav-item"><div class="wf-nav-icon active"></div><span class="wf-nav-label active">프로필</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 8px; font-size: 11px; color: #666;">프로필</div>
+            </div>
+        </div>
+
+        <div class="two-col" style="margin-top: 25px;">
+            <div>
+                <h3>보상 상점 구성요소</h3>
+                <table class="info-table">
+                    <tr><th>#</th><th>요소</th><th>설명</th></tr>
+                    <tr><td>1</td><td>스타 잔액</td><td>보유 스타, Earn More 버튼</td></tr>
+                    <tr><td>2</td><td>아이템 그리드</td><td>구매 가능한 4가지 아이템</td></tr>
+                    <tr><td>3</td><td>내 아이템</td><td>보유 아이템 목록</td></tr>
+                </table>
+            </div>
+            <div>
+                <h3>프로필 구성요소</h3>
+                <table class="info-table">
+                    <tr><th>#</th><th>요소</th><th>설명</th></tr>
+                    <tr><td>4</td><td>프로필 헤더</td><td>아바타, 통계 (Stars/Badges/Days)</td></tr>
+                    <tr><td>5</td><td>레벨 카드</td><td>현재 레벨, EXP 진행률</td></tr>
+                    <tr><td>6</td><td>주간 그래프</td><td>7일 활동량 막대 그래프</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Flow -->
+    <div class="page">
+        <h1>5. 사용자 흐름 (User Flow)</h1>
+
+        <h2>미션 완료 플로우</h2>
+        <div class="flow-container">
+            <span class="flow-step">🏠 홈</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">미션 선택</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">프리뷰</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Start</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">🎤 음성 입력</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">피드백</span>
+        </div>
+        <div class="highlight">
+            <strong>성공:</strong> 피드백 → Continue → 완료 화면 → +3⭐ +50EXP<br>
+            <strong>실패:</strong> 피드백 + 힌트 → Try Again → 재시도 (-1💗)
+        </div>
+
+        <h2>어휘 학습 플로우</h2>
+        <div class="flow-container">
+            <span class="flow-step">📚 어휘</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">카테고리 선택</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Start Learning</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">단어 카드</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">🎤 발음</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">다음 단어</span>
+        </div>
+        <div class="highlight">
+            <strong>10개 완료:</strong> 완료 화면 → +10⭐ +100EXP → "Vocabulary Master!" 업적
+        </div>
+
+        <h2>생명력 소진 플로우</h2>
+        <div class="flow-container">
+            <span class="flow-step">미션 실패</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">💗 = 0</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">경고 표시</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">🏪 보상 상점</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">❤️ 구매</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">미션 재개</span>
+        </div>
+
+        <h2 style="margin-top: 30px;">게임 시스템</h2>
+        <div class="two-col">
+            <div>
+                <h3>상태 (Game State)</h3>
+                <table class="info-table">
+                    <tr><th>상태</th><th>초기값</th></tr>
+                    <tr><td>Level</td><td>1</td></tr>
+                    <tr><td>EXP</td><td>0</td></tr>
+                    <tr><td>Stars</td><td>50</td></tr>
+                    <tr><td>Lives</td><td>3 (max 5)</td></tr>
+                    <tr><td>Streak</td><td>1</td></tr>
+                </table>
+            </div>
+            <div>
+                <h3>아이템 가격</h3>
+                <table class="info-table">
+                    <tr><th>아이템</th><th>가격</th><th>효과</th></tr>
+                    <tr><td>⏰ Extra Time</td><td>15⭐</td><td>+30초</td></tr>
+                    <tr><td>💡 Word Hint</td><td>20⭐</td><td>힌트</td></tr>
+                    <tr><td>🦜 Popo Chance</td><td>25⭐</td><td>도움</td></tr>
+                    <tr><td>❤️ Life</td><td>50⭐</td><td>+1 생명</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 20px;">보상 시스템</h3>
+        <table class="info-table">
+            <tr><th>활동</th><th>스타</th><th>경험치</th></tr>
+            <tr><td>미션 완료</td><td>+3 ⭐</td><td>+50 EXP</td></tr>
+            <tr><td>단어 학습 (1개)</td><td>+1 ⭐</td><td>+10 EXP</td></tr>
+            <tr><td>어휘 세트 완료</td><td>+10 ⭐</td><td>+100 EXP</td></tr>
+        </table>
+    </div>
+
+    <!-- Closing -->
+    <div class="page" style="text-align: center; padding: 80px 50px;">
+        <div style="font-size: 80px; margin-bottom: 30px;">🌙 🦜 📚</div>
+        <h1 style="font-size: 42px; color: #5D5FEF; margin-bottom: 10px;">Bamtory</h1>
+        <p style="font-size: 18px; color: #666; margin-bottom: 40px;">어린이 영어 학습의 새로운 경험</p>
+
+        <div style="background: #f8f9fa; padding: 30px; border-radius: 16px; text-align: left; max-width: 500px; margin: 0 auto;">
+            <h3 style="margin-bottom: 15px;">문서 정보</h3>
+            <table class="info-table">
+                <tr><td><strong>버전</strong></td><td>1.0</td></tr>
+                <tr><td><strong>작성일</strong></td><td>2026-02-06</td></tr>
+                <tr><td><strong>플랫폼</strong></td><td>iOS / Android Mobile</td></tr>
+                <tr><td><strong>기술 스택</strong></td><td>React, TypeScript, Tailwind CSS</td></tr>
+            </table>
+        </div>
+
+        <p style="margin-top: 40px; color: #999; font-size: 12px;">
+            This wireframe document was generated based on the published React components.
+        </p>
+    </div>
+</body>
+</html>

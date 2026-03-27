@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://elliott-portfolio.vercel.app/sitemap-index.xml

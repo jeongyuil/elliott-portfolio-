@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bamtori-dark: #0D1117;
+  --color-bamtori-purple: #A78BFA;
+  --color-bamtori-coral: #F9A8D4;
+  --color-bamtori-teal: #5EEAD4;
+  --color-bamtori-yellow: #FDE68A;
+  
+  --font-display: var(--font-quicksand), sans-serif;
+  --font-body: var(--font-geist-sans), sans-serif;
+}
+
+@layer utilities {
+  .animate-twinkle {
+    animation: twinkle 3s infinite ease-in-out;
+  }
+
+  .animate-float {
+    animation: float 6s infinite ease-in-out;
+  }
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0.2; transform: scale(0.8); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+body {
+  background-color: var(--color-bamtori-dark);
+  color: white;
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}

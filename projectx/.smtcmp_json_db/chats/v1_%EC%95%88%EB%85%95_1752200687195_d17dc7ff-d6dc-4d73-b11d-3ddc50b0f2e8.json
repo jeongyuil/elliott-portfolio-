@@ -1,0 +1,103 @@
+{
+  "id": "d17dc7ff-d6dc-4d73-b11d-3ddc50b0f2e8",
+  "title": "안녕",
+  "messages": [
+    {
+      "role": "user",
+      "content": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "안녕",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "promptContent": [
+        {
+          "type": "text",
+          "text": "\n\n안녕\n\n"
+        }
+      ],
+      "id": "0aee0bd5-0da1-4627-bb70-99d84ecb0f24",
+      "mentionables": [
+        {
+          "type": "current-file",
+          "file": "미팅노트/2025-03-21.md"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "인냥",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": "ltr",
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "promptContent": [
+        {
+          "type": "text",
+          "text": "\n\n인냥\n\n"
+        }
+      ],
+      "id": "101e706d-4b41-4297-b401-2d595c31c3ec",
+      "mentionables": [
+        {
+          "type": "current-file",
+          "file": "미팅노트/2025-03-21.md"
+        }
+      ]
+    }
+  ],
+  "createdAt": 1752200673042,
+  "updatedAt": 1752200687195,
+  "schemaVersion": 1
+}

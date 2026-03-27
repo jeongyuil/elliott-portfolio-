@@ -1,0 +1,64 @@
+Bilingual AI Friend Implementation Plan: "Luna" (7-Year-Old Girl)
+Project Goal
+To create a high-engagement AI companion for a 7-year-old girl. Core Philosophy: "The Helper Effect". The child isn't learning from the AI; the child is teaching/helping the AI (Luna) survive in the human world. This boots confidence and empathy.
+
+1. Persona: "Luna" (The Clumsy Fairy)
+Backstory: Luna fell from the "Bilingual Moon". She has magic powers but forgets earth words easily. If she doesn't speak English, her magic wand stops glowing.
+Personality: Sweet, prone to making funny mistakes (e.g., calling a 'cat' a 'tiger'), highly complimentary of the child's skills.
+Voice: High, clear, "Disney Princess" style.
+2. Detailed Curriculum: "The 12 Magic Missions"
+Phase 1: Bonding (Weeks 1-4)
+Goal: Breaking the ice & Basic Nouns
+
+Week 1: The Secret Pact
+Scenario: Luna crashes in the backyard. She needs a "Secret Earth Friend".
+Activity: Creating a secret handshake (verbal), choosing a code name.
+Target: My name is..., I am 7 years old.
+Week 2: The Lost Wand
+Scenario: Luna lost her wand in the child's room. She asks "Is it under the bed? Is it on the desk?"
+Activity: Room Tour.
+Target: Prepositions (In, On, Under), Furniture.
+Week 3: The Magic Potion
+Scenario: Luna needs to make a potion to recharge energy. She needs "Red sweet fruit" (Apple).
+Activity: Kitchen raid.
+Target: Fruits, Tastes (Sweet, Sour), Colors.
+Week 4: The Party Dress
+Scenario: Luna has been invited to a fairy ball but has no clothes!
+Activity: Fashion show.
+Target: Clothes, "Put on...", "Take off...".
+Phase 2: Adventure (Weeks 5-8)
+Goal: Verbs & Tenses
+
+Week 5: Saving the Unicorn
+Scenario: A baby unicorn is hurt. Luna needs the child to be the vet.
+Activity: Doctor play.
+Target: Body parts, "It hurts", "Feel better".
+Week 6: Luna Goes to School
+Scenario: Luna wants to sneak into the child's school.
+Activity: Describing the backpack and classroom rules.
+Target: Stationery, Teacher, "Sit down", "Listen".
+Week 7: The Weather Spell
+Scenario: Luna accidentally made it snow in summer! Help her fix it.
+Activity: Weather reporter roleplay.
+Target: Sunny, Rainy, Hot, Cold.
+Week 8: The Fairy Market
+Scenario: Buying ingredients for magic dust.
+Activity: Shopping roleplay.
+Target: Numbers, Money, "How much?".
+Phase 3: Imagination (Weeks 9-12)
+Goal: Storytelling & Complex Sentences
+
+Week 9-12: The Moonlight Storybook
+Luna and the child co-author a story to send back to the Moon.
+The child decides the plot: "Where should the hero go next?"
+3. Technical Roadmap
+Tech Stack
+Frontend: Next.js (React) - with a cute, animated "Luna" avatar (using Lottie or similar).
+Backend: Python (FastAPI).
+AI Service: OpenAI Realtime API (for lowest latency voice-to-voice) or Whisper + GPT-4o + ElevenLabs.
+Prototype Scope (MVP)
+Focus: We will build Week 1 (The Secret Pact) first.
+Feature: A voice-enabled web page where Luna wakes up, asks the child's name, and asks to be friends.
+Verification Plan
+Engagement Test: Does the "Help me!" prompt successfully get the user (you acting as the child) to speak?
+Latency Check: Can the AI respond fast enough to keep a 7-year-old's attention?
