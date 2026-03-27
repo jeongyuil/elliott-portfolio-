@@ -72,6 +72,7 @@ export default function AdventurePlay() {
     const narratorMsgId = useRef(0);
 
     const scrollRef = useRef<HTMLDivElement>(null);
+    const cancelledRef = useRef(false);
     const currentActivity = activities[currentActivityIndex];
     const [typedMessageIds, setTypedMessageIds] = useState<Set<string>>(new Set());
     const markTyped = useCallback((id: string) => {
@@ -139,7 +140,7 @@ export default function AdventurePlay() {
             }
         })();
 
-        return () => { cancelled = true; };
+        return () => { cancelled = true; cancelledRef.current = true; };
     }, [childToken, id, sessionId, navigate]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // Phase 1: Show narrator intro segment-by-segment with per-segment TTS
@@ -166,12 +167,12 @@ export default function AdventurePlay() {
         const speakerToLabel: Record<string, string> = {
             narrator: '', popo: '🐾 포포: ', luna: '🌙 루나: ', unknown: '',
         };
-        const speakerToUiRole = (s: string): 'narrator' | 'user' =>
-            s === 'narrator' || s === 'unknown' ? 'narrator' : 'narrator';
+        const speakerToUiRole = (_s: string): 'narrator' => 'narrator';
 
         setIsNarratorSpeaking(true);
 
         for (const seg of segments) {
+            if (cancelledRef.current) return;
             const msgId = `narrator-${++narratorMsgId.current}`;
             const label = speakerToLabel[seg.speaker] || '';
             const charKey = (seg.speaker === 'popo' || seg.speaker === 'luna' || seg.speaker === 'narrator')
@@ -219,9 +220,9 @@ export default function AdventurePlay() {
         setPhase('interactive');
     };
 
-    // Timer
+    // Timer — only counts down during interactive phase
     useEffect(() => {
-        if (sessionEnded) return;
+        if (sessionEnded || phase !== 'interactive') return;
         const timer = setInterval(() => {
             setTimeLeft((prev) => {
                 if (prev <= 1) {
@@ -233,7 +234,7 @@ export default function AdventurePlay() {
             });
         }, 1000);
         return () => clearInterval(timer);
-    }, [sessionEnded]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [sessionEnded, phase]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const endSessionAndNavigate = async (isSuccess: boolean, defaultXp = 0, defaultStars = 0) => {
         if (sessionEnded) return;
@@ -263,7 +264,7 @@ export default function AdventurePlay() {
     const handleConfirmQuit = useCallback(async () => {
         setIsQuitting(true);
         await endSessionAndNavigate(false, 0, 0);
-    }, [sessionEnded]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [sessionEnded, sessionId, phase, connectionState]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
