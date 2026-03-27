@@ -3,7 +3,7 @@ Insights Service — aggregates conversation data for parent insights dashboard.
 Extracts keywords, sentiment trends, and activity timelines from Utterance/Session data.
 """
 from collections import Counter
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from uuid import UUID
 
 from sqlalchemy import select, func
@@ -22,7 +22,7 @@ class InsightsService:
         Extract top keywords from child utterances.
         Returns list of {word, count} sorted by frequency.
         """
-        since = datetime.now(timezone.utc) - timedelta(days=days)
+        since = datetime.utcnow() - timedelta(days=days)
         stmt = (
             select(Utterance.text_normalized)
             .join(Session, Session.session_id == Utterance.session_id)
@@ -59,7 +59,7 @@ class InsightsService:
         Aggregate emotion labels from utterances.
         Returns {emotions: [{label, count, percentage}], overall: str}
         """
-        since = datetime.now(timezone.utc) - timedelta(days=days)
+        since = datetime.utcnow() - timedelta(days=days)
         stmt = (
             select(
                 Utterance.emotion_label,
@@ -99,7 +99,7 @@ class InsightsService:
         Daily conversation activity for the last N days.
         Returns [{date, sessions, totalMinutes, totalTurns}]
         """
-        since = datetime.now(timezone.utc) - timedelta(days=days)
+        since = datetime.utcnow() - timedelta(days=days)
         stmt = (
             select(
                 func.date(Session.start_time).label("day"),
@@ -150,7 +150,7 @@ class InsightsService:
         """
         Average Korean/English language mix ratio.
         """
-        since = datetime.now(timezone.utc) - timedelta(days=days)
+        since = datetime.utcnow() - timedelta(days=days)
         stmt = (
             select(
                 func.avg(Utterance.language_mix_ratio_ko).label("avg_ko"),
@@ -179,7 +179,7 @@ class InsightsService:
         """
         Behavioral patterns: avg session duration, engagement, pronunciation scores.
         """
-        since = datetime.now(timezone.utc) - timedelta(days=days)
+        since = datetime.utcnow() - timedelta(days=days)
 
         session_stmt = (
             select(

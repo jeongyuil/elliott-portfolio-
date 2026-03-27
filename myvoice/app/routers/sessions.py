@@ -1,6 +1,6 @@
 """Sessions router: start, utterance, end."""
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, Header
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -81,7 +81,7 @@ async def end_session(
         raise HTTPException(status_code=404, detail="Session not found")
 
     session.status = "ended"
-    session.end_time = datetime.now(timezone.utc)
+    session.end_time = datetime.utcnow()
     if session.start_time:
         session.duration_seconds = int((session.end_time - session.start_time).total_seconds())
 

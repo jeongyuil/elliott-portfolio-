@@ -1,6 +1,6 @@
 import logging
 import uuid
-from datetime import datetime, time, timezone
+from datetime import datetime, time
 from sqlalchemy import select, func, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models import Utterance, SkillLevel, Skill
@@ -17,7 +17,7 @@ async def calculate_skill_levels(child_id: str):
             logger.info(f"Calculating skill levels for child {child_id}")
             child_uuid = uuid.UUID(child_id)
             # Use midnight for snapshot date to allow one per day
-            today = datetime.combine(datetime.now(timezone.utc).date(), time.min)
+            today = datetime.combine(datetime.utcnow().date(), time.min)
 
             # 1. Vocabulary (Unique Words)
             # Fetch all child utterances
