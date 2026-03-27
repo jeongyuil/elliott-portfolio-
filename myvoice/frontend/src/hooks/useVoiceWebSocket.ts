@@ -83,13 +83,15 @@ export function useVoiceWebSocket({
     // Build WS URL from API_BASE or window.location
     const base = API_BASE || window.location.origin;
     const wsBase = base.replace(/^http/, 'ws');
-    const url = `${wsBase}/v1/kid/voice/${sessionId}?token=${childToken}`;
+    const url = `${wsBase}/v1/kid/voice/${sessionId}`;
 
     const ws = new WebSocket(url);
     wsRef.current = ws;
 
     ws.onopen = () => {
       setConnectionState('connected');
+      // Send auth token as first message instead of URL query parameter
+      ws.send(JSON.stringify({ type: 'auth', token: childToken }));
       ws.send(JSON.stringify({ type: 'start' }));
     };
 

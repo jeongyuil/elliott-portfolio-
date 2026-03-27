@@ -1,7 +1,7 @@
 import pytest
 import uuid
 from httpx import AsyncClient, ASGITransport
-from datetime import datetime
+from datetime import datetime, timezone
 from app.main import app
 from app.core.security import create_access_token
 
@@ -39,7 +39,7 @@ async def test_phase3_flow(child_token):
             child_id=uuid.UUID(CHILD_ID),
             family_id=family.family_id,
             name="Test Child",
-            birth_date=datetime.utcnow()
+            birth_date=datetime.now(timezone.utc)
         )
         db.add(child)
         try:

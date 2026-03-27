@@ -4,7 +4,7 @@ Only accessible with child_token (scope=kid).
 import uuid
 import base64
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, Header, BackgroundTasks
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
@@ -375,7 +375,7 @@ async def end_session(
         raise HTTPException(status_code=404, detail="Session not found")
 
     session.status = "ended"
-    session.end_time = datetime.utcnow()
+    session.end_time = datetime.now(timezone.utc)
 
     duration = 0
     if session.start_time:
@@ -401,7 +401,7 @@ async def end_session(
         await db.execute(
             update(SessionActivity)
             .where(SessionActivity.session_id == session_id)
-            .values(status="completed", ended_at=datetime.utcnow())
+            .values(status="completed", ended_at=datetime.now(timezone.utc))
         )
 
     await db.commit()

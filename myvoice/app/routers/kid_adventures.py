@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select, and_
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -301,7 +301,7 @@ async def skip_adventure(
     )).scalars().all()
     for s in active_sessions:
         s.status = "ended"
-        s.end_time = datetime.utcnow()
+        s.end_time = datetime.now(timezone.utc)
         s.duration_seconds = 0
 
     # 3. Check stars balance
@@ -323,7 +323,7 @@ async def skip_adventure(
         session_type="curriculum",
         curriculum_unit_id=id,
         status="ended",
-        end_time=datetime.utcnow(),
+        end_time=datetime.now(timezone.utc),
         duration_seconds=0,
     )
     db.add(skipped_session)

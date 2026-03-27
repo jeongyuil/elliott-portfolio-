@@ -2,7 +2,7 @@
 import logging
 import secrets
 import urllib.parse
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import httpx
 from authlib.integrations.starlette_client import OAuth
@@ -170,7 +170,7 @@ async def signup(
         hashed_password=hash_password(req.password),
         email_verified=False,
         email_verification_token=verification_token,
-        email_verification_expires=datetime.utcnow() + timedelta(hours=24),
+        email_verification_expires=datetime.now(timezone.utc) + timedelta(hours=24),
     )
     db.add(family)
     await db.flush()
@@ -235,7 +235,7 @@ async def verify_email(
     if not family:
         return RedirectResponse(url=f"{s.frontend_url}/verify-email?error=invalid")
 
-    if family.email_verification_expires and datetime.utcnow() > family.email_verification_expires:
+    if family.email_verification_expires and datetime.now(timezone.utc) > family.email_verification_expires:
         return RedirectResponse(
             url=f"{s.frontend_url}/verify-email?error=expired&email={family.contact_email}"
         )
@@ -269,7 +269,7 @@ async def resend_verification(
 
     verification_token = secrets.token_urlsafe(32)
     family.email_verification_token = verification_token
-    family.email_verification_expires = datetime.utcnow() + timedelta(hours=24)
+    family.email_verification_expires = datetime.now(timezone.utc) + timedelta(hours=24)
     await db.flush()
 
     await email_service.send_verification_email(req.email, verification_token)
@@ -293,7 +293,7 @@ async def forgot_password(
     if family:
         reset_token = secrets.token_urlsafe(32)
         family.password_reset_token = reset_token
-        family.password_reset_expires = datetime.utcnow() + timedelta(hours=1)
+        family.password_reset_expires = datetime.now(timezone.utc) + timedelta(hours=1)
         await db.flush()
         await email_service.send_password_reset_email(req.email, reset_token)
 
@@ -313,7 +313,7 @@ async def reset_password(
     if not family:
         raise HTTPException(status_code=400, detail="Invalid or expired reset token")
 
-    if family.password_reset_expires and datetime.utcnow() > family.password_reset_expires:
+    if family.password_reset_expires and datetime.now(timezone.utc) > family.password_reset_expires:
         raise HTTPException(status_code=400, detail="Reset token has expired")
 
     if len(req.new_password) < 8:
@@ -362,8 +362,7 @@ async def google_callback(
         user_info.get("email"), token_data.get("access_token"), user_info.get("name"),
     )
     access_token = create_access_token({"family_id": str(family.family_id)})
-    redirect_url = f"{s.frontend_url}/select-child?token={access_token}&family_id={family.family_id}"
-    redirect = RedirectResponse(url=redirect_url)
+    redirect = RedirectResponse(url=f"{s.frontend_url}/select-child")
     _set_auth_cookie(redirect, access_token)
     return redirect
 
@@ -412,8 +411,7 @@ async def kakao_callback(
         kakao_user.get("properties", {}).get("nickname"),
     )
     access_token = create_access_token({"family_id": str(family.family_id)})
-    redirect_url = f"{s.frontend_url}/select-child?token={access_token}&family_id={family.family_id}"
-    redirect = RedirectResponse(url=redirect_url)
+    redirect = RedirectResponse(url=f"{s.frontend_url}/select-child")
     _set_auth_cookie(redirect, access_token)
     return redirect
 

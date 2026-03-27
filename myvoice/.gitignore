@@ -31,5 +31,9 @@ htmlcov/
 # Logs
 *.log
 
+# Node
+node_modules/
+
 # Sensitive files
 cookies.txt
+.env.prod

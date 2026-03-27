@@ -59,9 +59,10 @@ async def chat_with_ai(
         response = await client.chat.completions.create(**kwargs)
         return response.choices[0].message.content
     except Exception as e:
-        # TODO: Log error properly
-
-        return mock_chat_response(system_prompt, child_utterance, json_mode)
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error("OpenAI chat API failed: %s", e, exc_info=True)
+        raise
 
 
 def mock_chat_response(sys_prompt: str, user_input: str, json_mode: bool) -> str:

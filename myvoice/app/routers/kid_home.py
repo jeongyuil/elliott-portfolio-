@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select, and_
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -22,7 +22,7 @@ STAR_MAX_BALANCE = 500        # Soft cap — regen stops here
 
 def apply_star_regen(inventory: ChildInventory) -> int:
     """Apply passive star regeneration based on elapsed time. Returns stars granted."""
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     if not inventory.last_star_regen_at:
         inventory.last_star_regen_at = now
         return 0
