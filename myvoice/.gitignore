@@ -37,3 +37,7 @@ node_modules/
 # Sensitive files
 cookies.txt
 .env.prod
+
+# Story pipeline output (generated content — review before committing)
+stories/generated/
+stories/_summary_report.json

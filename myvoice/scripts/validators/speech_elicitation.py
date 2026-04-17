@@ -17,6 +17,8 @@ This module has NO database or framework dependencies — it operates purely on
 dict data, so it can be used in any build regardless of ORM or DB setup.
 """
 
+import re
+
 
 def validate_speech_elicitation(activities: list[dict]) -> list[dict]:
     """Validate that every intro_narrator_script follows the 3-step speech elicitation pattern.
@@ -72,7 +74,6 @@ def validate_speech_elicitation(activities: list[dict]) -> list[dict]:
         # Check 5: 포포 발화 유도에 영어 표현 포함 여부
         # 포포의 시범/선택지/발화유도 대사에 영어 표현이 반드시 포함되어야 함
         # 작은따옴표로 감싼 영어 표현 ('Hello!', 'I like pizza') 패턴 체크
-        import re
         popo_lines = [line for line in script.strip().split("\n") if line.startswith("[포포]")]
         has_english_in_popo = False
         for line in popo_lines:
@@ -99,7 +100,29 @@ def validate_speech_elicitation(activities: list[dict]) -> list[dict]:
                 })
                 break  # Only report first bad line per script
 
+        # Check 6: 루나 영어 전용 — [루나] lines must not contain Korean
+        for line in script.strip().split("\n"):
+            if not line.startswith("[루나]"):
+                continue
+            content = line[len("[루나]"):].strip()
+            # Stage directions in parentheses are acceptable
+            content_no_paren = re.sub(r"\(.*?\)", "", content).strip()
+            if _HANGUL_RE.search(content_no_paren):
+                issues.append({
+                    "activity_id": act_id,
+                    "check": "luna_english_only",
+                    "message": (
+                        f"[루나] 대사에 한국어 포함 (루나는 영어만 사용): "
+                        f"'{content[:60]}'"
+                    ),
+                })
+                break  # Report first offending line only
+
     return issues
+
+
+# Korean character regex — used for luna_english_only check
+_HANGUL_RE = re.compile(r"[\uAC00-\uD7A3\u3131-\u318E\uFFA1-\uFFDC]")
 
 
 def print_validation_report(activities: list[dict]) -> bool:
