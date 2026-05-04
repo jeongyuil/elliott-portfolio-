@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    container_name: myvoice_backend
+    restart: always
+    env_file:
+      - .env.prod
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://myvoice_prod:${DB_PASSWORD}@db:5432/myvoice_prod
+      - REDIS_URL=redis://redis:6379/0
+      - APP_ENV=production
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - myvoice-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    container_name: myvoice_frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - myvoice-network
+
+  db:
+    image: postgres:15-alpine
+    container_name: myvoice_db
+    restart: always
+    environment:
+      - POSTGRES_USER=myvoice_prod
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=myvoice_prod
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - myvoice-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: myvoice_redis
+    restart: always
+    networks:
+      - myvoice-network
+
+networks:
+  myvoice-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
