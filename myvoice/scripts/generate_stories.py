@@ -103,12 +103,20 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="API 호출 없이 구조만 확인 (테스트용)",
+        help="생성 없이 구조만 확인 (테스트용)",
     )
     parser.add_argument(
         "--validate-only",
         action="store_true",
         help="기존 생성 파일만 검증 (새로 생성하지 않음)",
+    )
+    parser.add_argument(
+        "--use-sdk",
+        action="store_true",
+        help=(
+            "Anthropic Python SDK로 생성 (ANTHROPIC_API_KEY 필요). "
+            "기본값은 Claude Code CLI 인증 사용."
+        ),
     )
 
     # Output
@@ -122,7 +130,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--concurrency",
         type=int,
         default=3,
-        help="동시 API 호출 수 (기본: 3)",
+        help="동시 생성 수 (기본: 3)",
     )
     parser.add_argument(
         "--quiet",
@@ -252,6 +260,15 @@ async def main() -> int:
     # ------------------------------------------------------------------
     # Run pipeline
     # ------------------------------------------------------------------
+    # ------------------------------------------------------------------
+    # Print auth mode info
+    # ------------------------------------------------------------------
+    if not args.dry_run and not getattr(args, "validate_only", False):
+        if args.use_sdk:
+            print("[Auth] Anthropic SDK 모드 (ANTHROPIC_API_KEY 필요)")
+        else:
+            print("[Auth] Claude Code CLI 모드 (claude login 인증 사용)")
+
     config = PipelineConfig(
         themes=themes,
         personas=personas,
@@ -260,6 +277,7 @@ async def main() -> int:
         output_dir=args.output_dir,
         concurrency=args.concurrency,
         dry_run=args.dry_run,
+        use_sdk=args.use_sdk,
         scripts_dir=SCRIPTS_DIR,
         verbose=not args.quiet,
     )

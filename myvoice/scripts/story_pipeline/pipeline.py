@@ -21,7 +21,7 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 
 from .context_loader import ActivityContext, CurriculumContext, load_curriculum
-from .generator import GeneratedStory, StoryGenerator
+from .generator import ClaudeCliGenerator, GeneratedStory, StoryGenerator
 from .output_writer import (
     write_session_report,
     write_story,
@@ -40,8 +40,9 @@ class PipelineConfig:
     week_filter: int | None = None       # Only process this week (1-4)
     session_filter: str | None = None    # Only process this curriculum_unit_id
     output_dir: str = "stories"          # Root output directory
-    concurrency: int = 3                 # Parallel API calls
-    dry_run: bool = False                # Skip API calls, produce empty stubs
+    concurrency: int = 3                 # Parallel subprocess/API calls
+    dry_run: bool = False                # Skip generation, produce empty stubs
+    use_sdk: bool = False                # Use Anthropic SDK instead of Claude CLI
     scripts_dir: str | None = None       # Override scripts/ path
     verbose: bool = True
 
@@ -62,7 +63,7 @@ class StoryResult:
 class StoryPipeline:
     """End-to-end story generation pipeline."""
 
-    def __init__(self, config: PipelineConfig, generator: StoryGenerator | None = None):
+    def __init__(self, config: PipelineConfig, generator=None):
         self.config = config
         self._generator = generator  # Injected or created lazily
 
@@ -76,7 +77,10 @@ class StoryPipeline:
         all_results: list[StoryResult] = []
 
         if not cfg.dry_run and self._generator is None:
-            self._generator = StoryGenerator()
+            if cfg.use_sdk:
+                self._generator = StoryGenerator()
+            else:
+                self._generator = ClaudeCliGenerator()
 
         # Collect all (unit, activity, persona) jobs across themes
         jobs: list[tuple[CurriculumContext, ActivityContext, Persona]] = []
