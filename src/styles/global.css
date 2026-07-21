@@ -12,7 +12,7 @@
   --color-text-bright: #f8fafc;
   --color-border: #2e2e3e;
 
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', 'Pretendard Variable', Pretendard, system-ui, -apple-system, sans-serif;
 }
 
 html {
@@ -31,40 +31,52 @@ body {
   color: var(--color-text-bright);
 }
 
-/* Scroll-triggered animations */
-.fade-up {
+/* Scroll-triggered animations.
+   Hidden initial state applies only when JS is running (html.js is set by an
+   inline script in BaseLayout) — without JS all content stays visible. */
+html.js .fade-up {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.fade-up.visible {
+html.js .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* 3D Tilt-in animation */
-.tilt-in {
+html.js .tilt-in {
   opacity: 0;
   transform: perspective(1000px) rotateX(15deg) translateY(40px) scale(0.95);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.tilt-in.visible {
+html.js .tilt-in.visible {
   opacity: 1;
   transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1);
 }
 
 /* Scale-up animation */
-.scale-up {
+html.js .scale-up {
   opacity: 0;
   transform: scale(0.9);
   transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.scale-up.visible {
+html.js .scale-up.visible {
   opacity: 1;
   transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .fade-up,
+  html.js .tilt-in,
+  html.js .scale-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Staggered children */

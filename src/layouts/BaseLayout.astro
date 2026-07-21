@@ -10,8 +10,8 @@ interface Props {
 const SITE_URL = 'https://elliott-portfolio.vercel.app';
 
 const {
-  title = 'Yuil Jeong (Elliott) — Data Science Leader & Digital Business Executive',
-  description = '14+ years of data science leadership at Disney+, EA and beyond. CEO of JNJ Corporation, building products for the AI era.',
+  title = 'Yuil Jeong (Eliote) — Data Science Leader & AI Product Builder',
+  description = '14+ years of data science leadership at Disney+, EA and beyond. Building AI products end-to-end, from data architecture to production.',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
@@ -22,7 +22,8 @@ const ogImage = `${SITE_URL}/og-image.png`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Yuil Jeong (Elliott)" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <meta name="author" content="Yuil Jeong (Eliote)" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL.toString()} />
 
@@ -34,7 +35,7 @@ const ogImage = `${SITE_URL}/og-image.png`;
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="ko_KR" />
-    <meta property="og:site_name" content="Yuil Jeong (Elliott)" />
+    <meta property="og:site_name" content="Yuil Jeong (Eliote)" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -47,14 +48,10 @@ const ogImage = `${SITE_URL}/og-image.png`;
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Yuil Jeong",
-      "alternateName": "Elliott",
+      "alternateName": "Eliote",
       "url": SITE_URL,
       "image": ogImage,
-      "jobTitle": "CEO",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "JNJ Corporation"
-      },
+      "jobTitle": "Data Science Leader & AI Product Builder",
       "alumniOf": [
         { "@type": "CollegeOrUniversity", "name": "Chung-Ang University" },
         { "@type": "CollegeOrUniversity", "name": "Kyung Hee University" }
@@ -70,6 +67,7 @@ const ogImage = `${SITE_URL}/og-image.png`;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" crossorigin="anonymous" />
     <title>{title}</title>
   </head>
   <body class="antialiased noise-overlay">
@@ -121,30 +119,35 @@ const ogImage = `${SITE_URL}/og-image.png`;
       // Expose globally
       (window as any).setLanguage = setLanguage;
 
-      // Active nav link highlighting on scroll
-      const sections = document.querySelectorAll('section[id]');
+      // Active nav link highlighting on scroll: the current section is the
+      // last one whose top has passed the upper third of the viewport.
+      // (IntersectionObserver misfires here — tall sections never reach the
+      // visibility threshold, so the last event to fire wins arbitrarily.)
+      const sections = Array.from(document.querySelectorAll('section[id]'));
       const navLinks = document.querySelectorAll('.nav-link');
-      const navObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const id = entry.target.getAttribute('id');
-              navLinks.forEach((link) => {
-                const href = link.getAttribute('href');
-                if (href === `#${id}`) {
-                  link.classList.add('text-primary', 'font-medium');
-                  link.classList.remove('text-text-muted');
-                } else {
-                  link.classList.remove('text-primary', 'font-medium');
-                  link.classList.add('text-text-muted');
-                }
-              });
-            }
-          });
-        },
-        { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' }
-      );
-      sections.forEach((section) => navObserver.observe(section));
+      function updateActiveNav() {
+        const pos = window.scrollY + window.innerHeight * 0.35;
+        let currentId = sections[0]?.getAttribute('id');
+        for (const section of sections) {
+          if ((section as HTMLElement).offsetTop <= pos) {
+            currentId = section.getAttribute('id');
+          }
+        }
+        navLinks.forEach((link) => {
+          const active = link.getAttribute('href') === `#${currentId}`;
+          link.classList.toggle('text-primary', active);
+          link.classList.toggle('font-medium', active);
+          link.classList.toggle('text-text-muted', !active);
+        });
+      }
+      let navTick = false;
+      window.addEventListener('scroll', () => {
+        if (!navTick) {
+          navTick = true;
+          requestAnimationFrame(() => { updateActiveNav(); navTick = false; });
+        }
+      }, { passive: true });
+      updateActiveNav();
     </script>
   </body>
 </html>

@@ -39,7 +39,7 @@
   <text x="100" y="240" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="700" fill="url(#textGrad)">Yuil Jeong</text>
 
   <!-- Nickname -->
-  <text x="100" y="300" font-family="Inter, system-ui, sans-serif" font-size="36" font-weight="300" fill="rgba(99,102,241,0.7)">(Elliott)</text>
+  <text x="100" y="300" font-family="Inter, system-ui, sans-serif" font-size="36" font-weight="300" fill="rgba(99,102,241,0.7)">(Eliote)</text>
 
   <!-- Title -->
   <text x="100" y="380" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="500" fill="rgba(255,255,255,0.9)">From Mathematics to Data Architecture</text>
