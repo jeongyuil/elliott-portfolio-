@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Child Profile - Wireframe</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; background: #f8f9fa; color: #1a1a2e; }
+
+  .page { max-width: 640px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Header */
+  .header { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+  .back-btn { width: 40px; height: 40px; border-radius: 8px; border: 1px solid #e5e7eb; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; color: #6b7280; }
+  .header h1 { font-size: 24px; font-weight: 800; }
+
+  /* Card */
+  .card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; overflow: hidden; }
+  .card-header { padding: 24px 24px 0; }
+  .card-title { font-size: 18px; font-weight: 700; }
+  .card-desc { font-size: 13px; color: #6b7280; margin-top: 4px; }
+  .card-body { padding: 24px; }
+
+  /* Form */
+  .form-group { margin-bottom: 20px; }
+  .form-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #374151; }
+  .form-input { width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; background: #fff; outline: none; transition: border 0.15s; }
+  .form-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+  .form-select { width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; background: #fff; appearance: auto; }
+
+  /* Avatar Section */
+  .avatar-section { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #f3f4f6; }
+  .avatar-circle { width: 80px; height: 80px; border-radius: 50%; background: #dbeafe; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+  .avatar-info { flex: 1; }
+  .avatar-name { font-size: 18px; font-weight: 700; }
+  .avatar-meta { font-size: 13px; color: #6b7280; margin-top: 2px; }
+  .btn-change-avatar { padding: 6px 14px; border: 1px solid #d1d5db; border-radius: 6px; background: #fff; font-size: 12px; cursor: pointer; margin-top: 8px; }
+
+  /* Actions */
+  .form-actions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 20px; border-top: 1px solid #f3f4f6; }
+  .btn-primary { padding: 10px 24px; border: none; border-radius: 8px; background: #3b82f6; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .btn-primary:hover { background: #2563eb; }
+  .btn-cancel { padding: 10px 24px; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; font-size: 14px; cursor: pointer; }
+
+  /* Language Tag */
+  .lang-tags { display: flex; gap: 8px; margin-top: 8px; }
+  .lang-tag { padding: 6px 14px; border: 2px solid #e5e7eb; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; background: #fff; }
+  .lang-tag.active { border-color: #3b82f6; background: #eff6ff; color: #3b82f6; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn">&lsaquo;</button>
+    <h1>아이 프로필 수정</h1>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">기본 정보</div>
+      <div class="card-desc">아이의 학습 맞춤형 콘텐츠를 위해 정확한 정보를 입력해주세요.</div>
+    </div>
+    <div class="card-body">
+
+      <!-- Avatar -->
+      <div class="avatar-section">
+        <div class="avatar-circle">&#128102;</div>
+        <div class="avatar-info">
+          <div class="avatar-name">민서</div>
+          <div class="avatar-meta">Level 3 &middot; XP 450</div>
+          <button class="btn-change-avatar">아바타 변경</button>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="form-group">
+        <label class="form-label">이름 (별명)</label>
+        <input class="form-input" type="text" value="민서" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">생년월일</label>
+        <input class="form-input" type="date" value="2020-05-15" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">성별</label>
+        <select class="form-select">
+          <option selected>남자</option>
+          <option>여자</option>
+          <option>기타</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">학습 언어</label>
+        <div class="lang-tags">
+          <span class="lang-tag active">&#127472;&#127479; 한국어 &rarr; &#127468;&#127463; 영어</span>
+          <span class="lang-tag">&#127472;&#127479; 한국어 &rarr; &#127471;&#127477; 일본어</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">발달 단계</label>
+        <select class="form-select">
+          <option>초급 (4~5세, 첫 노출)</option>
+          <option selected>중급 (5~6세, 기초 어휘 보유)</option>
+          <option>고급 (6~7세, 문장 구사 가능)</option>
+        </select>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button class="btn-cancel">취소</button>
+        <button class="btn-primary">
+          <span>&#128190;</span> 저장하기
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

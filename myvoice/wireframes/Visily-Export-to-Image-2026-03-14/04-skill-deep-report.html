@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Deep Report - Wireframe</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; background: #f8f9fa; color: #1a1a2e; }
+
+  .page { max-width: 640px; margin: 0 auto; padding: 32px 24px 60px; }
+
+  /* Header */
+  .header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .back-btn { width: 40px; height: 40px; border-radius: 8px; border: 1px solid #e5e7eb; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; color: #6b7280; }
+  .header-text h1 { font-size: 22px; font-weight: 800; }
+  .header-text p { font-size: 13px; color: #6b7280; margin-top: 2px; }
+
+  /* Skill Identity Card */
+  .skill-identity { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 16px; padding: 28px 24px; margin-bottom: 24px; position: relative; overflow: hidden; }
+  .skill-identity::after { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: rgba(59,130,246,0.08); border-radius: 50%; }
+  .skill-emoji { font-size: 48px; margin-bottom: 12px; }
+  .skill-name-kr { font-size: 22px; font-weight: 800; color: #1e40af; }
+  .skill-name-en { font-size: 13px; color: #3b82f6; font-weight: 500; margin-top: 2px; }
+  .skill-meta { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .skill-meta-tag { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .tag-category { background: #dbeafe; color: #1d4ed8; }
+  .tag-mode { background: #e0e7ff; color: #4338ca; }
+  .tag-age { background: #fef3c7; color: #92400e; }
+  .tag-unit { background: #d1fae5; color: #065f46; }
+
+  /* Score Overview */
+  .score-overview { background: #fff; border-radius: 14px; border: 1px solid #e5e7eb; padding: 24px; margin-bottom: 20px; }
+  .score-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; text-align: center; }
+  .score-item { }
+  .score-item-label { font-size: 12px; color: #6b7280; font-weight: 500; margin-bottom: 6px; }
+  .score-big { font-size: 36px; font-weight: 800; color: #1e40af; }
+  .score-unit { font-size: 13px; color: #6b7280; }
+  .level-badge-big { display: inline-flex; align-items: center; gap: 4px; padding: 8px 16px; border-radius: 20px; background: #3b82f6; color: #fff; font-size: 16px; font-weight: 700; }
+  .level-stars { font-size: 14px; letter-spacing: 2px; margin-top: 4px; color: #fbbf24; }
+  .percentile-val { font-size: 28px; font-weight: 800; color: #059669; }
+  .percentile-label { font-size: 12px; color: #6b7280; margin-top: 4px; }
+  .trend-up { color: #16a34a; font-size: 16px; font-weight: 700; }
+  .trend-indicator { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 4px; }
+
+  /* Section Card */
+  .section-card { background: #fff; border-radius: 14px; border: 1px solid #e5e7eb; padding: 24px; margin-bottom: 20px; }
+  .section-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-icon { font-size: 18px; }
+  .section-desc { font-size: 13px; color: #6b7280; margin-bottom: 16px; line-height: 1.5; }
+
+  /* Line Chart (CSS) */
+  .line-chart { position: relative; height: 200px; border-left: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; margin: 0 0 16px 30px; }
+  .chart-y-labels { position: absolute; left: -35px; top: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+  .chart-y-label { font-size: 10px; color: #9ca3af; }
+  .chart-x-labels { display: flex; justify-content: space-between; margin-left: 30px; margin-top: 6px; }
+  .chart-x-label { font-size: 10px; color: #9ca3af; }
+  /* SVG Line */
+  .chart-svg { width: 100%; height: 100%; }
+  .chart-line { fill: none; stroke: #3b82f6; stroke-width: 2.5; }
+  .chart-area { fill: url(#blueGrad); opacity: 0.15; }
+  .chart-dot { fill: #3b82f6; }
+  .chart-dot-current { fill: #1d4ed8; stroke: #fff; stroke-width: 2; }
+  .chart-tooltip { font-size: 11px; font-weight: 600; fill: #1d4ed8; text-anchor: middle; }
+
+  /* Period Selector */
+  .period-tabs { display: flex; gap: 6px; margin-bottom: 16px; }
+  .period-tab { padding: 6px 14px; border-radius: 16px; border: 1px solid #e5e7eb; font-size: 12px; cursor: pointer; background: #fff; color: #6b7280; }
+  .period-tab.active { background: #1e40af; color: #fff; border-color: #1e40af; }
+
+  /* Ontology Tree */
+  .ontology-tree { }
+  .onto-node { display: flex; align-items: stretch; margin-bottom: 12px; }
+  .onto-connector { width: 24px; display: flex; flex-direction: column; align-items: center; position: relative; }
+  .onto-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #3b82f6; background: #fff; z-index: 1; margin-top: 14px; }
+  .onto-dot.mastered { background: #3b82f6; }
+  .onto-dot.in-progress { background: #fbbf24; border-color: #fbbf24; }
+  .onto-dot.locked { background: #e5e7eb; border-color: #d1d5db; }
+  .onto-line { flex: 1; width: 2px; background: #e5e7eb; margin-top: 2px; }
+  .onto-node:last-child .onto-line { display: none; }
+  .onto-card { flex: 1; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px; margin-left: 10px; }
+  .onto-card.mastered { border-color: #93c5fd; background: #eff6ff; }
+  .onto-card.in-progress { border-color: #fde68a; background: #fffbeb; }
+  .onto-card.locked { opacity: 0.6; }
+  .onto-title { font-size: 14px; font-weight: 600; }
+  .onto-sub { font-size: 12px; color: #6b7280; margin-top: 3px; }
+  .onto-bar-wrap { height: 6px; background: #e5e7eb; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .onto-bar { height: 100%; border-radius: 3px; background: #3b82f6; }
+  .onto-bar.yellow { background: #fbbf24; }
+  .onto-status { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+  .onto-score { font-size: 11px; font-weight: 600; color: #3b82f6; }
+  .onto-badge { font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+  .badge-mastered { background: #dbeafe; color: #1d4ed8; }
+  .badge-progress { background: #fef3c7; color: #92400e; }
+  .badge-locked { background: #f3f4f6; color: #9ca3af; }
+
+  /* Peer Comparison */
+  .peer-compare { }
+  .peer-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .peer-label { width: 60px; font-size: 12px; color: #6b7280; text-align: right; }
+  .peer-bars { flex: 1; }
+  .peer-bar-track { height: 24px; background: #f3f4f6; border-radius: 6px; position: relative; overflow: hidden; }
+  .peer-bar-fill { height: 100%; border-radius: 6px; position: absolute; top: 0; left: 0; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; }
+  .peer-bar-mine { background: #3b82f6; z-index: 2; }
+  .peer-bar-avg { background: #cbd5e1; z-index: 1; }
+  .peer-marker { position: absolute; top: 0; height: 100%; width: 2px; background: #ef4444; z-index: 3; }
+  .peer-marker-label { position: absolute; top: -16px; font-size: 10px; color: #ef4444; font-weight: 600; transform: translateX(-50%); white-space: nowrap; }
+  .peer-legend { display: flex; gap: 16px; margin-top: 8px; }
+  .peer-legend-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #6b7280; }
+  .peer-legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+  /* Milestone */
+  .milestone-track { position: relative; margin: 20px 0; }
+  .milestone-line { height: 4px; background: #e5e7eb; border-radius: 2px; position: relative; }
+  .milestone-progress { height: 100%; background: linear-gradient(90deg, #3b82f6, #60a5fa); border-radius: 2px; }
+  .milestone-markers { display: flex; justify-content: space-between; margin-top: -8px; position: relative; }
+  .milestone-marker { text-align: center; }
+  .milestone-dot-m { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #e5e7eb; background: #fff; margin: 0 auto; }
+  .milestone-dot-m.passed { background: #3b82f6; border-color: #3b82f6; }
+  .milestone-dot-m.current { background: #fff; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.2); }
+  .milestone-age { font-size: 10px; color: #6b7280; margin-top: 6px; }
+  .milestone-desc { font-size: 10px; color: #374151; margin-top: 2px; font-weight: 500; max-width: 70px; }
+  .milestone-current-label { position: absolute; top: -26px; background: #1e40af; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; white-space: nowrap; }
+
+  /* Utterance Examples */
+  .utterance-list { }
+  .utterance-item { padding: 14px 16px; border: 1px solid #f3f4f6; border-radius: 10px; margin-bottom: 10px; }
+  .utterance-date { font-size: 11px; color: #9ca3af; margin-bottom: 6px; }
+  .utterance-text { font-size: 14px; font-weight: 600; color: #1e40af; margin-bottom: 4px; }
+  .utterance-text .highlight { background: #fef3c7; padding: 0 3px; border-radius: 3px; }
+  .utterance-feedback { font-size: 12px; color: #6b7280; line-height: 1.5; }
+  .utterance-scores { display: flex; gap: 10px; margin-top: 8px; }
+  .utterance-score-tag { font-size: 11px; padding: 2px 8px; border-radius: 8px; background: #eff6ff; color: #1d4ed8; font-weight: 500; }
+
+  /* Next Goals */
+  .next-goals { }
+  .goal-item { display: flex; gap: 14px; padding: 16px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; margin-bottom: 10px; }
+  .goal-icon { font-size: 28px; flex-shrink: 0; }
+  .goal-content { flex: 1; }
+  .goal-title { font-size: 14px; font-weight: 600; color: #166534; }
+  .goal-desc { font-size: 12px; color: #6b7280; margin-top: 4px; line-height: 1.5; }
+  .goal-activity { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; padding: 4px 10px; background: #dcfce7; border-radius: 8px; font-size: 11px; color: #166534; font-weight: 500; }
+
+  /* CAN-DO Checklist */
+  .cando-list { }
+  .cando-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f3f4f6; }
+  .cando-item:last-child { border-bottom: none; }
+  .cando-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #d1d5db; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+  .cando-check.done { background: #3b82f6; border-color: #3b82f6; color: #fff; }
+  .cando-check.partial { background: #fbbf24; border-color: #fbbf24; color: #fff; }
+  .cando-text { font-size: 13px; line-height: 1.5; }
+  .cando-text.done { color: #374151; }
+  .cando-text.pending { color: #9ca3af; }
+
+  /* AI Insight Box */
+  .ai-insight { background: linear-gradient(135deg, #faf5ff, #ede9fe); border: 1px solid #c4b5fd; border-radius: 14px; padding: 20px; margin-bottom: 20px; }
+  .ai-insight-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .ai-badge { background: #7c3aed; color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 8px; font-weight: 700; }
+  .ai-insight-title { font-size: 14px; font-weight: 700; color: #5b21b6; }
+  .ai-insight-text { font-size: 13px; color: #4c1d95; line-height: 1.7; }
+
+  /* Session Timeline */
+  .session-timeline { }
+  .session-item { display: flex; gap: 12px; margin-bottom: 16px; }
+  .session-date-col { width: 48px; text-align: center; flex-shrink: 0; }
+  .session-day { font-size: 20px; font-weight: 800; color: #1e40af; }
+  .session-month { font-size: 10px; color: #6b7280; }
+  .session-content { flex: 1; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px; }
+  .session-score-row { display: flex; justify-content: space-between; align-items: center; }
+  .session-score-val { font-size: 22px; font-weight: 800; color: #3b82f6; }
+  .session-change { font-size: 12px; font-weight: 600; }
+  .session-change.up { color: #16a34a; }
+  .session-change.down { color: #ef4444; }
+  .session-detail { font-size: 12px; color: #6b7280; margin-top: 4px; }
+
+  /* Footer CTA */
+  .footer-cta { background: #fff; border-radius: 14px; border: 1px solid #e5e7eb; padding: 24px; text-align: center; }
+  .cta-text { font-size: 14px; color: #6b7280; margin-bottom: 14px; }
+  .btn-primary { padding: 12px 28px; border: none; border-radius: 10px; background: #3b82f6; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .btn-primary:hover { background: #2563eb; }
+  .btn-secondary { padding: 12px 28px; border: 1px solid #d1d5db; border-radius: 10px; background: #fff; font-size: 14px; cursor: pointer; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn">&lsaquo;</button>
+    <div class="header-text">
+      <h1>스킬 심층 리포트</h1>
+      <p>민서 &middot; 2026년 1월 리포트</p>
+    </div>
+  </div>
+
+  <!-- Skill Identity Card -->
+  <div class="skill-identity">
+    <div class="skill-emoji">📖</div>
+    <div class="skill-name-kr">일상 어휘 이해 및 사용</div>
+    <div class="skill-name-en">Daily-life Vocabulary (Basic)</div>
+    <div class="skill-meta">
+      <span class="skill-meta-tag tag-category">언어 Language</span>
+      <span class="skill-meta-tag tag-mode">수용+표현 Both</span>
+      <span class="skill-meta-tag tag-age">4~6세</span>
+      <span class="skill-meta-tag tag-unit">Score 0-100</span>
+    </div>
+  </div>
+
+  <!-- Score Overview -->
+  <div class="score-overview">
+    <div class="score-grid">
+      <div class="score-item">
+        <div class="score-item-label">현재 점수</div>
+        <div class="score-big">72</div>
+        <div class="score-unit">/ 100</div>
+        <div class="trend-indicator">
+          <span class="trend-up">&#9650; +8</span>
+          <span style="font-size:11px; color:#6b7280">지난달 대비</span>
+        </div>
+      </div>
+      <div class="score-item">
+        <div class="score-item-label">현재 레벨</div>
+        <div style="margin-top:4px"><span class="level-badge-big">Lv. 4</span></div>
+        <div class="level-stars" style="margin-top:8px">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <div style="font-size:12px; color:#6b7280; margin-top:4px">숙달 단계</div>
+      </div>
+      <div class="score-item">
+        <div class="score-item-label">또래 백분위</div>
+        <div class="percentile-val">상위 23%</div>
+        <div class="percentile-label">같은 나이 대비</div>
+        <div style="font-size:11px; color:#059669; margin-top:4px">&#9650; 12%p 상승</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Insight -->
+  <div class="ai-insight">
+    <div class="ai-insight-header">
+      <span class="ai-badge">AI 분석</span>
+      <span class="ai-insight-title">밤토리 교육 전문가 분석</span>
+    </div>
+    <div class="ai-insight-text">
+      민서는 일상 어휘에서 꾸준한 성장세를 보이고 있어요. 특히 <strong>동물, 음식, 색깔</strong> 관련 어휘를 잘 활용하고 있으며,
+      최근 <strong>감정 표현 어휘</strong>도 시도하기 시작했습니다. "happy", "sad" 같은 기초 감정 단어를 자연스럽게 사용하고 있어
+      다음 단계인 "excited", "surprised" 등 확장 감정 어휘로 넘어갈 준비가 되어 있습니다.
+    </div>
+  </div>
+
+  <!-- Session Trend Chart -->
+  <div class="section-card">
+    <div class="section-title">
+      <span class="section-icon">📈</span> 세션별 점수 추이
+    </div>
+    <div class="period-tabs">
+      <span class="period-tab">1주</span>
+      <span class="period-tab active">1개월</span>
+      <span class="period-tab">3개월</span>
+      <span class="period-tab">전체</span>
+    </div>
+    <div style="position:relative">
+      <div class="chart-y-labels" style="position:absolute; left:-5px; top:0; height:200px; display:flex; flex-direction:column; justify-content:space-between;">
+        <span class="chart-y-label">100</span>
+        <span class="chart-y-label">80</span>
+        <span class="chart-y-label">60</span>
+        <span class="chart-y-label">40</span>
+        <span class="chart-y-label">20</span>
+      </div>
+      <div style="margin-left:30px;">
+        <svg viewBox="0 0 500 200" style="width:100%; height:200px;">
+          <defs>
+            <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- Grid lines -->
+          <line x1="0" y1="40" x2="500" y2="40" stroke="#f3f4f6" stroke-width="1"/>
+          <line x1="0" y1="80" x2="500" y2="80" stroke="#f3f4f6" stroke-width="1"/>
+          <line x1="0" y1="120" x2="500" y2="120" stroke="#f3f4f6" stroke-width="1"/>
+          <line x1="0" y1="160" x2="500" y2="160" stroke="#f3f4f6" stroke-width="1"/>
+          <!-- Area -->
+          <path class="chart-area" d="M0,140 L62,136 L125,128 L187,120 L250,112 L312,96 L375,88 L437,72 L500,56 L500,200 L0,200 Z"/>
+          <!-- Line -->
+          <polyline class="chart-line" points="0,140 62,136 125,128 187,120 250,112 312,96 375,88 437,72 500,56"/>
+          <!-- Dots -->
+          <circle cx="0" cy="140" r="4" class="chart-dot"/>
+          <circle cx="62" cy="136" r="4" class="chart-dot"/>
+          <circle cx="125" cy="128" r="4" class="chart-dot"/>
+          <circle cx="187" cy="120" r="4" class="chart-dot"/>
+          <circle cx="250" cy="112" r="4" class="chart-dot"/>
+          <circle cx="312" cy="96" r="4" class="chart-dot"/>
+          <circle cx="375" cy="88" r="4" class="chart-dot"/>
+          <circle cx="437" cy="72" r="4" class="chart-dot"/>
+          <circle cx="500" cy="56" r="6" class="chart-dot-current"/>
+          <!-- Tooltip for current -->
+          <text x="500" y="44" class="chart-tooltip">72점</text>
+          <!-- Peer avg reference line -->
+          <line x1="0" y1="100" x2="500" y2="100" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+          <text x="500" y="95" font-size="10" fill="#ef4444" text-anchor="end" opacity="0.7">또래 평균 50</text>
+        </svg>
+      </div>
+    </div>
+    <div class="chart-x-labels" style="margin-left:30px;">
+      <span class="chart-x-label">1/1</span>
+      <span class="chart-x-label">1/5</span>
+      <span class="chart-x-label">1/9</span>
+      <span class="chart-x-label">1/13</span>
+      <span class="chart-x-label">1/17</span>
+      <span class="chart-x-label">1/21</span>
+      <span class="chart-x-label">1/25</span>
+      <span class="chart-x-label">1/29</span>
+      <span class="chart-x-label">1/31</span>
+    </div>
+  </div>
+
+  <!-- Ontology Learning Map -->
+  <div class="section-card">
+    <div class="section-title">
+      <span class="section-icon">🗺️</span> 온톨로지 학습 맵
+    </div>
+    <div class="section-desc">
+      밤토리 교육 온톨로지에 기반한 하위 역량별 학습 현황입니다. 각 역량은 발달 순서에 따라 배치됩니다.
+    </div>
+
+    <div class="ontology-tree">
+      <!-- Node 1: Mastered -->
+      <div class="onto-node">
+        <div class="onto-connector">
+          <div class="onto-dot mastered"></div>
+          <div class="onto-line"></div>
+        </div>
+        <div class="onto-card mastered">
+          <div class="onto-title">🐾 동물 어휘 (Animals)</div>
+          <div class="onto-sub">dog, cat, bird, fish, rabbit, bear, elephant, tiger</div>
+          <div class="onto-bar-wrap"><div class="onto-bar" style="width:100%"></div></div>
+          <div class="onto-status">
+            <span class="onto-score">8/8 단어 습득</span>
+            <span class="onto-badge badge-mastered">✓ 완료</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 2: Mastered -->
+      <div class="onto-node">
+        <div class="onto-connector">
+          <div class="onto-dot mastered"></div>
+          <div class="onto-line"></div>
+        </div>
+        <div class="onto-card mastered">
+          <div class="onto-title">🎨 색깔 어휘 (Colors)</div>
+          <div class="onto-sub">red, blue, yellow, green, pink, orange, purple, black, white</div>
+          <div class="onto-bar-wrap"><div class="onto-bar" style="width:100%"></div></div>
+          <div class="onto-status">
+            <span class="onto-score">9/9 단어 습득</span>
+            <span class="onto-badge badge-mastered">✓ 완료</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 3: Mastered -->
+      <div class="onto-node">
+        <div class="onto-connector">
+          <div class="onto-dot mastered"></div>
+          <div class="onto-line"></div>
+        </div>
+        <div class="onto-card mastered">
+          <div class="onto-title">🍎 음식 어휘 (Food)</div>
+          <div class="onto-sub">apple, banana, milk, water, bread, rice, pizza, ice cream</div>
+          <div class="onto-bar-wrap"><div class="onto-bar" style="width:88%"></div></div>
+          <div class="onto-status">
+            <span class="onto-score">7/8 단어 습득</span>
+            <span class="onto-badge badge-mastered">✓ 완료</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 4: In Progress -->
+      <div class="onto-node">
+        <div class="onto-connector">
+          <div class="onto-dot in-progress"></div>
+          <div class="onto-line"></div>
+        </div>
+        <div class="onto-card in-progress">
+          <div class="onto-title">😊 감정 어휘 (Emotions)</div>
+          <div class="onto-sub">happy, sad, angry, scared, tired, excited, surprised</div>
+          <div class="onto-bar-wrap"><div class="onto-bar yellow" style="width:43%"></div></div>
+          <div class="onto-status">
+            <span class="onto-score" style="color:#d97706">3/7 단어 습득</span>
+            <span class="onto-badge badge-progress">▶ 학습 중</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 5: In Progress -->
+      <div class="onto-node">
+        <div class="onto-connector">
+          <div class="onto-dot in-progress"></div>
+          <div class="onto-line"></div>
+        </div>
+        <div class="onto-card in-progress">
+          <div class="onto-title">👨‍👩‍👧 가족/사람 어휘 (Family & People)</div>
+          <div class="onto-sub">mom, dad, sister, brother, baby, friend, teacher</div>
+          <div class="onto-bar-wrap"><div class="onto-bar yellow" style="width:57%"></div></div>
+          <div class="onto-status">
+            <span class="onto-score" style="color:#d97706">4/7 단어 습득</span>
+            <span class="onto-badge badge-progress">▶ 학습 중</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 6: Locked -->
+      <div class="onto-node">
+        <div class="onto-connector">
+          <div class="onto-dot locked"></div>
+          <div class="onto-line"></div>
+        </div>
+        <div class="onto-card locked">
+          <div class="onto-title">🏠 장소/집 어휘 (Home & Places)</div>
+          <div class="onto-sub">house, room, kitchen, school, park, playground</div>
+          <div class="onto-bar-wrap"><div class="onto-bar" style="width:0%"></div></div>
+          <div class="onto-status">
+            <span class="onto-score" style="color:#9ca3af">0/6 단어</span>
+            <span class="onto-badge badge-locked">🔒 다음 단계</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 7: Locked -->
+      <div class="onto-node">
+        <div class="onto-connector">
+          <div class="onto-dot locked"></div>
+        </div>
+        <div class="onto-card locked">
+          <div class="onto-title">⛅ 날씨/자연 어휘 (Weather & Nature)</div>
+          <div class="onto-sub">sunny, rainy, cloudy, snow, wind, hot, cold</div>
+          <div class="onto-bar-wrap"><div class="onto-bar" style="width:0%"></div></div>
+          <div class="onto-status">
+            <span class="onto-score" style="color:#9ca3af">0/7 단어</span>
+            <span class="onto-badge badge-locked">🔒 다음 단계</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Peer Developmental Milestone Comparison -->
+  <div class="section-card">
+    <div class="section-title">
+      <span class="section-icon">👫</span> 또래 발달 기준 비교
+    </div>
+    <div class="section-desc">
+      같은 연령대(5세) 아동의 평균 발달 이정표 대비 민서의 현재 위치입니다.
+    </div>
+
+    <!-- Milestone Track -->
+    <div style="padding: 30px 10px 10px; margin-bottom:20px;">
+      <div style="position:relative">
+        <div class="milestone-line">
+          <div class="milestone-progress" style="width:72%"></div>
+        </div>
+        <div class="milestone-markers">
+          <div class="milestone-marker">
+            <div class="milestone-dot-m passed"></div>
+            <div class="milestone-age">4세</div>
+            <div class="milestone-desc">기본 명사 10개</div>
+          </div>
+          <div class="milestone-marker">
+            <div class="milestone-dot-m passed"></div>
+            <div class="milestone-age">4.5세</div>
+            <div class="milestone-desc">색깔/숫자 표현</div>
+          </div>
+          <div class="milestone-marker" style="position:relative">
+            <div class="milestone-current-label">민서 현재 ✦</div>
+            <div class="milestone-dot-m current"></div>
+            <div class="milestone-age">5세</div>
+            <div class="milestone-desc">감정/관계 어휘</div>
+          </div>
+          <div class="milestone-marker">
+            <div class="milestone-dot-m"></div>
+            <div class="milestone-age">5.5세</div>
+            <div class="milestone-desc">장소/활동 어휘</div>
+          </div>
+          <div class="milestone-marker">
+            <div class="milestone-dot-m"></div>
+            <div class="milestone-age">6세</div>
+            <div class="milestone-desc">추상 개념 어휘</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bar Comparison -->
+    <div class="peer-compare">
+      <div class="peer-bar-row">
+        <span class="peer-label">우리 아이</span>
+        <div class="peer-bars">
+          <div class="peer-bar-track">
+            <div class="peer-bar-fill peer-bar-mine" style="width:72%">72점</div>
+          </div>
+        </div>
+      </div>
+      <div class="peer-bar-row">
+        <span class="peer-label">또래 평균</span>
+        <div class="peer-bars">
+          <div class="peer-bar-track">
+            <div class="peer-bar-fill peer-bar-avg" style="width:50%">50점</div>
+          </div>
+        </div>
+      </div>
+      <div class="peer-bar-row">
+        <span class="peer-label">상위 10%</span>
+        <div class="peer-bars">
+          <div class="peer-bar-track">
+            <div class="peer-bar-fill" style="width:88%; background:#fbbf24; color:#fff; padding-left:8px; font-size:11px; font-weight:600; display:flex; align-items:center; height:100%; border-radius:6px;">88점</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="peer-legend">
+      <div class="peer-legend-item"><div class="peer-legend-dot" style="background:#3b82f6"></div> 민서</div>
+      <div class="peer-legend-item"><div class="peer-legend-dot" style="background:#cbd5e1"></div> 또래 평균 (5세)</div>
+      <div class="peer-legend-item"><div class="peer-legend-dot" style="background:#fbbf24"></div> 상위 10%</div>
+    </div>
+  </div>
+
+  <!-- CAN-DO Checklist -->
+  <div class="section-card">
+    <div class="section-title">
+      <span class="section-icon">✅</span> CAN-DO 체크리스트
+    </div>
+    <div class="section-desc">밤토리 교육 온톨로지 기준 달성 항목입니다.</div>
+
+    <div class="cando-list">
+      <div class="cando-item">
+        <div class="cando-check done">✓</div>
+        <div class="cando-text done">10개 이상의 일상 영어 단어를 듣고 의미를 이해할 수 있다.</div>
+      </div>
+      <div class="cando-item">
+        <div class="cando-check done">✓</div>
+        <div class="cando-text done">그림/사진을 보고 해당 영어 단어를 말할 수 있다.</div>
+      </div>
+      <div class="cando-item">
+        <div class="cando-check done">✓</div>
+        <div class="cando-text done">좋아하는 동물, 음식, 색깔을 영어로 표현할 수 있다.</div>
+      </div>
+      <div class="cando-item">
+        <div class="cando-check partial">~</div>
+        <div class="cando-text done">기본적인 감정 상태를 영어 단어로 말할 수 있다. (happy, sad)</div>
+      </div>
+      <div class="cando-item">
+        <div class="cando-check">　</div>
+        <div class="cando-text pending">일상 사물(가구, 의류)을 영어로 이름 지을 수 있다.</div>
+      </div>
+      <div class="cando-item">
+        <div class="cando-check">　</div>
+        <div class="cando-text pending">새로운 단어를 들으면 반복하여 따라 말할 수 있다. (7개 이상)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actual Utterance Examples -->
+  <div class="section-card">
+    <div class="section-title">
+      <span class="section-icon">🎙️</span> 실제 발화 예시
+    </div>
+    <div class="section-desc">최근 세션에서 민서가 이 스킬과 관련하여 말한 문장들입니다.</div>
+
+    <div class="utterance-list">
+      <div class="utterance-item">
+        <div class="utterance-date">2026.01.29 &middot; 세션 #42</div>
+        <div class="utterance-text">"I like <span class="highlight">dog</span> and <span class="highlight">cat</span>!"</div>
+        <div class="utterance-feedback">
+          ✅ "dog"와 "cat" 어휘를 자연스럽게 활용. 선호 표현 구조("I like")와 함께 사용하여 복합 능력 발휘.
+        </div>
+        <div class="utterance-scores">
+          <span class="utterance-score-tag">어휘 정확도 95%</span>
+          <span class="utterance-score-tag">발음 87%</span>
+        </div>
+      </div>
+
+      <div class="utterance-item">
+        <div class="utterance-date">2026.01.27 &middot; 세션 #40</div>
+        <div class="utterance-text">"The <span class="highlight">banana</span> is <span class="highlight">yellow</span>"</div>
+        <div class="utterance-feedback">
+          ✅ 음식+색깔 어휘를 조합하여 문장 구성. 두 가지 어휘 범주를 연결하는 능력 확인.
+        </div>
+        <div class="utterance-scores">
+          <span class="utterance-score-tag">어휘 정확도 100%</span>
+          <span class="utterance-score-tag">문장구조 82%</span>
+        </div>
+      </div>
+
+      <div class="utterance-item">
+        <div class="utterance-date">2026.01.25 &middot; 세션 #38</div>
+        <div class="utterance-text">"I am... <span class="highlight">happy</span>? <span class="highlight">happy</span>!"</div>
+        <div class="utterance-feedback">
+          🌱 감정 어휘 "happy"를 처음 시도. 약간의 망설임이 있었으나 정확하게 사용. 새 어휘 범주 진입 신호.
+        </div>
+        <div class="utterance-scores">
+          <span class="utterance-score-tag">어휘 정확도 90%</span>
+          <span class="utterance-score-tag">자신감 65%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Session-by-Session Timeline -->
+  <div class="section-card">
+    <div class="section-title">
+      <span class="section-icon">📅</span> 세션별 기록
+    </div>
+
+    <div class="session-timeline">
+      <div class="session-item">
+        <div class="session-date-col">
+          <div class="session-day">31</div>
+          <div class="session-month">1월</div>
+        </div>
+        <div class="session-content">
+          <div class="session-score-row">
+            <span class="session-score-val">72</span>
+            <span class="session-change up">▲ +3</span>
+          </div>
+          <div class="session-detail">세션 #42 &middot; 8분 &middot; 새 단어: rabbit</div>
+        </div>
+      </div>
+      <div class="session-item">
+        <div class="session-date-col">
+          <div class="session-day">29</div>
+          <div class="session-month">1월</div>
+        </div>
+        <div class="session-content">
+          <div class="session-score-row">
+            <span class="session-score-val">69</span>
+            <span class="session-change up">▲ +2</span>
+          </div>
+          <div class="session-detail">세션 #40 &middot; 11분 &middot; 복습: dog, cat, banana</div>
+        </div>
+      </div>
+      <div class="session-item">
+        <div class="session-date-col">
+          <div class="session-day">27</div>
+          <div class="session-month">1월</div>
+        </div>
+        <div class="session-content">
+          <div class="session-score-row">
+            <span class="session-score-val">67</span>
+            <span class="session-change up">▲ +5</span>
+          </div>
+          <div class="session-detail">세션 #38 &middot; 9분 &middot; 새 단어: happy</div>
+        </div>
+      </div>
+      <div class="session-item">
+        <div class="session-date-col">
+          <div class="session-day">23</div>
+          <div class="session-month">1월</div>
+        </div>
+        <div class="session-content">
+          <div class="session-score-row">
+            <span class="session-score-val">62</span>
+            <span class="session-change down">▼ -1</span>
+          </div>
+          <div class="session-detail">세션 #36 &middot; 5분 &middot; 복습 위주 (짧은 세션)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next Learning Goals -->
+  <div class="section-card">
+    <div class="section-title">
+      <span class="section-icon">🎯</span> 다음 학습 목표
+    </div>
+    <div class="section-desc">온톨로지 기반 다음 단계 스킬과 추천 활동입니다.</div>
+
+    <div class="next-goals">
+      <div class="goal-item">
+        <div class="goal-icon">😊</div>
+        <div class="goal-content">
+          <div class="goal-title">감정 어휘 확장</div>
+          <div class="goal-desc">
+            현재 happy, sad, angry 3개를 습득했어요. scared, tired, excited, surprised까지 확장하면 감정 어휘 영역을 완료할 수 있어요.
+          </div>
+          <div class="goal-activity">🎮 추천 활동: 감정 표현 모험 (루나와 감정 카드 놀이)</div>
+        </div>
+      </div>
+
+      <div class="goal-item">
+        <div class="goal-icon">👨‍👩‍👧</div>
+        <div class="goal-content">
+          <div class="goal-title">가족/사람 어휘 완성</div>
+          <div class="goal-desc">
+            mom, dad, sister, friend 4개 습득 완료. brother, baby, teacher를 추가로 학습하면 이 영역도 마스터할 수 있어요.
+          </div>
+          <div class="goal-activity">🎮 추천 활동: 우리 가족 소개하기 (루나에게 가족 이야기)</div>
+        </div>
+      </div>
+
+      <div class="goal-item">
+        <div class="goal-icon">🏠</div>
+        <div class="goal-content">
+          <div class="goal-title">장소/집 어휘 시작 (다음 단계)</div>
+          <div class="goal-desc">
+            감정+가족 어휘를 마스터하면 자연스럽게 장소/집 관련 어휘(house, room, kitchen 등)로 넘어갈 준비가 됩니다.
+          </div>
+          <div class="goal-activity">🔒 감정 어휘 80% 이상 달성 후 잠금 해제</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer CTA -->
+  <div class="footer-cta">
+    <div class="cta-text">민서의 어휘 학습을 응원해주세요! 💙</div>
+    <button class="btn-primary">모험 시작하기</button>
+    <button class="btn-secondary">전체 리포트로 돌아가기</button>
+  </div>
+
+</div>
+</body>
+</html>

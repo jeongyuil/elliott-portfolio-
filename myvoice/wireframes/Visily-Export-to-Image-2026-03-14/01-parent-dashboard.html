@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parent Dashboard - Wireframe</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Pretendard', sans-serif; background: #f8f9fa; color: #1a1a2e; }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Header */
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+  .header h1 { font-size: 28px; font-weight: 800; }
+  .header p { font-size: 14px; color: #6b7280; margin-top: 4px; }
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+  .btn-outline { padding: 8px 16px; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .child-select { padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; background: #fff; min-width: 160px; }
+
+  /* Stats Grid */
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+  .stat-card { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #e5e7eb; }
+  .stat-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .stat-card-label { font-size: 13px; color: #6b7280; font-weight: 500; }
+  .stat-card-icon { width: 20px; height: 20px; background: #e5e7eb; border-radius: 4px; }
+  .stat-card-value { font-size: 28px; font-weight: 800; }
+  .stat-card-sub { font-size: 12px; color: #6b7280; margin-top: 4px; }
+  .stat-card-sub.positive { color: #16a34a; }
+
+  /* Weekly Chart */
+  .weekly-section { background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #e5e7eb; margin-bottom: 32px; }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+  .chart-area { display: flex; align-items: flex-end; gap: 12px; height: 160px; padding: 0 16px; }
+  .chart-bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .chart-bar { width: 100%; background: #dbeafe; border-radius: 6px 6px 0 0; min-height: 8px; position: relative; }
+  .chart-bar.active { background: #3b82f6; }
+  .chart-bar-label { font-size: 11px; color: #6b7280; }
+  .chart-bar-value { font-size: 10px; color: #3b82f6; font-weight: 600; position: absolute; top: -18px; width: 100%; text-align: center; }
+
+  /* Reports */
+  .reports-section { background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #e5e7eb; }
+  .report-item { display: flex; align-items: center; justify-content: space-between; padding: 16px; border: 1px solid #f3f4f6; border-radius: 10px; margin-bottom: 12px; transition: background 0.15s; }
+  .report-item:hover { background: #f9fafb; }
+  .report-left { display: flex; align-items: center; gap: 14px; }
+  .report-icon { width: 44px; height: 44px; border-radius: 50%; background: #dbeafe; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #3b82f6; }
+  .report-title { font-size: 15px; font-weight: 600; }
+  .report-sub { font-size: 13px; color: #6b7280; margin-top: 2px; max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .btn-ghost { padding: 8px 14px; border: none; background: transparent; color: #3b82f6; font-size: 13px; font-weight: 600; cursor: pointer; border-radius: 6px; display: flex; align-items: center; gap: 4px; }
+  .btn-ghost:hover { background: #eff6ff; }
+
+  .empty-state { text-align: center; padding: 48px 0; color: #9ca3af; font-size: 14px; }
+
+  /* Annotation */
+  .annotation { position: absolute; background: #fef3c7; border: 1px solid #f59e0b; border-radius: 6px; padding: 6px 10px; font-size: 11px; color: #92400e; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h1>학부모 대시보드</h1>
+      <p>자녀의 학습 현황을 확인하고 성장을 응원해주세요.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-outline">
+        <span style="font-size:14px">&#9881;</span> 프로필 수정
+      </button>
+      <select class="child-select">
+        <option>민서</option>
+        <option>지우</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <span class="stat-card-label">총 학습 시간 (주간)</span>
+        <div class="stat-card-icon"></div>
+      </div>
+      <div class="stat-card-value">47분</div>
+      <div class="stat-card-sub positive">&#9650; 지난주 대비 +15%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <span class="stat-card-label">완료한 세션</span>
+        <div class="stat-card-icon"></div>
+      </div>
+      <div class="stat-card-value">8회</div>
+      <div class="stat-card-sub">목표 달성률 80%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <span class="stat-card-label">학습한 단어</span>
+        <div class="stat-card-icon"></div>
+      </div>
+      <div class="stat-card-value">12개</div>
+      <div class="stat-card-sub">이번 주 새로운 단어</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <span class="stat-card-label">최근 리포트</span>
+        <div class="stat-card-icon"></div>
+      </div>
+      <div style="margin-top:8px">
+        <a href="#" style="color:#3b82f6; font-size:14px; font-weight:600; text-decoration:none;">2026.02.01 리포트 &rsaquo;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly Learning Chart -->
+  <div class="weekly-section">
+    <div class="section-title">주간 학습 현황</div>
+    <div class="chart-area">
+      <div class="chart-bar-group">
+        <div class="chart-bar" style="height:40px"><span class="chart-bar-value">5분</span></div>
+        <span class="chart-bar-label">월</span>
+      </div>
+      <div class="chart-bar-group">
+        <div class="chart-bar" style="height:72px"><span class="chart-bar-value">9분</span></div>
+        <span class="chart-bar-label">화</span>
+      </div>
+      <div class="chart-bar-group">
+        <div class="chart-bar" style="height:56px"><span class="chart-bar-value">7분</span></div>
+        <span class="chart-bar-label">수</span>
+      </div>
+      <div class="chart-bar-group">
+        <div class="chart-bar active" style="height:96px"><span class="chart-bar-value">12분</span></div>
+        <span class="chart-bar-label">목</span>
+      </div>
+      <div class="chart-bar-group">
+        <div class="chart-bar" style="height:64px"><span class="chart-bar-value">8분</span></div>
+        <span class="chart-bar-label">금</span>
+      </div>
+      <div class="chart-bar-group">
+        <div class="chart-bar" style="height:48px"><span class="chart-bar-value">6분</span></div>
+        <span class="chart-bar-label">토</span>
+      </div>
+      <div class="chart-bar-group">
+        <div class="chart-bar" style="height:8px"></div>
+        <span class="chart-bar-label">일</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reports List -->
+  <div class="reports-section">
+    <div class="section-title">학습 리포트 내역</div>
+
+    <div class="report-item">
+      <div class="report-left">
+        <div class="report-icon">&#128196;</div>
+        <div>
+          <div class="report-title">2026.01.01 ~ 2026.01.31 리포트</div>
+          <div class="report-sub">민서는 이번 달 어휘력과 표현력에서 큰 성장을 보였습니다.</div>
+        </div>
+      </div>
+      <button class="btn-ghost">상세보기 &rsaquo;</button>
+    </div>
+
+    <div class="report-item">
+      <div class="report-left">
+        <div class="report-icon">&#128196;</div>
+        <div>
+          <div class="report-title">2025.12.01 ~ 2025.12.31 리포트</div>
+          <div class="report-sub">발음 정확도가 향상되었으며, 자신감 있는 발화가 늘었습니다.</div>
+        </div>
+      </div>
+      <button class="btn-ghost">상세보기 &rsaquo;</button>
+    </div>
+
+    <div class="report-item">
+      <div class="report-left">
+        <div class="report-icon">&#128196;</div>
+        <div>
+          <div class="report-title">2025.11.01 ~ 2025.11.30 리포트</div>
+          <div class="report-sub">첫 달 학습 리포트입니다. 기초 어휘를 잘 익히고 있어요.</div>
+        </div>
+      </div>
+      <button class="btn-ghost">상세보기 &rsaquo;</button>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
